@@ -8,13 +8,12 @@ import java.util.HashMap;
 
 public class GoodsDao {
 	
-	// 상품리스트(home) - 검색값X
+	// 상품리스트(home) - 검색, 정렬값X
 	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn, int beginRow, int endRow) throws Exception{
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
-		System.out.println("selectGoodsList(GoodsDao) 진입");
+		System.out.println("selectGoodsList(GoodsDao) 검색, 정렬값X 진입");
 		
 		String sql = "SELECT g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
@@ -23,6 +22,7 @@ public class GoodsDao {
 				+ ", img.filename filename"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ "	ON g.goods_code = img.goods_code"
+				+ " ORDER BY goodsCode ASC"
 				+ " LIMIT ?, ?";
 		
 		stmt = conn.prepareStatement(sql);
@@ -49,8 +49,7 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
-		System.out.println("selectGoodsList(GoodsDao) 진입");
+		System.out.println("selectGoodsList(GoodsDao) 검색O 진입");
 		
 		String sql = "SELECT g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
@@ -60,6 +59,7 @@ public class GoodsDao {
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ "	ON g.goods_code = img.goods_code"
 				+ " WHERE g.goods_name LIKE ?"
+				+ " ORDER BY goodsCode ASC"
 				+ " LIMIT ?, ?";
 		
 		stmt = conn.prepareStatement(sql);
@@ -82,11 +82,48 @@ public class GoodsDao {
 		return goodsList;
 	}
 	
+	// 상품리스트(home) - 정렬값O
+	public ArrayList<HashMap<String, Object>> selectGoodsListSort(Connection conn, int beginRow, int endRow, String sort) throws Exception{
+		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		System.out.println("selectGoodsList(GoodsDao) 정렬O 진입");
+		
+		String sql = "SELECT g.goods_code goodsCode"
+				+ ", g.goods_name goodsName"
+				+ ", g.goods_price goodsPrice"
+				+ ", g.soldout soldout"
+				+ ", img.filename filename"
+				+ " FROM goods g INNER JOIN goods_img img"
+				+ "	ON g.goods_code = img.goods_code"
+				+ " ORDER BY "+sort // 인기순 정렬 시 hit로 상위노출
+				+ " LIMIT ?, ?";
+		
+		stmt = conn.prepareStatement(sql);		
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, endRow);
+		rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("goodsCode",rs.getInt("goodsCode"));
+			map.put("goodsName",rs.getString("goodsName"));
+			map.put("goodsPrice",rs.getInt("goodsPrice"));
+			map.put("soldout",rs.getString("soldout"));
+			map.put("filename",rs.getString("filename"));
+			goodsList.add(map);
+		}
+		
+		rs.close();
+		stmt.close();
+		return goodsList;
+	}
+	
 	// 총 상품 갯수 - 검색값X
 	public int selectGoodsListCnt(Connection conn) throws Exception{
 		int cnt = 0;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		System.out.println("selectGoodsListCnt(GoodsDao) 진입");
 		
 		String sql = "SELECT COUNT(*) cnt FROM goods";
 		
@@ -106,6 +143,7 @@ public class GoodsDao {
 		int cnt = 0;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		System.out.println("selectGoodsListCnt(GoodsDao) 검색O 진입");
 		
 		String sql = "SELECT COUNT(*) cnt FROM goods WHERE goods_name LIKE ?";
 		

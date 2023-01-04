@@ -27,6 +27,7 @@ public class HomeController extends HttpServlet {
 		
 		// 세션분기(비로그인, 로그인)
 		
+		
 		// 페이지 정보 받기(검색값, 정렬값, 현재 페이지 값)
 		int rowPerPage = 20; // 한 페이지 당 보여질 상품 목록 수
 		int cnt = 0; // 총 상품 갯수
@@ -47,10 +48,15 @@ public class HomeController extends HttpServlet {
 		// 서비스 호출(goodsList + 페이징(endPage 포함)) - 분기: 검색값 유무, 정렬
 		GoodsService goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
+		
+		// 검색값 따라 분기
 		if(searchWord != null) { // 검색값이 있으면
 			goodsList = goodsService.getGoodsList(currentPage, rowPerPage, searchWord);
 			cnt = goodsService.getGoodsCnt(searchWord);
-		} else { // 검색값이 없으면
+		} else if(sort != null) { // 정렬값이 있으면
+			goodsList = goodsService.getGoodsListSort(currentPage, rowPerPage, sort);
+			cnt = goodsService.getGoodsCnt();
+		} else { // 아무 값 없으면
 			goodsList = goodsService.getGoodsList(currentPage, rowPerPage);
 			cnt = goodsService.getGoodsCnt();
 		}
