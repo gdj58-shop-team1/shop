@@ -7,6 +7,7 @@ public class Emp {
 	private String empName;
 	private String active;
 	private int authCode;
+	private int level;
 	private String createdate;
 	
 	public int getEmpCode() {
@@ -44,6 +45,12 @@ public class Emp {
 	}
 	public void setAuthCode(int authCode) {
 		this.authCode = authCode;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	public String getCreatedate() {
 		return createdate;

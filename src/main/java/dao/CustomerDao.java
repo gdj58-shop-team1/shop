@@ -80,7 +80,7 @@ public class CustomerDao {
 	public Customer loginCustomer(Connection conn, Customer customer) throws Exception {
 		Customer resultCustomer = null;
 		
-		String sql = "SELECT customer_id, customer_name, point"
+		String sql = "SELECT customer_id, customer_name, point, level"
 				+ " FROM customer"
 				+ " WHERE customer_id = ? AND customer_pw = ?";
 		
@@ -95,6 +95,7 @@ public class CustomerDao {
 			resultCustomer.setCustomerId(rs.getString("customer_id"));
 			resultCustomer.setCustomerName(rs.getString("customer_name"));
 			resultCustomer.setPoint(rs.getInt("point"));
+			resultCustomer.setLevel(rs.getInt("level"));
 		}
 		
 		return resultCustomer; // 로그인 정보 반환
