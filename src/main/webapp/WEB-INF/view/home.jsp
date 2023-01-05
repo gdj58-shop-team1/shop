@@ -7,23 +7,23 @@
 		<title>home</title>
 	</head>
 	<body>
-		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	<jsp:include page="/inc/menu.jsp"></jsp:include>
 		<h1>HOME - GOODS LIST</h1>
 		<!-- 정렬 선택(기본, 최근, 인기, 높은가격, 낮은가격) -->
 		<div>
-			<span><a href="${pageContext.request.contextPath}/HomeController?sort=g.goods_Name ASC">기본순</a></span>
+			<span><a href="${pageContext.request.contextPath}/Home?sort=g.goods_Name ASC">기본순</a></span>
 			&nbsp;
-			<span><a href="${pageContext.request.contextPath}/HomeController?sort=g.createdate DESC">최근순</a></span>
+			<span><a href="${pageContext.request.contextPath}/Home?sort=g.createdate DESC">최근순</a></span>
 			&nbsp;
-			<span><a href="${pageContext.request.contextPath}/HomeController?sort=g.hit DESC">인기순</a></span>
+			<span><a href="${pageContext.request.contextPath}/Home?sort=g.hit DESC">인기순</a></span>
 			&nbsp;
-			<span><a href="${pageContext.request.contextPath}/HomeController?sort=g.goods_Price DESC">높은 가격순</a></span>
+			<span><a href="${pageContext.request.contextPath}/Home?sort=g.goods_Price DESC">높은 가격순</a></span>
 			&nbsp;
-			<span><a href="${pageContext.request.contextPath}/HomeController?sort=g.goods_Price ASC">낮은 가격순</a></span>
+			<span><a href="${pageContext.request.contextPath}/Home?sort=g.goods_Price ASC">낮은 가격순</a></span>
 		</div>
 		
 		<!-- 검색폼 -->
-		<form action="${pageContext.request.contextPath}/HomeController" method="get">
+		<form action="${pageContext.request.contextPath}/Home" method="get">
 			<div>
 				<span>
 					<c:if test="${searchWord == null}"> <!-- 세션에서 받은 검색값이 없으면 일반 input -->
@@ -67,7 +67,7 @@
 			<c:if test="${searchWord == null}">
 				<!-- currentPage가 1보다 크면 이전 링크O, 1이면 글자만 -->
 				<c:if test="${currentPage > 1}">
-					<span><a href="${pageContext.request.contextPath}/HomeController?currentPage=${currentPage-1}&sort=${sort}">이전</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&sort=${sort}">이전</a></span>
 				</c:if>
 				<c:if test="${currentPage == 1}">
 					<span>이전</span>
@@ -77,7 +77,7 @@
 				
 				<!-- endPage가 보다 currentPage크면 다음 링크O, 같으면 글자만 -->
 				<c:if test="${currentPage < endPage}">
-					<span><a href="${pageContext.request.contextPath}/HomeController?currentPage=${currentPage+1}&sort=${sort}">다음</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&sort=${sort}">다음</a></span>
 				</c:if>
 				<c:if test="${currentPage == endPage}">
 					<span>다음</span>
@@ -87,7 +87,7 @@
 			<!-- 검색값 없으면 -->
 			<c:if test="${searchWord != null}">
 				<c:if test="${currentPage > 1}">
-					<span><a href="${pageContext.request.contextPath}/HomeController?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}">이전</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}">이전</a></span>
 				</c:if>
 				<c:if test="${currentPage == 1}">
 					<span>이전</span>
@@ -96,7 +96,7 @@
 				<span>${currentPage}</span>
 								
 				<c:if test="${currentPage < endPage}">
-					<span><a href="${pageContext.request.contextPath}/HomeController?currentPage=${currentPage+1}&searchWord=${searchWord}&sort=${sort}">다음</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&searchWord=${searchWord}&sort=${sort}">다음</a></span>
 				</c:if>
 				<c:if test="${currentPage == endPage}">
 					<span>다음</span>
