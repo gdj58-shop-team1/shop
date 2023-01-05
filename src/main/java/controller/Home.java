@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.GoodsService;
 
-@WebServlet("/HomeController")
-public class HomeController extends HttpServlet {
+@WebServlet("/Home")
+public class Home extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

@@ -19,13 +19,13 @@
 				<tr>
 					<td>${n.noticeCode}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/NoticeOneController?noticeCode=${n.noticeCode}">${n.noticeTitle}</a>
+						<a href="${pageContext.request.contextPath}/NoticeOne?noticeCode=${n.noticeCode}">${n.noticeTitle}</a>
 					</td>
 					<td>${n.empId}</td>
 					<td>${n.createdate}</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="${pageContext.request.contextPath}/NoticeAddController">새 공지 추가</a>
+		<a href="${pageContext.request.contextPath}/NoticeAdd">새 공지 추가</a>
 	</body>
 </html>
