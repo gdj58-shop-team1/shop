@@ -51,7 +51,7 @@
 					</c:if>
 					<td>
 						<div>
-							<img src="" width="200" height="250"> <!-- soldout이면 이미지 흐리게 등 구분할 수 있게 -->
+							<img src="${pageContext.request.contextPath}/upload/${g.fileName}" width="200" height="250"> <!-- soldout이면 이미지 흐리게 등 구분할 수 있게 -->
 						</div>
 						<div>${g.soldout}</div>
 						<div>
@@ -69,11 +69,11 @@
 		
 		<!-- 페이징 (검색값 분기)-->
 		<div>
-			<!-- 검색값 있으면 -->
-			<c:if test="${searchWord == null}">
+			<!-- 검색, 정렬값 없으면 -->
+			<c:if test="${searchWord == null && sort == null}">
 				<!-- currentPage가 1보다 크면 이전 링크O, 1이면 글자만 -->
 				<c:if test="${currentPage > 1}">
-					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&sort=${sort}">이전</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}">이전</a></span>
 				</c:if>
 				<c:if test="${currentPage == 1}">
 					<span>이전</span>
@@ -83,15 +83,34 @@
 				
 				<!-- endPage가 보다 currentPage크면 다음 링크O, 같으면 글자만 -->
 				<c:if test="${currentPage < endPage}">
-					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&sort=${sort}">다음</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}">다음</a></span>
 				</c:if>
 				<c:if test="${currentPage == endPage}">
 					<span>다음</span>
 				</c:if>
 			</c:if>
 			
-			<!-- 검색값 없으면 -->
+			<!-- 검색값 있으면 -->
 			<c:if test="${searchWord != null}">
+				<c:if test="${currentPage > 1}">
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}">이전</a></span>
+				</c:if>
+				<c:if test="${currentPage == 1}">
+					<span>이전</span>
+				</c:if>
+				
+				<span>${currentPage}</span>
+								
+				<c:if test="${currentPage < endPage}">
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&searchWord=${searchWord}&sort=${sort}">다음</a></span>
+				</c:if>
+				<c:if test="${currentPage == endPage}">
+					<span>다음</span>
+				</c:if>
+			</c:if>
+			
+			<!-- 정렬값 있으면 -->
+			<c:if test="${sort != null}">
 				<c:if test="${currentPage > 1}">
 					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}">이전</a></span>
 				</c:if>
