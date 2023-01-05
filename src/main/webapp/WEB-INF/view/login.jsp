@@ -23,7 +23,7 @@
 		<a type="button" id="empBtn" href="LoginEmpController">직원 로그인</a>
 	</div>
 	
-	<form action="${pageContext.request.contextPath}/LoginController" method="post">
+	<form action="${pageContext.request.contextPath}/Login" method="post">
 		<table>
 			<tr>
 				<th>ID</th>
@@ -39,7 +39,7 @@
 		<button type="submit" id="loginCustomerBtn">로그인</button>
 	</form>
 	
-	<form action="${pageContext.request.contextPath}/LoginController" method="post">
+	<form action="${pageContext.request.contextPath}/Login" method="post">
 		<table>
 			<tr>
 				<th>ID</th>
