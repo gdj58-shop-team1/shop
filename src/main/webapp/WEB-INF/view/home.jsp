@@ -7,6 +7,7 @@
 		<title>home</title>
 	</head>
 	<body>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
 		<h1>HOME - GOODS LIST</h1>
 		<!-- 정렬 선택(기본, 최근, 인기, 높은가격, 낮은가격) -->
 		<div>

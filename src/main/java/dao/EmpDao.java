@@ -25,11 +25,20 @@ public class EmpDao {
 	}
 	
 	// 2) emp 수정
-	
+	public int updateEmp(Connection conn, Emp emp) {
+		return 0;
+		
+	}
 	// 3) emp 비밀번호 수정
-	
+	public int updateEmpPw(Connection conn, Emp emp, String newEmpPw) {
+		return 0;
+		
+	}
 	// 4) emp 활성화/비활성화
-	
+	public int activeEmp() {
+		return 0;
+		
+	}
 	// 5) emp 레벨 변경
 	
 	// 6) emp 탈퇴
