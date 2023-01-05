@@ -18,8 +18,8 @@ import vo.Emp;
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private CustomerService customerService;
 	private EmpService empService;
 	
@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet {
 		// 로그인 여부확인, 로그인 되어있을 경우 회원페이지로 이동	
 		if(session.getAttribute("loginMember") != null) {
 
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/Home");
 			return;
 		}
 				
@@ -73,13 +73,13 @@ public class LoginController extends HttpServlet {
 		if(loginCustomer == null && loginEmp == null) {
 			message = "로그인 실패";
 			message = URLEncoder.encode(message, "UTF-8");
-			response.sendRedirect(request.getContextPath()+"/LoginController?message="+message);
+			response.sendRedirect(request.getContextPath()+"/Login?message="+message);
 			return;
 		}
 				
 		message = "로그인 성공!";
 		message = URLEncoder.encode(message, "UTF-8");
-		response.sendRedirect(request.getContextPath()+"/HomeController?message="+message);
+		response.sendRedirect(request.getContextPath()+"/Home?message="+message);
 	}
 
 }
