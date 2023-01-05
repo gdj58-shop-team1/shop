@@ -50,7 +50,7 @@ public class PwHistoryDao {
 	public int deletePwHistory(Connection conn, PwHistory pwHistory) throws Exception {
 		int row = 0;
 				
-		String sql = "DELETE *"
+		String sql = "DELETE"
 				+ " FROM pw_history"
 				+ " WHERE customer_id = ? AND pw = ?";
 		
