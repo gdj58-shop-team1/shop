@@ -19,10 +19,7 @@ public class GoodsService {
 		
 		try {
 			conn = dbUtil.getConnection();
-			System.out.println("getGoodsList(GoodsService) 검색, 정렬값X db 접속");
-			System.out.println("currentPage: "+currentPage);
-			System.out.println("rowPerPage: "+rowPerPage);
-			
+			System.out.println("getGoodsList(GoodsService) 검색, 정렬값X db 접속");			
 			int beginRow = (currentPage-1)*rowPerPage;
 			int endRow = beginRow+rowPerPage;
 			System.out.println("beginRow: "+beginRow);
