@@ -80,7 +80,7 @@ public class CustomerDao {
 	public Customer loginCustomer(Connection conn, Customer customer) throws Exception {
 		Customer resultCustomer = null;
 		
-		String sql = "SELECT customer_id , customer_name, point"
+		String sql = "SELECT customer_id, customer_name, point"
 				+ " FROM customer"
 				+ " WHERE customer_id = ? AND customer_pw = ?";
 		

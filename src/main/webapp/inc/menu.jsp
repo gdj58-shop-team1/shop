@@ -1,0 +1,1 @@
+<div><a href="${pageContext.request.contextPath}/LogoutController">logout</a></div>
