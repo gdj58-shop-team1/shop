@@ -124,8 +124,10 @@ public class CustomerService {
 	
 	// 3) 비밀번호수정
 	public int modifyCustomerPw(Customer customer, String newCustomerPw) {
-		int result = 0;
-				
+		int selectPwHistoryRow = 0;
+		int updateCustomerPwRow = 0;
+		ArrayList<PwHistory> list = null;
+		
 		this.customerDao = new CustomerDao();
 		this.pwHistoryDao = new PwHistoryDao();
 		this.dbUtil = new DBUtil();
@@ -137,7 +139,7 @@ public class CustomerService {
 			conn.setAutoCommit(false);
 			
 			// 1) pw_history 에서 검색
-			int selectPwHistoryRow = pwHistoryDao.selectPwHistory(conn, customer, newCustomerPw);
+			selectPwHistoryRow = pwHistoryDao.selectPwHistory(conn, customer, newCustomerPw);
 			
 			if(selectPwHistoryRow == 1) {
 				System.out.println("비밀번호 수정 오류 : 최근 사용한 비밀번호 입니다.");
@@ -145,8 +147,7 @@ public class CustomerService {
 			}
 			
 			// 2) 비밀번호 수정	
-			int updateCustomerPwRow = customerDao.updateCustomerPw(conn, customer, newCustomerPw);
-			result = updateCustomerPwRow; // 비밀번호 수정결과를 result에 대입
+			updateCustomerPwRow = customerDao.updateCustomerPw(conn, customer, newCustomerPw);
 			
 			if(updateCustomerPwRow != 1) {
 				System.out.println("비밀번호 수정 오류 : 비밀번호 수정 실패");
@@ -154,7 +155,7 @@ public class CustomerService {
 			}
 				
 			// 3) 이력 3개 초과인지 확인
-			ArrayList<PwHistory> list = pwHistoryDao.selectPwHistoryList(conn, customer);
+			list = pwHistoryDao.selectPwHistoryList(conn, customer);
 			
 			if(list.size() > 3) {
 				// 4) 이력 3개 초과시, 가장 오래된 비밀번호 삭제
@@ -179,7 +180,7 @@ public class CustomerService {
 				}
 			}
 		}
-		return 0;
+		return updateCustomerPwRow; // 비밀번호 수정결과를 반환
 	}
 	
 	// 4) 회원탈퇴

@@ -66,7 +66,9 @@ public class CustomerDao {
 	public int deleteCustomer(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		
-		String sql = "DELETE FROM customer WHERE customer_id = ? AND customer_pw = ?";
+		String sql = "DELETE"
+				+ " FROM customer"
+				+ " WHERE customer_id = ? AND customer_pw = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
