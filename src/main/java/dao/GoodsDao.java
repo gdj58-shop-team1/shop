@@ -21,7 +21,7 @@ public class GoodsDao {
 				+ ", g.goods_name goodsName"
 				+ ", g.goods_price goodsPrice"
 				+ ", g.soldout soldout"
-				+ ", img.filename filename"
+				+ ", img.filename fileName"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ "	ON g.goods_code = img.goods_code"
 				+ " ORDER BY goodsCode ASC"
@@ -37,7 +37,7 @@ public class GoodsDao {
 			map.put("goodsName",rs.getString("goodsName"));
 			map.put("goodsPrice",rs.getInt("goodsPrice"));
 			map.put("soldout",rs.getString("soldout"));
-			map.put("filename",rs.getString("filename"));
+			map.put("fileName",rs.getString("fileName"));
 			goodsList.add(map);
 		}
 		
@@ -57,7 +57,7 @@ public class GoodsDao {
 				+ ", g.goods_name goodsName"
 				+ ", g.goods_price goodsPrice"
 				+ ", g.soldout soldout"
-				+ ", img.filename filename"
+				+ ", img.filename fileName"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ "	ON g.goods_code = img.goods_code"
 				+ " WHERE g.goods_name LIKE ?"
@@ -75,7 +75,7 @@ public class GoodsDao {
 			map.put("goodsName",rs.getString("goodsName"));
 			map.put("goodsPrice",rs.getInt("goodsPrice"));
 			map.put("soldout",rs.getString("soldout"));
-			map.put("filename",rs.getString("filename"));
+			map.put("fileName",rs.getString("fileName"));
 			goodsList.add(map);
 		}
 		
@@ -95,7 +95,7 @@ public class GoodsDao {
 				+ ", g.goods_name goodsName"
 				+ ", g.goods_price goodsPrice"
 				+ ", g.soldout soldout"
-				+ ", img.filename filename"
+				+ ", img.filename fileName"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ "	ON g.goods_code = img.goods_code"
 				+ " ORDER BY "+sort // 인기순 정렬 시 hit로 상위노출
@@ -111,7 +111,7 @@ public class GoodsDao {
 			map.put("goodsName",rs.getString("goodsName"));
 			map.put("goodsPrice",rs.getInt("goodsPrice"));
 			map.put("soldout",rs.getString("soldout"));
-			map.put("filename",rs.getString("filename"));
+			map.put("fileName",rs.getString("fileName"));
 			goodsList.add(map);
 		}
 		
@@ -171,7 +171,7 @@ public class GoodsDao {
 				+ "	, g.goods_name goodsName"
 				+ "	, g.goods_price goodsPrice"
 				+ "	, g.soldout soldout"
-				+ " , img.filename filename"
+				+ " , img.filename fileName"
 				+ "	 FROM goods g INNER JOIN goods_img img"
 				+ "		ON g.goods_code = img.goods_code"
 				+ "	 WHERE g.goods_code = ?";
@@ -184,7 +184,7 @@ public class GoodsDao {
 			goodsMap.put("goodsName", rs.getString("goodsName"));
 			goodsMap.put("goodsPrice", rs.getInt("goodsPrice"));
 			goodsMap.put("soldout", rs.getString("soldout"));
-			goodsMap.put("filename", rs.getString("filename"));
+			goodsMap.put("fileName", rs.getString("fileName"));
 		}
 		return goodsMap;
 	}

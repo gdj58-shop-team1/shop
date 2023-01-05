@@ -7,7 +7,17 @@
 		<title>home</title>
 	</head>
 	<body>
-	<jsp:include page="/inc/menu.jsp"></jsp:include>
+		<!-- 세션 정보별로 메뉴 분기 -->
+		<c:if test="${loginMember == null}"> <!-- 비로그인 -->
+			<jsp:include page="/inc/menu.jsp"></jsp:include>	
+		</c:if>
+		<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+			<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+		</c:if>
+		<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+			<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
+		</c:if>
+	
 		<h1>HOME - GOODS LIST</h1>
 		<!-- 정렬 선택(기본, 최근, 인기, 높은가격, 낮은가격) -->
 		<div>
@@ -51,7 +61,7 @@
 					</c:if>
 					<td>
 						<div>
-							<img src="${pageContext.request.contextPath}/upload/${g.fileName}" width="200" height="250"> <!-- soldout이면 이미지 흐리게 등 구분할 수 있게 -->
+							<img src="${pageContext.request.contextPath}/upload/${g.fileName}" width="250" height="250"> <!-- soldout이면 이미지 흐리게 등 구분할 수 있게 -->
 						</div>
 						<div>${g.soldout}</div>
 						<div>
@@ -91,7 +101,7 @@
 			</c:if>
 			
 			<!-- 검색값 있으면 -->
-			<c:if test="${searchWord != null}">
+			<c:if test="${searchWord != null && !searchWord.equals('')}">
 				<c:if test="${currentPage > 1}">
 					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}">이전</a></span>
 				</c:if>
@@ -112,7 +122,7 @@
 			<!-- 정렬값 있으면 -->
 			<c:if test="${sort != null}">
 				<c:if test="${currentPage > 1}">
-					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}">이전</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&sort=${sort}">이전</a></span>
 				</c:if>
 				<c:if test="${currentPage == 1}">
 					<span>이전</span>
@@ -121,7 +131,7 @@
 				<span>${currentPage}</span>
 								
 				<c:if test="${currentPage < endPage}">
-					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&searchWord=${searchWord}&sort=${sort}">다음</a></span>
+					<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&sort=${sort}">다음</a></span>
 				</c:if>
 				<c:if test="${currentPage == endPage}">
 					<span>다음</span>

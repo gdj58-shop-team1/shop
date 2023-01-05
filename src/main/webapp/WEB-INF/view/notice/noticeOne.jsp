@@ -7,6 +7,17 @@
 		<title>noticeOne</title>
 	</head>
 	<body>
+		<!-- 세션 정보별로 메뉴 분기 -->
+		<c:if test="${loginMember == null}"> <!-- 비로그인 -->
+			<jsp:include page="/inc/menu.jsp"></jsp:include>	
+		</c:if>
+		<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+			<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+		</c:if>
+		<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+			<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
+		</c:if>
+		
 		<h1>NOTICE ONE</h1>
 		<table>
 			<tr>
@@ -30,7 +41,9 @@
 				<td>${notice.createdate}</td>
 			</tr>
 		</table>
-		<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${notice.noticeCode}">수정</a>
-		<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${notice.noticeCode}">삭제</a>
+		<c:if test="${loginMember.authCode >= 2 && (notice.empId == loginMember.empId)}"> <!-- 사원레벨이 2 이상이고, 작성자와 세션 정보가 일치할 때 -->
+			<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${notice.noticeCode}">수정</a>
+			<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${notice.noticeCode}">삭제</a>
+		</c:if>
 	</body>
 </html>
