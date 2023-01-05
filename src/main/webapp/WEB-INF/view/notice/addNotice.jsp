@@ -9,7 +9,7 @@
 	<body>
 		<h1>ADD NOTICE</h1>
 		<!-- 유효성 검사 -->
-		<form action="${pageContext.request.contextPath}/NoticeAddController" method="post">
+		<form action="${pageContext.request.contextPath}/NoticeAdd" method="post">
 			<table>
 				<tr>
 					<th>제목</th>

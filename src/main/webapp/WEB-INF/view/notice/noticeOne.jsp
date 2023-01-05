@@ -30,7 +30,7 @@
 				<td>${notice.createdate}</td>
 			</tr>
 		</table>
-		<a href="${pageContext.request.contextPath}/NoticeModifyController?noticeCode=${notice.noticeCode}">수정</a>
-		<a href="${pageContext.request.contextPath}/NoticeRemoveController?noticeCode=${notice.noticeCode}">삭제</a>
+		<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${notice.noticeCode}">수정</a>
+		<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${notice.noticeCode}">삭제</a>
 	</body>
 </html>
