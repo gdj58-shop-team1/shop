@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import vo.Goods;
+
 public class GoodsDao {
 	
 	// 상품리스트(home) - 검색, 정렬값X
@@ -158,4 +160,33 @@ public class GoodsDao {
 		stmt.close();
 		return cnt;
 	}
+	
+	// 상품 상세페이지
+	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodscode) throws Exception{
+		HashMap<String, Object> goodsMap = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT g.goods_code goodsCode"
+				+ "	, g.goods_name goodsName"
+				+ "	, g.goods_price goodsPrice"
+				+ "	, g.soldout soldout"
+				+ " , img.filename filename"
+				+ "	 FROM goods g INNER JOIN goods_img img"
+				+ "		ON g.goods_code = img.goods_code"
+				+ "	 WHERE g.goods_code = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodscode);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			goodsMap = new HashMap<String, Object>();
+			goodsMap.put("goodsCode", rs.getInt("goodsCode"));
+			goodsMap.put("goodsName", rs.getString("goodsName"));
+			goodsMap.put("goodsPrice", rs.getInt("goodsPrice"));
+			goodsMap.put("soldout", rs.getString("soldout"));
+			goodsMap.put("filename", rs.getString("filename"));
+		}
+		return goodsMap;
+	}
+	
 }

@@ -136,4 +136,27 @@ public class GoodsService {
 		}
 		return cnt;
 	}
+	
+	// 상품 상세페이지
+	public HashMap<String, Object> getGoodsOne(int goodsCode){
+		HashMap<String, Object> goodsMap = null;
+		Connection conn = null;
+		goodsDao = new GoodsDao();
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("getGoodsOne(GoodsService) db 접속");
+			goodsMap = goodsDao.selectGoodsOne(conn, goodsCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return goodsMap;
+	}
 }
