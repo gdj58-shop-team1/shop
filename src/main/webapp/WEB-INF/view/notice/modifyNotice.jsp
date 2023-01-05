@@ -7,6 +7,9 @@
 		<title>modifyNotice</title>
 	</head>
 	<body>
+		<!-- 메뉴 -->
+		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>
+		
 		<h1>MODIFY NOTICE</h1>
 		<!-- 유효성 검사 -->
 		<form action="${pageContext.request.contextPath}/NoticeModify" method="post">

@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.GoodsService;
+import vo.Customer;
 
 @WebServlet("/Home")
 public class Home extends HttpServlet {
@@ -25,7 +27,12 @@ public class Home extends HttpServlet {
 			home.jsp 호출
 		*/
 		
-		// 세션분기(비로그인, 로그인)
+		// 세션정보 확인(비로그인, 로그인, 회원, 사원)
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("loginMember") != null) {
+			request.setAttribute("loginMember", session.getAttribute("loginMember"));
+		}
 		
 		
 		// 페이지 정보 받기(검색값, 정렬값, 현재 페이지 값)

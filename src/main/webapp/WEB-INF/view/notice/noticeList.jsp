@@ -7,6 +7,17 @@
 		<title>noticeList</title>
 	</head>
 	<body>
+		<!-- 세션 정보별로 메뉴 분기 -->
+		<c:if test="${loginMember == null}"> <!-- 비로그인 -->
+			<jsp:include page="/inc/menu.jsp"></jsp:include>	
+		</c:if>
+		<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+			<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+		</c:if>
+		<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+			<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
+		</c:if>
+		
 		<h1>NOTICE LIST</h1>
 		<table>
 			<tr>
@@ -26,6 +37,8 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="${pageContext.request.contextPath}/NoticeAdd">새 공지 추가</a>
+		<c:if test="${loginMember.authCode >= 2}">  <!-- 사원레벨이 2 이상일 때 -->
+			<a href="${pageContext.request.contextPath}/NoticeAdd">새 공지 추가</a>
+		</c:if>
 	</body>
 </html>
