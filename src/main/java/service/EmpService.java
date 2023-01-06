@@ -123,7 +123,7 @@ public class EmpService {
 	}
 	
 	// 3) emp 비밀번호 수정
-	public int updateEmpPw(Emp emp, String newEmpPw) {
+	public int modifyEmpPw(Emp emp, String newEmpPw) {
 		this.empDao = new EmpDao();
 		this.dbUtil = new DBUtil();
 		
@@ -136,7 +136,9 @@ public class EmpService {
 			
 			updateEmpPwRow = empDao.updateEmpPw(conn, emp, newEmpPw);
 			
-			if(updateEmpPwRow != 1) {
+			if(updateEmpPwRow == 1) {
+				System.out.println("비밀번호 수정 성공");
+			} else {
 				System.out.println("비밀번호 수정 오류 : 비밀번호 수정 실패");
 				throw new Exception();
 			}
@@ -161,10 +163,127 @@ public class EmpService {
 	}
 	
 	// 4) emp 활성화/비활성화
+	public int modifyEmpActive(Emp emp) throws Exception {
+		this.empDao = new EmpDao();
+		this.dbUtil = new DBUtil();
+		
+		int updateEmpAciveRow = 0;
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			updateEmpAciveRow = empDao.updateEmpActive(conn, emp);
+			
+			if(updateEmpAciveRow == 1) {
+				System.out.println("직원 Active 변경 성공");
+			} else {
+				System.out.println("직원 Active 변경 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return updateEmpAciveRow;
+	}
 	
 	// 5) emp 레벨 변경
+	public int modifyEmpAuthCode(Emp emp) {
+		this.empDao = new EmpDao();
+		this.dbUtil = new DBUtil();
+		
+		int updateEmpAuthCodeRow = 0;
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			updateEmpAuthCodeRow = empDao.updateEmpAuthCode(conn, emp);
+			
+			if(updateEmpAuthCodeRow == 1) {
+				System.out.println("직원 AuthCode 변경 성공");
+			} else {
+				System.out.println("직원 AuthCode 변경 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return updateEmpAuthCodeRow;
+	}
 	
 	// 6) emp 탈퇴
+	public int removeEmp(Emp emp) {
+		this.empDao = new EmpDao();
+		this.dbUtil = new DBUtil();
+		
+		int deleteEmpRow = 0;
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			deleteEmpRow = empDao.deleteEmp(conn, emp);
+			
+			if(deleteEmpRow == 1) {
+				System.out.println("직원 탈퇴 성공");
+			} else {
+				System.out.println("직원 탈퇴 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return deleteEmpRow;
+	}
 	
 	// 7) emp 로그인
 	public Emp loginEmp(Emp emp) {

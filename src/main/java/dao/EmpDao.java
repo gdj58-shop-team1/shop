@@ -73,6 +73,7 @@ public class EmpDao {
 		stmt.setString(2, emp.getEmpId());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, active 변경 성공
+		
 		return row;	
 	}
 	
@@ -93,7 +94,7 @@ public class EmpDao {
 	}
 	
 	// 6) emp 탈퇴
-	public int deleteEmpAuthCode(Connection conn, Emp emp) throws Exception {
+	public int deleteEmp(Connection conn, Emp emp) throws Exception {
 		int row = 0;
 		
 		String sql = "DELETE"
