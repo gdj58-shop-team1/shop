@@ -32,7 +32,7 @@
 	<a href="${pageContext.request.contextPath}/">CATEGORY</a> <!-- 리스트 구현예정 -->
 	<a href="${pageContext.request.contextPath}/Cart">CART</a>
 	<a href="${pageContext.request.contextPath}/Order">ORDER</a>
-	<a href="${pageContext.request.contextPath}/Notice">NOTICE</a>
+	<a href="${pageContext.request.contextPath}/NoticeList">NOTICE</a>
 	<div>${loginMember.empName}님 환영합니다.</div>
 	<div>관리자 레벨 : ${loginMember.authCode}</div>
 </div>

@@ -18,14 +18,12 @@ public class NoticeOne extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// 세션 유효성 확인 + 로그인 레벨 확인
+		// 세션 유효성 확인
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginMember") == null) { // 세션에 로그인 정보다 없으면 홈으로
-			response.sendRedirect(request.getContextPath()+"/Home");
-			return;
+		if(session.getAttribute("loginMember") != null) {
+			request.setAttribute("loginMember", session.getAttribute("loginMember"));
 		}
-		
 		
 		// 서비스 호출
 		NoticeService noticeService = new NoticeService();

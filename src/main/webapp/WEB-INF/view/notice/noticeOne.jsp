@@ -41,9 +41,11 @@
 				<td>${notice.createdate}</td>
 			</tr>
 		</table>
-		<c:if test="${loginMember.authCode >= 2 && (notice.empId == loginMember.empId)}"> <!-- 사원레벨이 2 이상이고, 작성자와 세션 정보가 일치할 때 -->
-			<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${notice.noticeCode}">수정</a>
-			<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${notice.noticeCode}">삭제</a>
+		<c:if test="${loginMember.level == 1}"> <!-- 레벨이 1 이고 -->
+			<c:if test="${loginMember.authCode >= 2 && (notice.empId == loginMember.empId)}"> <!-- 사원레벨이 2 이상이고, 작성자와 세션 정보가 일치할 때 -->
+				<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${notice.noticeCode}">수정</a>
+				<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${notice.noticeCode}">삭제</a>
+			</c:if>
 		</c:if>
 	</body>
 </html>
