@@ -76,7 +76,7 @@ public class Login extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Login?message="+message);
 			return;
 		}
-				
+		
 		message = "로그인 성공!";
 		message = URLEncoder.encode(message, "UTF-8");
 		response.sendRedirect(request.getContextPath()+"/Home?message="+message);

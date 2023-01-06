@@ -4,6 +4,7 @@ public class Question {
 	private int questionCode;
 	private int orderCode;
 	private String category;
+	private String questionTitle;
 	private String questionMemo;
 	private String createdate;
 	
@@ -25,6 +26,12 @@ public class Question {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
+	}
 	public String getQuestionMemo() {
 		return questionMemo;
 	}
@@ -37,4 +44,5 @@ public class Question {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+	
 }
