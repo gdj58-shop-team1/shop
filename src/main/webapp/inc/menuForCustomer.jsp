@@ -9,7 +9,7 @@
 	<a href="${pageContext.request.contextPath}/Home">HOME</a>
 	<a href="${pageContext.request.contextPath}/">CATEGORY</a>
 	<a href="${pageContext.request.contextPath}/Cart">CART</a>
-	<a href="${pageContext.request.contextPath}/ORDER">ORDER</a>
-	<a href="${pageContext.request.contextPath}/NOTICE">NOTICE</a>
+	<a href="${pageContext.request.contextPath}/Order">ORDER</a>
+	<a href="${pageContext.request.contextPath}/Notice">NOTICE</a>
 	<div>${loginMember.customerName}님 환영합니다.</div>
 </div>
