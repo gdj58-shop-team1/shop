@@ -5,16 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
-		
-		
-	});
-</script>
 <title>Insert title here</title>
 </head>
 <body>
-
 	<!-- 세션 정보별로 메뉴 분기 -->
 	<c:if test="${loginMember == null}"> <!-- 비로그인 -->
 		<jsp:include page="/inc/menu.jsp"></jsp:include>	
@@ -26,14 +19,18 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
+	<br>
+	
 	<!-- form 노출 버튼 -->
 	<div>
-		<a type="button" href="" id="customerBtn">고객 로그인</a>
-		<a type="button" href="" id="empBtn">직원 로그인</a>
+		<a type="button" href="" id="customerBtn">고객 회원가입</a>
+		<a type="button" href="" id="empBtn">사원 회원가입</a>
 	</div>
 	
-	<h1>고객 로그인</h1>
-	<form action="${pageContext.request.contextPath}/Login" method="post">
+	<br>
+	
+	<h1>고객 회원가입</h1>
+	<form action="${pageContext.request.contextPath}/Signin" method="post">
 		<table>
 			<tr>
 				<th>ID</th>
@@ -44,13 +41,31 @@
 				<th>PW</th>
 				<td><input type="password" id="customerPw" name="customerPw"></td>
 			</tr>
+			
+			<!-- 유효성 검사 필요(비밀번호 체크) -->
+			<tr>
+				<th>PWCHECK</th>
+				<td><input type="password" id="customerPwCheck" name="customerPwCheck"></td>
+			</tr>
+			
+			<tr>
+				<th>NAME</th>
+				<td><input type="text" id="customerName" name="customerName"></td>
+			</tr>
+			
+			<tr>
+				<th>PHONE</th>
+				<td><input type="text" id="customerPhone" name="customerPhone"></td>
+			</tr>
 		</table>
 		
-		<button type="submit" id="loginCustomerBtn">로그인</button>
+		<button type="submit" id="signinBtn">회원가입</button>
 	</form>
 	
-	<h1>사원 로그인</h1>
-	<form action="${pageContext.request.contextPath}/Login" method="post">
+	<br>
+	
+	<h1>사원 회원가입</h1>
+	<form action="${pageContext.request.contextPath}/Signin" method="post">
 		<table>
 			<tr>
 				<th>ID</th>
@@ -61,9 +76,20 @@
 				<th>PW</th>
 				<td><input type="password" id="empPw" name="empPw"></td>
 			</tr>
+			
+			<!-- 유효성 검사 필요(비밀번호 체크) -->
+			<tr>
+				<th>PWCHECK</th>
+				<td><input type="password" id="empPwCheck" name="empPwCheck"></td>
+			</tr>
+			
+			<tr>
+				<th>NAME</th>
+				<td><input type="text" id="empName" name="empName"></td>
+			</tr>	
 		</table>
 		
-		<button type="submit" id="LoginEmpBtn">로그인</button>
+		<button type="submit" id="signinBtn">회원가입</button>
 	</form>
 </body>
 </html>

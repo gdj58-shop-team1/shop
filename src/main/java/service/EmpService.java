@@ -18,7 +18,7 @@ public class EmpService {
 	private DBUtil dbUtil;
 	
 	// 1) 회원가입
-	public int addCustomer(Emp emp) {
+	public int addEmp(Emp emp) {
 		int selectIdRow = 0;
 		int insertEmpRow = 0;
 		
@@ -71,7 +71,7 @@ public class EmpService {
 	}
 	
 	// 2) emp 수정
-	public Emp modifyCustomer(Emp emp) {
+	public Emp modifyEmp(Emp emp) {
 		int updateEmpRow = 0;
 		Emp resultEmp = null;
 				
