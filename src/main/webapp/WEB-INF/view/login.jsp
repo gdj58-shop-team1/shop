@@ -15,9 +15,17 @@
 </head>
 <body>
 
-	<!-- menu 1 -->
+	<!-- 세션 정보별로 메뉴 분기 -->
+	<c:if test="${loginMember == null}"> <!-- 비로그인 -->
+		<jsp:include page="/inc/menu.jsp"></jsp:include>	
+	</c:if>
+	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+	</c:if>
+	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
+	</c:if>
 	
-	<!-- menu 2 -->
 	<div>
 		<a type="button" id="customerBtn" href="LoginCustomerController">회원 로그인</a>
 		<a type="button" id="empBtn" href="LoginEmpController">직원 로그인</a>
