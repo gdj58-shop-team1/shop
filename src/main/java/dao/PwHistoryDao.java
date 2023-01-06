@@ -52,7 +52,7 @@ public class PwHistoryDao {
 				
 		String sql = "DELETE"
 				+ " FROM pw_history"
-				+ " WHERE customer_id = ? AND pw = ?";
+				+ " WHERE customer_id = ? AND createdate = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, pwHistory.getCustomerId());

@@ -17,7 +17,6 @@
 					<th>문의유형</th>
 					<th>제목</th>
 					<th>작성일</th>
-					<th>문의수정</th>
 				</tr>
 			</thead>
 			
@@ -27,9 +26,8 @@
 						<td>${q.orderCode}</td>
 						<td>${q.goodsName}</td>
 						<td>${q.category}</td>
-						<td><a href="">${q.questionTitle}</a></td>
+						<td><a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a></td>
 						<td>${q.createdate}</td>
-						<td><a href="">수정</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -44,24 +42,28 @@
 						<th>상품명</th>
 						<th>문의유형</th>
 						<th>제목</th>
-						<th>작성일</th>
 						<th>작성자</th>
+						<th>작성일</th>
 					</tr>
 				</thead>
+				
 				<tbody>
-					<c:forEach var="q" items="${questionList}">		
+					<c:forEach var="q" items="${questionList}">	
 						<tr>
 							<td>${q.orderCode}</td>
 							<td>${q.goodsName}</td>
 							<td>${q.category}</td>
-							<td><a href="">${q.questionTitle}</a></td>
+							<td><a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a></td>
+							<td>${q.customerId}</td>
 							<td>${q.createdate}</td>
-							<td>%{q.customerId}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 	</c:if>
-	<div>test</div>
+	<br>
+	<div>
+		<a href="${pageContext.request.contextPath}/AddQuestion">문의 작성</a>
+	</div>
 </body>
 </html>

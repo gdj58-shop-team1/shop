@@ -97,6 +97,45 @@ public class QuestionService {
 		return list;
 	}
 	
+	public HashMap<String, Object> getQuestionOne (Question question) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		this.questionDao = new QuestionDao();
+		this.dbUtil = new DBUtil();
+		
+		Connection conn = null;
+	
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			map = questionDao.selectQuestionOne(conn, question);
+			
+			if(map != null) {
+				System.out.println("문의 상세보기 조회 성공");
+			} else {
+				System.out.println("문의 상세보기 조회 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return map;
+	}
 	public int addQuestionForCustomer(Question question) {
 		int insertQuestionForCustomerRow = 0;
 

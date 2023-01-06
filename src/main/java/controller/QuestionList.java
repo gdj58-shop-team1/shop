@@ -44,10 +44,6 @@ public class QuestionList extends HttpServlet {
 			list = questionService.getQuestionForEmp(loginEmp);
 		}
 		
-		if(list == null) {
-			System.out.println("list 가 비어있음");
-		}
-		//System.out.println(list.get(0).get("goodsName"));
 		request.setAttribute("questionList", list);
 		request.getRequestDispatcher("/WEB-INF/view/question/questionList.jsp").forward(request, response);
    }

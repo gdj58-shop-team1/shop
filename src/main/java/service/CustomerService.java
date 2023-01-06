@@ -158,8 +158,10 @@ public class CustomerService {
 			list = pwHistoryDao.selectPwHistoryList(conn, customer);
 			
 			if(list.size() > 3) {
-				// 4) 이력 3개 초과시, 가장 오래된 비밀번호 삭제
-				pwHistoryDao.deletePwHistory(conn, null);
+				// 4) 이력 3개 초과시, 가장 오래된 비밀번호 정보 가져오기, 내림차순했기 때문에 가장 list에서 가장 첫번째 값이 제일 오래된 값
+				PwHistory pwHistory = list.get(0);
+				// 5) 이력 3개 초과시, 가장 오래된 비밀번호 삭제
+				pwHistoryDao.deletePwHistory(conn, pwHistory);
 			}		
 			
 			conn.commit();
