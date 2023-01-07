@@ -47,9 +47,9 @@ public class Home extends HttpServlet {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		System.out.println("currentPage: "+currentPage);
-		System.out.println("searchWord: "+searchWord);
-		System.out.println("sort: "+sort);
+		// System.out.println("currentPage: "+currentPage);
+		// System.out.println("searchWord: "+searchWord);
+		// System.out.println("sort: "+sort);
 		
 		
 		// 서비스 호출(goodsList + 페이징(endPage 포함)) - 분기: 검색값 유무, 정렬
@@ -73,8 +73,8 @@ public class Home extends HttpServlet {
 		if(cnt%rowPerPage != 0) {
 			endPage++;
 		}
-		System.out.println("cnt: "+cnt);
-		System.out.println("endPage: "+endPage);
+		// System.out.println("cnt: "+cnt);
+		// System.out.println("endPage: "+endPage);
 		
 		// 세션에 정보 넘기기
 		request.setAttribute("goodsList", goodsList);

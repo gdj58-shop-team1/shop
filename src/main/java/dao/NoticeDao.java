@@ -32,7 +32,6 @@ public class NoticeDao {
 			n.setCreatedate(rs.getString("createdate"));
 			noticeList.add(n);
 		}
-		System.out.println("selectNoticeList(NoticeDao) 진입");
 		
 		rs.close();
 		stmt.close();
@@ -64,7 +63,6 @@ public class NoticeDao {
 			notice.setEmpId(rs.getString("empId"));
 			notice.setCreatedate(rs.getString("createdate"));
 		}
-		System.out.println("selectNoticeOne(NoticeDao) 진입");
 		
 		rs.close();
 		stmt.close();
@@ -84,7 +82,6 @@ public class NoticeDao {
 		stmt.setString(2, paramNotice.getNoticeContent());
 		stmt.setString(3, paramNotice.getEmpId());
 		row = stmt.executeUpdate();
-		System.out.println("insertNotice(NoticeDao) 진입, row: "+row);
 		
 		stmt.close();
 		return row; // 추가 성공 시 1 반환
@@ -109,7 +106,6 @@ public class NoticeDao {
 		stmt.setString(2, paramNotice.getNoticeContent());
 		stmt.setInt(3, paramNotice.getNoticeCode());
 		row = stmt.executeUpdate();
-		System.out.println("updateNotice(NoticeDao) 진입, row: "+row);
 		
 		stmt.close();
 		return row; // 수정 성공 시 1 반환
@@ -126,7 +122,6 @@ public class NoticeDao {
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, noticeCode);
 		row = stmt.executeUpdate();
-		System.out.println("deleteNotice(NoticeDao) 진입, row: "+row);
 		
 		stmt.close();
 		return row; // 삭제 성공 시 1 반환

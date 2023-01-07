@@ -18,9 +18,9 @@
 			<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 		</c:if>
 		
+		<!-- 본문 : 상품상세보기 -->
 		<h1>GOODS ONE</h1>	
 		<a href="${pageContext.request.contextPath}/Home">상품목록으로</a>
-		<!-- 상품상세보기 -->
 		<table border="1">
 			<tr>
 				<!-- 상품 사진 -->
@@ -37,6 +37,23 @@
 					<div>품절여부: ${goodsMap.get('soldout')}</div>
 				</td>
 			</tr>
+		</table>
+		
+		<!-- 상품 리뷰 리스트 -->
+		<h2>REVIEW LIST(goodsOne)</h2>
+		<table>
+			<tr>
+				<th>작성일</th>
+				<th>리뷰내용</th>
+				<th>작성자</th>
+			</tr>
+			<c:forEach var="r" items="${reviewList}">
+				<tr>
+					<td>${r.createdate}</td>
+					<td>${r.reviewMemo}</td>
+					<td>${r.customerId}</td>
+				</tr>
+			</c:forEach>
 		</table>
 	</body>
 </html>
