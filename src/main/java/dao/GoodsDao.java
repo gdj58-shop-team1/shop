@@ -15,7 +15,7 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		System.out.println("selectGoodsList(GoodsDao) 검색, 정렬값X 진입");
+		// System.out.println("selectGoodsList(GoodsDao) 검색, 정렬값X 진입");
 		
 		String sql = "SELECT g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
@@ -51,7 +51,7 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		System.out.println("selectGoodsList(GoodsDao) 검색O 진입");
+		// System.out.println("selectGoodsList(GoodsDao) 검색O 진입");
 		
 		String sql = "SELECT g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
@@ -89,7 +89,7 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		System.out.println("selectGoodsList(GoodsDao) 정렬O 진입");
+		// System.out.println("selectGoodsList(GoodsDao) 정렬O 진입");
 		
 		String sql = "SELECT g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
@@ -125,7 +125,7 @@ public class GoodsDao {
 		int cnt = 0;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		System.out.println("selectGoodsListCnt(GoodsDao) 진입");
+		// System.out.println("selectGoodsListCnt(GoodsDao) 진입");
 		
 		String sql = "SELECT COUNT(*) cnt FROM goods";
 		
@@ -145,7 +145,7 @@ public class GoodsDao {
 		int cnt = 0;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		System.out.println("selectGoodsListCnt(GoodsDao) 검색O 진입");
+		// System.out.println("selectGoodsListCnt(GoodsDao) 검색O 진입");
 		
 		String sql = "SELECT COUNT(*) cnt FROM goods WHERE goods_name LIKE ?";
 		

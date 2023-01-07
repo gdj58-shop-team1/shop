@@ -22,9 +22,6 @@ public class GoodsService {
 			System.out.println("getGoodsList(GoodsService) 검색, 정렬값X db 접속");			
 			int beginRow = (currentPage-1)*rowPerPage;
 			int endRow = beginRow+rowPerPage;
-			System.out.println("beginRow: "+beginRow);
-			System.out.println("endRow: "+endRow);
-			
 			goodsList = goodsDao.selectGoodsList(conn, beginRow, endRow);
 		} catch (Exception e) {
 			e.printStackTrace();
