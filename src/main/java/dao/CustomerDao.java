@@ -22,6 +22,8 @@ public class CustomerDao {
 		stmt.setInt(5, 0);
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 회원가입 성공
+		
+		stmt.close();
 		return row;
 		
 	}
@@ -40,6 +42,8 @@ public class CustomerDao {
 		stmt.setString(3, customer.getCustomerId());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 회원수정 성공
+		
+		stmt.close();
 		return row;
 		
 	}
@@ -58,6 +62,8 @@ public class CustomerDao {
 		stmt.setString(3, customer.getCustomerPw());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 비밀번호 변경 성공
+		
+		stmt.close();
 		return row;
 		
 	}
@@ -75,10 +81,12 @@ public class CustomerDao {
 		stmt.setString(2, customer.getCustomerPw());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 회원탈퇴 성공
+		
+		stmt.close();
 		return row;	
 	}
 	
-	// 5) 로그인
+	// 5) 로그인(세션에 담을 로그인정보 )
 	public Customer loginCustomer(Connection conn, Customer customer) throws Exception {
 		Customer resultCustomer = null;
 		
@@ -100,6 +108,8 @@ public class CustomerDao {
 			resultCustomer.setLevel(rs.getInt("level"));
 		}
 		
+		stmt.close();
+		rs.close();
 		return resultCustomer; // 로그인 정보 반환
 	}
 	
@@ -125,6 +135,8 @@ public class CustomerDao {
 		
 		row = rs.getRow(); // 몇개의 행인지 
 		
+		stmt.close();
+		rs.close();
 		return row;
 	}
 }
