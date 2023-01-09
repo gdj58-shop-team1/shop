@@ -19,11 +19,11 @@ public class MyPage extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginMember") != null) { // 로그인되어있을 때 세션에 로그인정보 세팅
+		if(session.getAttribute("loginMember") == null) { // 로그인되어있을 때 세션에 로그인정보 세팅
+			response.sendRedirect(request.getContextPath()+"/Login");
+		} else { // 로그인되어 있지 않을 때 (login 컨트롤러 실행)
 			request.setAttribute("loginMember", session.getAttribute("loginMember"));
 			request.getRequestDispatcher("/WEB-INF/view/myPage.jsp").forward(request, response);
-		} else { // 로그인되어 있지 않을 때 (login 컨트롤러 실행)
-			response.sendRedirect(request.getContextPath()+"/Login");
 		}
 	}
 }
