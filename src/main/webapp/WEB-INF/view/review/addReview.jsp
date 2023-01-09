@@ -18,15 +18,19 @@
 		<!-- 본문 -->
 		<h1>ADD REVIEW</h1>
 		<form action="${pageContext.request.contextPath}/AddReview" method="post"> <!-- 자바스크립트로 유효성 검사 -->
-			<input type="hidden" name="orderCode" value="">
+			<input type="hidden" name="orderCode" value="${order.orderCode}">
 			<table>
 				<tr>
 					<th>주문번호</th>
-					<td></td>
+					<td>${order.orderCode}</td>
 				</tr>
 				<tr>
 					<th>주문상품</th>
-					<td></td>
+					<td>${order.goodsName}</td>
+				</tr>
+				<tr>
+					<th>주문일자</th>
+					<td>${order.createdate}</td>
 				</tr>
 				<tr>
 					<th>리뷰내용</th>

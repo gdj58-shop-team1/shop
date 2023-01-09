@@ -68,10 +68,6 @@
 							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${g.goodsCode}">${g.goodsName}</a>
 						</div>
 						<div>${g.goodsPrice}</div>
-						<div>
-							<a href="${pageContext.request.contextPath}/Cart?goodsCode=${g.goodsCode}">장바구니에 추가</a>
-							<!-- controller 생성 후 수정-->
-						</div>
 					</td>
 				</c:forEach>
 			</tr>

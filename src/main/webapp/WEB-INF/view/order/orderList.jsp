@@ -30,13 +30,30 @@
 				</tr>
 				<c:forEach var="o" items="${orderList}">
 					<tr>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
+						<td>${o.orderCode}</td>
+						<td>${o.goodsName}</td>
+						<td>${o.goodsPrice}</td>
+						<td>${o.orderQuantity}</td>
+						<td>${o.orderPrice}</td>
+						<!-- 주문상태가 구매확정이면 -->
+						<c:if test="${o.orderState.equals('구매확정') && o.reviewMemo == null}">
+							<td>
+								${o.orderState}
+								<a href="${pageContext.request.contextPath}/AddReview?orderCode=${o.orderCode}">리뷰작성</a>
+							</td>
+						</c:if>
+						<!-- 주문상태가 결제이면 -->
+						<c:if test="${o.orderState.equals('결제')}">
+							<td>
+								${o.orderState}
+								<a href="${pageContext.request.contextPath}/AddQuestion?orderCode=${o.orderCode}">문의작성</a>
+							</td>
+						</c:if>
+						<!-- 주문상태가 구매확정도 아니고, 결제도 아니면 -->
+						<c:if test="${!o.orderState.equals('결제') && !o.orderState.equals('구매확정')}">
+							<td>${o.orderState}</td>
+						</c:if>
+						<td>${o.createdate}</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -56,14 +73,14 @@
 				</tr>
 				<c:forEach var="o" items="${orderList}">
 					<tr>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
-						<td>주문번호</td>
+						<td>${o.orderCode}</td>
+						<td>${o.goodsName}</td>
+						<td>${o.goodsPrice}</td>
+						<td>${o.orderQuantity}</td>
+						<td>${o.orderPrice}</td>
+						<td>${o.customerId}</td>
+						<td>${o.orderState}</td> <!-- select로 주문상태 업데이트 -->
+						<td>${o.createdate}</td>
 					</tr>
 				</c:forEach>
 			</table>	

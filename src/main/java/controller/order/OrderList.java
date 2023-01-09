@@ -24,6 +24,7 @@ public class OrderList extends HttpServlet {
 		// 세션 유효성 검사
 		Customer loginCustomer = new Customer();
 		Emp loginEmp = new Emp();
+		this.orderService = new OrderService();
 		
 		HttpSession session = request.getSession();
 		

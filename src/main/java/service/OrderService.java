@@ -35,6 +35,29 @@ public class OrderService {
 		return orderList;
 	}
 	
+	// 특정 주문 출력(select) : 리뷰 또는 상품 문의글 작성시 필요한 정보 출력
+	public HashMap<String, Object> getOrderByOrderCode(int orderCode){
+		HashMap<String, Object> order = null;
+		Connection conn = null;
+		this.dbUtil = new DBUtil();
+		this.orderDao = new OrderDao();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("getOrderByOrderCode(OrderService) db 접속");
+			order = orderDao.selectOrderByOrderCode(conn, orderCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return order;
+	}
+	
 	// 관리자
 	// 모든 주문목록 출력(select) : 모든 주문목록 출력
 	public ArrayList<HashMap<String, Object>> getOrderListAll() {
