@@ -32,7 +32,7 @@ public class ReviewDao {
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		rs = stmt.executeQuery();
-		if(rs.next()) {
+		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
 			map.put("goodsCode", rs.getInt("goodsCode"));

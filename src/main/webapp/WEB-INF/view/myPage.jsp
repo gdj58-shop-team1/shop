@@ -35,7 +35,7 @@
 			</tr>	
 		</table>
 		
-		<a href="">주문 목록</a>
+		<a href="${pageContext.request.contextPath}/OrderList">주문 목록</a>
 		<a href="${pageContext.request.contextPath}/ReviewList">리뷰 목록</a>
 		<a href="${pageContext.request.contextPath}/QuestionList">문의사항</a>
 		<a href="">회원정보 변경</a>
