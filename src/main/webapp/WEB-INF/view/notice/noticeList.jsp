@@ -39,7 +39,7 @@
 		</table>
 		<c:if test="${loginMember.level == 1}"> <!-- 레벨이 1 이고 -->
 			<c:if test="${loginMember.authCode >= 2}"> <!-- 사원레벨이 2 이상일 때 -->
-				<a href="${pageContext.request.contextPath}/NoticeAdd">새 공지 추가</a>
+				<a href="${pageContext.request.contextPath}/AddNotice">새 공지 추가</a>
 			</c:if>
 		</c:if>
 	</body>

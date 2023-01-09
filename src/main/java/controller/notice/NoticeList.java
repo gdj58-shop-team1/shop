@@ -1,6 +1,7 @@
-package controller;
+package controller.notice;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +13,11 @@ import javax.servlet.http.HttpSession;
 import service.NoticeService;
 import vo.Notice;
 
-
-@WebServlet("/NoticeOne")
-public class NoticeOne extends HttpServlet {
-
+@WebServlet("/NoticeList")
+public class NoticeList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 세션 유효성 확인
+		
+		// 세션정보 확인(비로그인, 로그인, 회원, 사원)
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("loginMember") != null) {
@@ -27,17 +26,12 @@ public class NoticeOne extends HttpServlet {
 		
 		// 서비스 호출
 		NoticeService noticeService = new NoticeService();
-		int noticeCode = Integer.parseInt(request.getParameter("noticeCode"));
-		System.out.println("noticeCode: "+noticeCode);
+		ArrayList<Notice> noticeList = noticeService.getNoticeList();
 		
-		Notice notice = noticeService.getNoticeOne(noticeCode);
-		
-		// 세션에 저장(사원 레벨도 세션에 저장 -> 뷰에서 레벨별 수정 삭제 버튼 보이게)
-		request.setAttribute("notice", notice);
+		request.setAttribute("noticeList", noticeList);
 		
 		// view 호출
-		request.getRequestDispatcher("/WEB-INF/view/notice/noticeOne.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/view/notice/noticeList.jsp").forward(request, response);
 	}
 
 }
