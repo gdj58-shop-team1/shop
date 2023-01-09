@@ -40,8 +40,6 @@ public class Signin extends HttpServlet {
 		
 		int row = 0;
 		
-		HttpSession session = request.getSession();
-		
 		if(request.getParameter("customerId") != null && request.getParameter("customerPw") != null) { // customer 회원가입
 			
 			Customer customer = new Customer();
@@ -53,7 +51,7 @@ public class Signin extends HttpServlet {
 			this.customerService = new CustomerService();
 			row = customerService.addCustomer(customer);
 			
-		} else { // emp 로그인
+		} else { // emp 회원가입
 			Emp emp = new Emp();
 			System.out.println(request.getParameter("empId"));
 			System.out.println(request.getParameter("empPw"));

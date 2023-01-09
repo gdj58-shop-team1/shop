@@ -163,7 +163,7 @@ public class EmpService {
 	}
 	
 	// 4) emp 활성화/비활성화
-	public int modifyEmpActive(Emp emp) throws Exception {
+	public int modifyEmpActive(Emp emp) {
 		this.empDao = new EmpDao();
 		this.dbUtil = new DBUtil();
 		
@@ -200,6 +200,7 @@ public class EmpService {
 				}
 			}
 		}
+		
 		return updateEmpAciveRow;
 	}
 	
