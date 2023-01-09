@@ -21,6 +21,8 @@ public class EmpDao {
 		stmt.setString(3, emp.getEmpName());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 회원가입 성공
+		
+		stmt.close();
 		return row;
 		
 	}
@@ -56,6 +58,8 @@ public class EmpDao {
 		stmt.setString(3, emp.getEmpPw());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 비밀번호 변경 성공
+		
+		stmt.close();
 		return row;
 		
 	}
@@ -90,6 +94,8 @@ public class EmpDao {
 		stmt.setString(2, emp.getEmpId());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, auth_code 변경성공
+		
+		stmt.close();
 		return row;
 	}
 	
@@ -104,6 +110,8 @@ public class EmpDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
 		stmt.setString(2, emp.getEmpPw());
+		
+		stmt.close();
 		return row;
 	}
 	
@@ -130,6 +138,8 @@ public class EmpDao {
 			resultEmp.setActive(rs.getString("active"));
 		}
 		
+		stmt.close();
+		rs.close();
 		return resultEmp; // 로그인 정보 반환
 	}
 	
@@ -155,6 +165,8 @@ public class EmpDao {
 		
 		row = rs.getRow(); // 몇개의 행인지 
 		
+		stmt.close();
+		rs.close();
 		return row;
 	}
 		
