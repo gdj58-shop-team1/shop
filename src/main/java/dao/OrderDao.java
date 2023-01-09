@@ -15,16 +15,18 @@ public class OrderDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT"
-				+ "	o.order_code orderCode"
-				+ "	, concat( g.goods_category, ' - ', g.goods_name) goods" // goodsName? goods?
-				+ "	, g.goods_price goodsPrice"
-				+ "	, o.order_quantity orderQuantity"
-				+ "	, o.order_price orderPrice"
-				+ "	, o.order_state goodsState"
-				+ "	, o.createdate createdate"
+		String sql = "SELECT "
+				+ "o.order_code orderCode"
+				+ ", g.goods_name goodsName"
+				+ ", g.goods_price goodsPrice"
+				+ ", o.order_quantity orderQuantity"
+				+ ", o.order_price orderPrice"
+				+ ", o.order_state orderState"
+				+ ", o.createdate createdate"
+				+ ", r.review_memo reviewMemo"
 				+ " FROM orders o INNER JOIN goods g"
 				+ "	 ON o.goods_code = g.goods_code"
+				+ "	 LEFT OUTER JOIN review r ON r.order_code = o.order_code"
 				+ " WHERE o.customer_id = ?"
 				+ " ORDER BY o.order_code DESC;";
 		
@@ -34,18 +36,57 @@ public class OrderDao {
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
-			map.put("goods", rs.getString("goods"));
+			map.put("goodsName", rs.getString("goodsName"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
 			map.put("orderQuantity", rs.getInt("orderQuantity"));
 			map.put("orderPrice", rs.getInt("orderPrice"));
-			map.put("goodsState", rs.getString("goodsState"));
+			map.put("orderState", rs.getString("orderState"));
 			map.put("createdate", rs.getString("createdate"));
+			map.put("reviewMemo", rs.getString("reviewMemo"));
 			orderList.add(map);
 		}
+		
+		// int size = orderList.size();
+		// System.out.println("size: "+size);
 		
 		rs.close();
 		stmt.close();
 		return orderList;
+	}
+	
+	// 특정 주문 출력(select) : 리뷰 또는 상품 문의글 작성시 필요한 정보 출력
+	public HashMap<String, Object> selectOrderByOrderCode(Connection conn, int orderCode) throws Exception{
+		HashMap<String, Object> order = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT"
+				+ "	o.order_code orderCode"
+				+ "	, g.goods_code goodsCode"
+				+ "	, g.goods_name goodsName"
+				+ "	, g.goods_price goodsPrice"			// 필요 없을 시 삭제
+				+ "	, o.order_quantity orderQuantity" 	// 필요 없을 시 삭제
+				+ "	, o.order_price orderPrice" 		// 필요 없을 시 삭제
+				+ "	, o.customer_id customerId" 		// 필요 없을 시 삭제
+				+ "	, o.order_state orderState" 		// 필요 없을 시 삭제
+				+ "	, o.createdate createdate"
+				+ " FROM orders o INNER JOIN goods g"
+				+ "  ON o.goods_code = g.goods_code"
+				+ " WHERE o.order_code = ?";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			order = new HashMap<String, Object>();
+			order.put("orderCode", rs.getInt("orderCode"));
+			order.put("goodsName", rs.getString("goodsName"));
+			order.put("createdate", rs.getString("createdate"));
+		}
+		
+		rs.close();
+		stmt.close();
+		return order;
 	}
 	
 	// 관리자
@@ -57,12 +98,12 @@ public class OrderDao {
 		
 		String sql = "SELECT"
 				+ "	o.order_code orderCode"
-				+ "	, concat( g.goods_category, ' - ', g.goods_name) goods" 
+				+ "	, g.goods_name goodsName"
 				+ "	, g.goods_price goodsPrice"
 				+ "	, o.order_quantity orderQuantity"
 				+ "	, o.order_price orderPrice"
-				+ "	, o.customer_id cutomerId"
-				+ "	, o.order_state goodsState"
+				+ "	, o.customer_id customerId"
+				+ "	, o.order_state orderState"
 				+ "	, o.createdate createdate"
 				+ " FROM orders o INNER JOIN goods g"
 				+ "	 ON o.goods_code = g.goods_code"
@@ -73,12 +114,12 @@ public class OrderDao {
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
-			map.put("goods", rs.getString("goods"));
+			map.put("goodsName", rs.getString("goodsName"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
 			map.put("orderQuantity", rs.getInt("orderQuantity"));
 			map.put("orderPrice", rs.getInt("orderPrice"));
-			map.put("cutomerId", rs.getString("cutomerId"));
-			map.put("goodsState", rs.getString("goodsState"));
+			map.put("customerId", rs.getString("customerId"));
+			map.put("orderState", rs.getString("orderState"));
 			map.put("createdate", rs.getString("createdate"));
 			orderList.add(map);
 		}
