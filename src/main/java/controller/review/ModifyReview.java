@@ -1,4 +1,4 @@
-package controller;
+package controller.review;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,8 +14,8 @@ import service.ReviewService;
 import vo.Review;
 
 
-@WebServlet("/ReviewModify")
-public class ReviewModify extends HttpServlet {
+@WebServlet("/ModifyReview")
+public class ModifyReview extends HttpServlet {
 	private ReviewService reviewService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -68,7 +68,7 @@ public class ReviewModify extends HttpServlet {
 		int row = reviewService.modifyReview(paramReview);
 		if(row == 0) {
 			System.out.println("리뷰 수정 실패");
-			response.sendRedirect(request.getContextPath()+"/ReviewModify");
+			response.sendRedirect(request.getContextPath()+"/ModifyReview");
 			return;
 		}
 		System.out.println("리뷰 수정 성공");

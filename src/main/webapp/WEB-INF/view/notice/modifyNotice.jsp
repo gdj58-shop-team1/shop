@@ -12,7 +12,7 @@
 		
 		<h1>MODIFY NOTICE</h1>
 		<!-- 유효성 검사 -->
-		<form action="${pageContext.request.contextPath}/NoticeModify" method="post">
+		<form action="${pageContext.request.contextPath}/ModifyNotice" method="post">
 			<input type="hidden" name="noticeCode" value="${notice.noticeCode}">
 			<table>
 				<tr>

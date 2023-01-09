@@ -17,7 +17,7 @@
 		
 		<!-- 본문 -->
 		<h1>MODIFY REVIEW</h1>
-		<form action="${pageContext.request.contextPath}/ReviewModify" method="post"> <!-- 자바스크립트로 유효성 검사 -->
+		<form action="${pageContext.request.contextPath}/ModifyReview" method="post"> <!-- 자바스크립트로 유효성 검사 -->
 			<input type="hidden" name="orderCode" value="${review.orderCode}">
 			<table>
 				<tr>

@@ -1,4 +1,4 @@
-package controller;
+package controller.notice;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,8 +12,8 @@ import service.NoticeService;
 import vo.Emp;
 
 
-@WebServlet("/NoticeRemove")
-public class NoticeRemove extends HttpServlet {
+@WebServlet("/RemoveNotice")
+public class RemoveNotice extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
