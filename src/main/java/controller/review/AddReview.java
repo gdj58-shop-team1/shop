@@ -75,7 +75,7 @@ public class AddReview extends HttpServlet {
 			return;
 		}
 		System.out.println("리뷰 추가 성공");
-		response.sendRedirect(request.getContextPath()+"/ReviewList");
+		response.sendRedirect(request.getContextPath()+"/OrderList");
 	}
 
 }

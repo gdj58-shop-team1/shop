@@ -35,22 +35,27 @@
 						<td>${o.goodsPrice}</td>
 						<td>${o.orderQuantity}</td>
 						<td>${o.orderPrice}</td>
-						<!-- 주문상태가 구매확정이면 -->
-						<c:if test="${o.orderState.equals('구매확정') && o.reviewMemo == null}">
-							<td>
-								${o.orderState}
-								<a href="${pageContext.request.contextPath}/AddReview?orderCode=${o.orderCode}">리뷰작성</a>
-							</td>
+						<c:if test="${o.orderState.equals('구매확정')}"> <!-- 주문상태가 구매확정이고 -->
+							<c:if test="${o.reviewMemo != null}"> <!-- 작성된 리뷰가 있으면 -->
+								<td>${o.orderState}</td>
+							</c:if>
+							<c:if test="${o.reviewMemo == null}"> <!-- 작성된 리뷰가 없으면 -->
+								<td>
+									${o.orderState}
+									<a href="${pageContext.request.contextPath}/AddReview?orderCode=${o.orderCode}">리뷰작성</a>
+								</td>
+							</c:if>
+							
 						</c:if>
-						<!-- 주문상태가 결제이면 -->
-						<c:if test="${o.orderState.equals('결제')}">
+						
+						<c:if test="${o.orderState.equals('결제')}"> <!-- 주문상태가 결제이면 -->
 							<td>
 								${o.orderState}
 								<a href="${pageContext.request.contextPath}/AddQuestion?orderCode=${o.orderCode}">문의작성</a>
 							</td>
 						</c:if>
-						<!-- 주문상태가 구매확정도 아니고, 결제도 아니면 -->
-						<c:if test="${!o.orderState.equals('결제') && !o.orderState.equals('구매확정')}">
+						
+						<c:if test="${!o.orderState.equals('결제') && !o.orderState.equals('구매확정')}"> <!-- 주문상태가 구매확정도 아니고, 결제도 아니면 -->
 							<td>${o.orderState}</td>
 						</c:if>
 						<td>${o.createdate}</td>
