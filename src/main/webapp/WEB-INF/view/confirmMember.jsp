@@ -21,45 +21,47 @@
 	</c:if>
 	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+			<h1>고객 정보 변경</h1>
+			<form action="${pageContext.request.contextPath}/ConfirmMember" method="post">
+				<table>
+					<tr>
+						<th>ID</th>
+						<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
+					</tr>
+					
+					<tr>
+						<th>PW</th>
+						<td><input type="password" id="customerPw" name="customerPw" ></td>
+					</tr>
+				</table>
+				
+				<button type="submit" id="customerBtn">정보변경</button>
+			</form>
 	</c:if>
+	
 	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
+		<h1>사원 정보 변경</h1>
+		<form action="${pageContext.request.contextPath}/ConfirmMember" method="post">
+			<table>
+				<tr>
+					<th>ID</th>
+					<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
+				</tr>
+				
+				<tr>
+					<th>PW</th>
+					<td><input type="password" id="empPw" name="empPw" ></td>
+				</tr>
+			</table>
+			
+			<button type="submit" id="empBtn">정보변경</button>
+		</form>
 	</c:if>
 	
 
 		
-	<h1>고객 정보 변경</h1>
-	<form action="${pageContext.request.contextPath}/SelectModify" method="post">
-		<table>
-			<tr>
-				<th>ID</th>
-				<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${customer.customerId}"></td>
-			</tr>
-			
-			<tr>
-				<th>PW</th>
-				<td><input type="password" id="customerPw" name="customerPw" value="${customer.customerPw}"></td>
-			</tr>
-		</table>
-		
-		<button type="submit" id="customerBtn">정보변경</button>
-	</form>
 	
-	<h1>사원 정보 변경</h1>
-	<form action="${pageContext.request.contextPath}/SelectModify" method="post">
-		<table>
-			<tr>
-				<th>ID</th>
-				<td><input type="text" id="empId" name="empId" readonly="readonly" value="${emp.empID}"></td>
-			</tr>
-			
-			<tr>
-				<th>PW</th>
-				<td><input type="password" id="empPw" name="empPw" value="${emp.empPw}"></td>
-			</tr>
-		</table>
-		
-		<button type="submit" id="empBtn">정보변경</button>
 
 
 </body>
