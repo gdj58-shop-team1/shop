@@ -46,13 +46,12 @@ public class ModifyMemberPw extends HttpServlet {
 		
 		if(session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
 			loginCustomer = (Customer)session.getAttribute("loginMember");
-			String customerPw = request.getParameter("customerPw");
-			String newPw = request.getParameter("newPw");
+			String newCustomerPw = request.getParameter("newCustomerPw");
 			
-			loginCustomer.setCustomerPw(customerPw);
+			loginCustomer.setCustomerPw(newCustomerPw);
 			
 			this.customerService = new CustomerService();
-			row = customerService.modifyCustomerPw(loginCustomer, newPw);
+			row = customerService.modifyCustomerPw(loginCustomer, newCustomerPw);
 			
 			if(row != 1) { // 회원 비밀번호 변경 실패시
 				response.sendRedirect(request.getContextPath()+"/ModifyMemberPw");
@@ -61,13 +60,12 @@ public class ModifyMemberPw extends HttpServlet {
 					
 		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
 			loginEmp = (Emp)session.getAttribute("loginMember");
-			String empPw = request.getParameter("empPw");
-			String newPw = request.getParameter("newPw");
+			String newEmpPw = request.getParameter("newPw");
 			
-			loginEmp.setEmpPw(empPw);
+			loginEmp.setEmpPw(newEmpPw);
 			
 			this.empService = new EmpService();
-			row = empService.modifyEmpPw(loginEmp, newPw);
+			row = empService.modifyEmpPw(loginEmp, newEmpPw);
 			
 			if(row != 1) { // 사원 비밀번호 변경 실패시
 				response.sendRedirect(request.getContextPath()+"/ModifyMemberPw");

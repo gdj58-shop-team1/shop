@@ -31,7 +31,7 @@ public class EmpDao {
 	public int updateEmp(Connection conn, Emp emp) throws Exception {
 		int row = 0;
 		
-		String sql = "UPDATE SET emp"
+		String sql = "UPDATE emp SET"
 				+ " emp_name = ?"
 				+ " WHERE emp_id = ?";
 		
@@ -48,9 +48,9 @@ public class EmpDao {
 	public int updateEmpPw(Connection conn, Emp emp, String newPw) throws Exception {
 		int row = 0;
 		
-		String sql = "UPDATE SET emp"
+		String sql = "UPDATE emp SET"
 				+ " emp_pw = ?"
-				+ " WHERE emp_id = ? AND emp_pw = ?";
+				+ " WHERE emp_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, newPw);
@@ -68,7 +68,7 @@ public class EmpDao {
 	public int updateEmpActive(Connection conn, Emp emp) throws Exception {
 		int row = 0;
 		
-		String sql = "UPDATE SET emp"
+		String sql = "UPDATE emp SET"
 				+ " active = ?"
 				+ " WHERE emp_id = ?";
 		
@@ -85,7 +85,7 @@ public class EmpDao {
 	public int updateEmpAuthCode(Connection conn, Emp emp) throws Exception {
 		int row = 0;
 		
-		String sql = "UPDATE SET emp"
+		String sql = "UPDATE emp SET"
 				+ " auth_code = ?"
 				+ " WHERE emp_id = ?";
 		
@@ -147,7 +147,7 @@ public class EmpDao {
 	public Emp selectEmp(Connection conn, Emp emp) throws Exception {
 		Emp resultEmp = null;
 		
-		String sql = "SELECT emp_id, emp_name"
+		String sql = "SELECT emp_id, emp_name, auth_code, level, active"
 				+ " FROM emp"
 				+ " WHERE emp_id = ?";
 		
@@ -160,6 +160,9 @@ public class EmpDao {
 			resultEmp = new Emp();
 			resultEmp.setEmpId(rs.getString("emp_id"));
 			resultEmp.setEmpName(rs.getString("emp_name"));
+			resultEmp.setAuthCode(rs.getInt("auth_code"));
+			resultEmp.setLevel(rs.getInt("level"));
+			resultEmp.setActive(rs.getString("active"));
 		}
 		
 		stmt.close();

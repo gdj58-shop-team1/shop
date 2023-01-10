@@ -65,11 +65,9 @@ public class ModifyMember extends HttpServlet {
 		
 		if(session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
 			loginCustomer = (Customer)session.getAttribute("loginMember");
-			String customerPw = request.getParameter("customerPw");
 			String customerName = request.getParameter("customerName");
 			String customerPhone = request.getParameter("customerPhone");
 			
-			loginCustomer.setCustomerPw(customerPw);
 			loginCustomer.setCustomerName(customerName);
 			loginCustomer.setCustomerPhone(customerPhone);
 			
@@ -85,11 +83,10 @@ public class ModifyMember extends HttpServlet {
 					
 		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
 			loginEmp = (Emp)session.getAttribute("loginMember");
-			String empPw = request.getParameter("empPw");
 			String empName = request.getParameter("empName");
 			
-			loginEmp.setEmpPw(empPw);
 			loginEmp.setEmpName(empName);
+			
 			this.empService = new EmpService();
 			loginEmp = empService.modifyEmp(loginEmp);
 			

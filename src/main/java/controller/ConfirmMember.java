@@ -46,27 +46,33 @@ public class ConfirmMember extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		String pw = request.getParameter("pw");
+
 		if(session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
+			String customerPw = request.getParameter("customerPw");
+			
 			loginCustomer = (Customer)session.getAttribute("loginMember");
-			loginCustomer.setCustomerPw(pw);
+			loginCustomer.setCustomerPw(customerPw);
 			
 			this.customerService = new CustomerService();
-			Customer resultCustomer = customerService.getCustomer(loginCustomer);
+			Customer resultCustomer = customerService.loginCustomer(loginCustomer);
 			
 			if(resultCustomer == null) {
 				response.sendRedirect(request.getContextPath()+"/ConfirmMember");
+				return;
 			}
 			
 		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
+			String empPw = request.getParameter("empPw");
+			
 			loginEmp = (Emp)session.getAttribute("loginMember");
-			loginEmp.setEmpPw(pw);
+			loginEmp.setEmpPw(empPw);
 			
 			this.empService = new EmpService();
-			Emp resultEmp = empService.getEmp(loginEmp);
+			Emp resultEmp = empService.loginEmp(loginEmp);
 			
 			if(resultEmp == null) {
 				response.sendRedirect(request.getContextPath()+"/ConfirmMember");
+				return;
 			}
 		}
 		

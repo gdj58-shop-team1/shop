@@ -32,7 +32,7 @@ public class CustomerDao {
 	public int updateCustomer(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		
-		String sql = "UPDATE SET customer"
+		String sql = "UPDATE customer SET"
 				+ " customer_name = ? , customer_phone = ?"
 				+ " WHERE customer_id = ?";
 		
@@ -52,9 +52,9 @@ public class CustomerDao {
 	public int updateCustomerPw(Connection conn, Customer customer, String newCustomerPw) throws Exception {
 		int row = 0;
 		
-		String sql = "UPDATE SET customer"
+		String sql = "UPDATE customer SET"
 				+ " customer_pw = ?"
-				+ " WHERE customer_id = ? AND customer_pw = ?";
+				+ " WHERE customer_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, newCustomerPw);
@@ -117,7 +117,7 @@ public class CustomerDao {
 	public Customer selectCustomer(Connection conn, Customer customer) throws Exception {
 		Customer resultCustomer = null;
 		
-		String sql = "SELECT customer_id, customer_name, customer_phone"
+		String sql = "SELECT customer_id, customer_name, customer_phone, point, level"
 				+ " FROM customer"
 				+ " WHERE customer_id = ?";
 		
@@ -131,6 +131,8 @@ public class CustomerDao {
 			resultCustomer.setCustomerId(rs.getString("customer_id"));
 			resultCustomer.setCustomerName(rs.getString("customer_name"));
 			resultCustomer.setCustomerPhone(rs.getString("customer_phone"));
+			resultCustomer.setPoint(rs.getInt("point"));
+			resultCustomer.setLevel(rs.getInt("level"));
 		}
 		
 		stmt.close();
