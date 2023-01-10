@@ -29,7 +29,7 @@
 
 		
 	<h1>고객 정보 변경</h1>
-	<form action="${pageContext.request.contextPath}/ModifyMember" method="post">
+	<form action="${pageContext.request.contextPath}/SelectModify" method="post">
 		<table>
 			<tr>
 				<th>ID</th>
@@ -37,21 +37,16 @@
 			</tr>
 			
 			<tr>
-				<th>NAME</th>
-				<td><input type="text" id="customerName" name="customerName" placeholder="${customer.customerName}"></td>
-			</tr>
-			
-			<tr>
-				<th>PHONE</th>
-				<td><input type="text" id="customerPhone" name="customerPhone" placeholder="${customer.customerPhone}"></td>
+				<th>PW</th>
+				<td><input type="password" id="customerPw" name="customerPw" value="${customer.customerPw}"></td>
 			</tr>
 		</table>
 		
-		<button type="submit" id="">정보변경</button>
+		<button type="submit" id="customerBtn">정보변경</button>
 	</form>
 	
 	<h1>사원 정보 변경</h1>
-	<form action="${pageContext.request.contextPath}/ModifyMember" method="post">
+	<form action="${pageContext.request.contextPath}/SelectModify" method="post">
 		<table>
 			<tr>
 				<th>ID</th>
@@ -59,16 +54,12 @@
 			</tr>
 			
 			<tr>
-				<th>NAME</th>
-				<td><input type="text" id="empName" name="empName" placeholder="${emp.empName}"></td>
-			</tr>
-			<tr>
-				<th>LEVEL</th>
-				<td><input type="text" id="level" name="level" readonly="readonly" value="${emp.level}"></td>
+				<th>PW</th>
+				<td><input type="password" id="empPw" name="empPw" value="${emp.empPw}"></td>
 			</tr>
 		</table>
 		
-		<button type="submit" id="">정보변경</button>
+		<button type="submit" id="empBtn">정보변경</button>
 
 
 </body>
