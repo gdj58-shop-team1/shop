@@ -10,32 +10,67 @@
 		<script>
 			$(document).ready(function(){
 				
-				// orderQuantity 초기값 1로 설정
-				$('input[name=orderQuantity]').attr('value', 1);
-				const goodsPrice = '<c:out value="${goodsMap.get('goodsPrice')}"/>';
-				console.log(goodsPrice);
+				// orderQuantity, cartQuantity, orderPrice 초기값 설정
+				var goodsPrice = Number('<c:out value="${goodsMap.get('goodsPrice')}"/>');
+				// var goodsPriceWithOption = 0;
+				$('#orderQuantity').attr('value', 1);
+				$('#cartQuantity').attr('value', 1);
+				$('#orderPrice').attr('value', goodsPrice);
 				
+				var orderQuantity = Number($('#orderQuantity').val());
+				var cartQuantity = Number($('#cartQuantity').val());
+				var orderPrice = Number($('#orderPrice').val());
+
 				// plusBtn 클릭시
 				$('#plusBtn').click(function(){
-					$('input[name=orderQuantity]').attr('value', Number($('#orderQuantity').val())+Number(1));
-					//$('input[name=cartQuantity]').attr('value', Number($('#orderQuantity').val())+Number(1));
-					//$('input[name=orderPrice]').attr('value', Number(goodsPrice)*Number($('#orderQuantity').val()));
-					
-					
-					
+					$('#orderQuantity').attr('value', orderQuantity+Number(1));
+					$('#cartQuantity').attr('value', cartQuantity+Number(1));
+					$('#orderPrice').attr('value', goodsPrice*orderQuantity);
+					console.log(orderQuantity);
+					console.log(cartQuantity);
+					console.log(orderPrice);
+					console.log(typeof(orderQuantity));
+					console.log(typeof(cartQuantity));
+					console.log(typeof(orderPrice));
 				});
 				
 				// minusBtn 클릭시
 				$('#minusBtn').click(function(){
-					if($('#orderQuantity').val() == 1){ // minusBtn 클릭시 orderQuantity 1이면 '-' 못하게
+					if(orderQuantity == 1){ // minusBtn 클릭시 orderQuantity 1이면 '-' 못하게
 						return;
 					} else {
-						$('input[name=orderQuantity]').attr('value', Number($('#orderQuantity').val())-Number(1));
-						$('input[name=cartQuantity]').attr('value', Number($('#orderQuantity').val())+Number(1));
-						$('input[name=orderPrice]').attr('value', Number(goodsPrice)*Number($('#orderQuantity').val()));
+						$('#orderQuantity').attr('value', orderQuantity-Number(1));
+						$('#cartQuantity').attr('value', cartQuantity-Number(1));
+						$('#orderPrice').attr('value', goodsPrice*orderQuantity);
 					}
 				});
 				
+				// 옵션 선택시
+				$('#goodsOrderOption').change(function(){
+					goodsPrice = goodsPrice;
+					console.log(goodsPrice);
+					// 가격 변경
+					if($('#goodsOrderOption').val() == '옵션1'){
+						goodsPrice = goodsPrice+2500;
+					} else if ($('#goodsOrderOption').val() == '옵션2'){
+						goodsPrice = goodsPrice+5900;
+					} else if ($('#goodsOrderOption').val() == '옵션3'){
+						goodsPrice = goodsPrice+11900;
+						//$('#orderPrice').attr('value', orderPrice+(cartQuantity*11900));
+					}
+					// 카트폼의 goodsCartOption 속성(value값) 변경
+					$('#goodsCartOption').attr('value', $('#goodsOrderOption').val());
+				});
+				
+				
+				
+				$('#orderBtn').click(function(){
+					$('#orderForm').submit();
+				});
+				
+				$('#cartBtn').click(function(){
+					$('#cartForm').submit();
+				});
 			});
 		</script>
 	</head>
@@ -66,38 +101,39 @@
 						<h2>${goodsMap.get('goodsName')}</h2>
 						<h4>${goodsMap.get('goodsPrice')}원</h4>
 						<div>품절여부: ${goodsMap.get('soldout')}</div>
+						
 						<!-- 주문폼 -->
-						<form action="${pageContext.request.contextPath}/주문컨트롤러" method="post">
-							<!-- hidden값 -->
-							<input type="hidden" name="goodsCode" value="">
+						<form action="${pageContext.request.contextPath}/주문컨트롤러" method="post" id="orderForm">
+							<input type="hidden" name="goodsCode" value="${goodsMap.get('goodsCode')}">
 							<input type="hidden" name="customerId" value="">
 							<div> <!-- 상품 갯수 -->
 								<span>상품갯수: </span>
 								<button type="button" id="minusBtn">-</button>
-								<input type="text" name="orderQuantity" readonly="readonly">
+								<input type="text" name="orderQuantity" id="orderQuantity" readonly="readonly">
 								<button type="button" id="plusBtn">+</button>	
 							</div>
 							<div> <!-- 상품 옵션 -->
 								<span>상품옵션: </span>
-								<select name="">
+								<select name="goodsOption" id="goodsOrderOption">
 									<option value="">====옵션선택====</option>
-									<option value="">1) 옵션1(+2,500원)</option>
-									<option value="">2) 옵션2(+5,900원)</option>
-									<option value="">3) 옵션3(+11,900원)</option>
+									<option value="옵션1">1) 옵션1(+2,500원)</option>
+									<option value="옵션2">2) 옵션2(+5,900원)</option>
+									<option value="옵션3">3) 옵션3(+11,900원)</option>
 								</select>
 							</div>
 							<div> <!-- 상품 합계 -->
 								<span>합계: </span>
-								<input type="text" name="orderPrice" id="orderPrice" readonly="readonly"> <!-- 자바스크립트로 orderPrice값이 바뀔때 마다 바뀌게끔 -->
+								<input type="text" name="orderPrice" id="orderPrice" readonly="readonly">
 							</div>
-							<button type="button">바로 구매</button>
+							<button type="button" id="orderBtn">바로 구매</button>
 						</form>
+						
 						<!-- 카트폼 -->
-						<form action="${pageContext.request.contextPath}/카트컨트롤러" method="post">
-							<!-- hidden값 -->
-							<input type="hidden" name="goodsCode" value="">
-							<input type="hidden" name="cartQuantity" id="cartQuantity" value=""> <!-- 자바스크립트로 orderQuantity값이 바뀔때 마다 바뀌게끔 -->
-							<button type="button">장바구니 담기</button>
+						<form action="${pageContext.request.contextPath}/카트컨트롤러" method="post" id="cartForm">
+							<input type="hidden" name="goodsCode" value="${goodsMap.get('goodsCode')}">
+							<input type="hidden" name="cartQuantity" id="cartQuantity">
+							<input type="hidden" name="goodsOption" id="goodsCartOption">
+							<button type="button" id="cartBtn">장바구니 담기</button>
 						</form>
 					</div>
 				</td>
