@@ -36,8 +36,8 @@ public class EmpDao {
 				+ " WHERE emp_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, emp.getEmpId());
-		stmt.setString(2, emp.getEmpName());
+		stmt.setString(1, emp.getEmpName());
+		stmt.setString(2, emp.getEmpId());
 
 		row = stmt.executeUpdate(); // 1 반환 시, emp수정 성공
 		return row;
@@ -55,7 +55,6 @@ public class EmpDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, newPw);
 		stmt.setString(2, emp.getEmpId());
-		stmt.setString(3, emp.getEmpPw());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 비밀번호 변경 성공
 		
