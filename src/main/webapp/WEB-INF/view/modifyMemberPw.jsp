@@ -29,7 +29,7 @@
 			<table>
 				<tr>
 					<th>ID</th>
-					<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${member.customerId}"></td>
+					<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
 				</tr>
 				
 				<tr>

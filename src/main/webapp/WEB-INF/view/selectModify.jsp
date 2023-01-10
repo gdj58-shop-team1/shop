@@ -28,7 +28,7 @@
 
 	<div>
 		<a type="button" href="${pageContext.request.contextPath}/ModifyMember" id="modifyMemberBtn">정보수정</a>
-		<a type="button" href="${pageContext.request.contextPath}/ModifyMember" id="modifyMemberPwBtn">비밀번호수정</a>
+		<a type="button" href="${pageContext.request.contextPath}/ModifyMemberPw" id="modifyMemberPwBtn">비밀번호수정</a>
 	</div>
 
 
