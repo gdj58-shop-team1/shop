@@ -283,4 +283,45 @@ public class CustomerService {
 		}
 		return loginCustomer;
 	}
+	
+	// 6) 회원정보변경을 위해 기존 데이터 가져오기
+	public Customer getCustomer(Customer customer) {
+		Customer resultCustomer = null;
+		
+		this.customerDao = new CustomerDao();
+		this.dbUtil = new DBUtil();
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			resultCustomer = customerDao.selectCustomer(conn, customer);
+			
+			if(resultCustomer != null) {
+				System.out.println("회원 정보가져오기 성공");
+			} else {
+				System.out.println("회원 정보가져오기 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return resultCustomer;
+	}
 }

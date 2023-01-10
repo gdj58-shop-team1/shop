@@ -45,7 +45,7 @@ public class EmpDao {
 	}
 	
 	// 3) emp 비밀번호 수정
-	public int updateEmpPw(Connection conn, Emp emp, String newCustomerPw) throws Exception {
+	public int updateEmpPw(Connection conn, Emp emp, String newPw) throws Exception {
 		int row = 0;
 		
 		String sql = "UPDATE SET emp"
@@ -53,7 +53,7 @@ public class EmpDao {
 				+ " WHERE emp_id = ? AND emp_pw = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, newCustomerPw);
+		stmt.setString(1, newPw);
 		stmt.setString(2, emp.getEmpId());
 		stmt.setString(3, emp.getEmpPw());
 		
@@ -143,7 +143,31 @@ public class EmpDao {
 		return resultEmp; // 로그인 정보 반환
 	}
 	
-	// 8) id 조회
+	// 8) emp 변경을 위해 기존 데이터 가져오기
+	public Emp selectEmp(Connection conn, Emp emp) throws Exception {
+		Emp resultEmp = null;
+		
+		String sql = "SELECT emp_id, emp_name"
+				+ " FROM emp"
+				+ " WHERE emp_id = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, emp.getEmpId());
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			resultEmp = new Emp();
+			resultEmp.setEmpId(rs.getString("emp_id"));
+			resultEmp.setEmpName(rs.getString("emp_name"));
+		}
+		
+		stmt.close();
+		rs.close();
+		return resultEmp; // 로그인 정보 반환
+	}
+	
+	// 9) id 조회
 	public int selectEmpId(Connection conn, Emp emp) throws Exception {
 		int row = 0;
 		

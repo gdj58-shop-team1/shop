@@ -113,7 +113,32 @@ public class CustomerDao {
 		return resultCustomer; // 로그인 정보 반환
 	}
 	
-	// 6) id 조회
+	// 6) 회원정보 변경시 정보 가져오기
+	public Customer selectCustomer(Connection conn, Customer customer) throws Exception {
+		Customer resultCustomer = null;
+		
+		String sql = "SELECT customer_id, customer_name, customer_phone"
+				+ " FROM customer"
+				+ " WHERE customer_id = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			resultCustomer = new Customer();
+			resultCustomer.setCustomerId(rs.getString("customer_id"));
+			resultCustomer.setCustomerName(rs.getString("customer_name"));
+			resultCustomer.setCustomerPhone(rs.getString("customer_phone"));
+		}
+		
+		stmt.close();
+		rs.close();
+		return resultCustomer; // 로그인 정보 반환
+	}
+	
+	// 7) id 조회
 	public int selectCustomerId(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		

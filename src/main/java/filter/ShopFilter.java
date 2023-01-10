@@ -24,9 +24,10 @@ public class ShopFilter extends HttpFilter implements Filter {
 		// 모든 컨트롤러 호출 시 todaySiteCounter, toalSiteCounter 갱신
 		
 		siteCounterService = new SiteCounterService();
+
 		int todaySiteCounter = siteCounterService.getTodaySiteCounter();
 		int totalSiteCounter = siteCounterService.getTotalSiteCounter();
-		
+
 		request.setAttribute("todaySiteCounter", todaySiteCounter);
 		request.setAttribute("totalSiteCounter", totalSiteCounter);
 		

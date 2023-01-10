@@ -123,7 +123,7 @@ public class EmpService {
 	}
 	
 	// 3) emp 비밀번호 수정
-	public int modifyEmpPw(Emp emp, String newEmpPw) {
+	public int modifyEmpPw(Emp emp, String newPw) {
 		this.empDao = new EmpDao();
 		this.dbUtil = new DBUtil();
 		
@@ -134,7 +134,7 @@ public class EmpService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			updateEmpPwRow = empDao.updateEmpPw(conn, emp, newEmpPw);
+			updateEmpPwRow = empDao.updateEmpPw(conn, emp, newPw);
 			
 			if(updateEmpPwRow == 1) {
 				System.out.println("비밀번호 수정 성공");
@@ -325,5 +325,46 @@ public class EmpService {
 		}
 		
 		return loginEmp;
+	}
+	
+	// 8) emp 수정을 위해 기존데이터 가져오기
+	public Emp getEmp(Emp emp) {
+		Emp resultEmp = null;
+		
+		this.empDao = new EmpDao();
+		this.dbUtil = new DBUtil();
+		
+		Connection conn = null;
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			resultEmp = empDao.selectEmp(conn, emp);
+			
+			if(resultEmp != null) {
+				System.out.println("emp 데이터 가져오기 성공");
+			} else {
+				System.out.println("emp 데이터 가져오기 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return resultEmp;
 	}
 }
