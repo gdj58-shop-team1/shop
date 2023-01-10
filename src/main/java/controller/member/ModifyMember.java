@@ -39,14 +39,14 @@ public class ModifyMember extends HttpServlet {
 		if(session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
 			loginCustomer = (Customer)session.getAttribute("loginMember");
 			this.customerService = new CustomerService();
-			Customer customer = customerService.getCustomer(loginCustomer);
-			request.setAttribute("member", customer);
+			loginCustomer = customerService.getCustomer(loginCustomer);
+			request.setAttribute("loginMember", loginCustomer);
 			
 		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
 			loginEmp = (Emp)session.getAttribute("loginMember");
 			this.empService = new EmpService();
-			Emp emp = empService.getEmp(loginEmp);
-			request.setAttribute("member", emp);
+			loginEmp = empService.getEmp(loginEmp);
+			request.setAttribute("loginMember", loginEmp);
 		}
 		
 		
