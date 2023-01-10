@@ -8,20 +8,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
-		
+		// customerLogin 유효성 검사
+		$('#customerBtn').click(function() {
+				
+			// customerPw 미입력시
+			if($('#customerPw').val().length < 1) {
+				
+				alert('비밀번호를 입력해주세요');
+				
+				$('#customerPw').focus();
+				
+				return;
+			}
+			$('#customerConfirmForm').submit();
+			
+		});
 		
 	});
 </script>
-<script type="text/javascript">
-	<%
-		if(request.getParameter("msg") != null)
-		{			
-	%>	
-			alert("<%=request.getParameter("msg")%>");
-	<%	
-		}
-	%>
-</script>
+
 </head>
 <body>
 
@@ -32,7 +37,7 @@
 	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
 			<h1>고객 정보 변경</h1>
-			<form action="${pageContext.request.contextPath}/ConfirmMember" method="post">
+			<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id="customerConfirmForm">
 				<table>
 					<tr>
 						<th>ID</th>
@@ -52,7 +57,7 @@
 	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 			<h1>사원 정보 변경</h1>
-			<form action="${pageContext.request.contextPath}/ConfirmMember" method="post">
+			<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id = "empConfirmForm">
 				<table>
 					<tr>
 						<th>ID</th>
