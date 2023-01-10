@@ -96,8 +96,84 @@ public class CartService {
 	}
 	
 	// 3) 장바구니 속 물품지우기 1개
+	public void removeCartOne(Cart cart) {
+		int row = 0;
+		
+		this.cartDao = new CartDao();
+		this.dbUtil = new DBUtil();
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			row = cartDao.deleteCartOne(conn, cart);
+			if(row == 1) {
+				System.out.println("장바구니 물품 1개 지우기 성공!");
+			} else {
+				System.out.println("장바구니 물품 1개 지우기 실패!");
+				return;
+			}
+			
+			conn.commit();
+			
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 	// 4) 장바구니 속 물품지우기 모든
+	public void removeCartAll(Cart cart) {
+		int row = 0;
+		
+		this.cartDao = new CartDao();
+		this.dbUtil = new DBUtil();
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			row = cartDao.deleteCartAll(conn, cart);
+			if(row == 1) {
+				System.out.println("장바구니 물품 모두 지우기 성공!");
+			} else {
+				System.out.println("장바구니 물품 모두 지우기 실패!");
+				return;
+			}
+			
+			conn.commit();
+			
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 	// 5) 장바구니 조회
 	public ArrayList<HashMap<String, Object>> getCart(Customer customer) {

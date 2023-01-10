@@ -5,6 +5,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>orderList</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<c:forEach var="o" items="${orderList}">
+			<script>
+				$(document).ready(function() {
+					
+					const index = '<c:out value="${o.orderCode}"/>';
+					const idWithIndex = '#orderState' + index;
+					const idWithIndexForm = '#orderStateForm' + index;
+					
+					console.log('index '+index);
+					console.log('idWithIndex '+idWithIndex);
+					console.log('idWithIndexForm '+idWithIndexForm);
+					
+					$(idWithIndex).change(function() {
+							$(idWithIndexForm).submit();			
+					});
+					
+				});
+			</script>
+		</c:forEach>
 	</head>
 	<body>
 		<!-- 세션 정보별로 메뉴 분기 -->
@@ -17,7 +37,7 @@
 		
 		<!-- 본문 -->
 		<h1>ORDER LIST</h1>
-		<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+		<c:if test="${loginMember.level == 0}"> <!-- 회원일 때 -->
 			<table>
 				<tr>
 					<th>주문번호</th>
@@ -64,7 +84,7 @@
 			</table>
 		</c:if>
 		
-		<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+		<c:if test="${loginMember.level == 1}"> <!-- 관리자일 때 -->
 			<table>
 				<tr>
 					<th>주문번호</th>
@@ -84,11 +104,64 @@
 						<td>${o.orderQuantity}</td>
 						<td>${o.orderPrice}</td>
 						<td>${o.customerId}</td>
-						<td>${o.orderState}</td> <!-- select로 주문상태 업데이트 -->
+						<td> <!-- select로 주문상태 업데이트 -->
+							<form action="${pageContext.request.contextPath}/OrderList?orderCode=${o.orderCode}" method="post" id="orderStateForm${o.orderCode}"> <!-- 자바스크립트 적용 -->
+								<select name="orderState" id="orderState${o.orderCode}">
+									<c:if test="${o.orderState.equals('주문완료')}">
+										<option value="주문완료" selected="selected">주문완료</option>
+										<option value="결제완료">결제완료</option>
+										<option value="주문취소">주문취소</option>
+										<option value="배송중">배송중</option>
+										<option value="배송완료">배송완료</option>
+										<option value="구매확정">구매확정</option>
+									</c:if>
+									<c:if test="${o.orderState.equals('결제완료')}">
+										<option value="주문완료">주문완료</option>
+										<option value="결제완료" selected="selected">결제완료</option>
+										<option value="주문취소">주문취소</option>
+										<option value="배송중">배송중</option>
+										<option value="배송완료">배송완료</option>
+										<option value="구매확정">구매확정</option>
+									</c:if>
+									<c:if test="${o.orderState.equals('주문취소')}">
+										<option value="주문완료">주문완료</option>
+										<option value="결제완료">결제완료</option>
+										<option value="주문취소" selected="selected">주문취소</option>
+										<option value="배송중">배송중</option>
+										<option value="배송완료">배송완료</option>
+										<option value="구매확정">구매확정</option>
+									</c:if>
+									<c:if test="${o.orderState.equals('배송중')}">
+										<option value="주문완료">주문완료</option>
+										<option value="결제완료">결제완료</option>
+										<option value="주문취소">주문취소</option>
+										<option value="배송중" selected="selected">배송중</option>
+										<option value="배송완료">배송완료</option>
+										<option value="구매확정">구매확정</option>
+									</c:if>
+									<c:if test="${o.orderState.equals('배송완료')}">
+										<option value="주문완료">주문완료</option>
+										<option value="결제완료">결제완료</option>
+										<option value="주문취소">주문취소</option>
+										<option value="배송중">배송중</option>
+										<option value="배송완료" selected="selected">배송완료</option>
+										<option value="구매확정">구매확정</option>
+									</c:if>
+									<c:if test="${o.orderState.equals('구매확정')}">
+										<option value="주문완료">주문완료</option>
+										<option value="결제완료">결제완료</option>
+										<option value="주문취소">주문취소</option>
+										<option value="배송중">배송중</option>
+										<option value="배송완료">배송완료</option>
+										<option value="구매확정" selected="selected">구매확정</option>
+									</c:if>
+								</select>
+							</form>
+						</td>
 						<td>${o.createdate}</td>
 					</tr>
 				</c:forEach>
-			</table>	
+			</table>
 		</c:if>
 	</body>
 </html>

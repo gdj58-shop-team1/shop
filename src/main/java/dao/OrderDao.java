@@ -129,6 +129,20 @@ public class OrderDao {
 		return orderList;
 	}
 	
-	// 주문상태 수정
+	// 주문상태 수정(update : orderList)
+	public int updateOrder(Connection conn, int orderCode, String orderState) throws Exception{
+		int row = 0;
+		PreparedStatement stmt = null;
+		
+		String sql = "UPDATE orders SET order_state = ? WHERE order_code = ?";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, orderState);
+		stmt.setInt(2, orderCode);
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
+	}
 	 
 }
