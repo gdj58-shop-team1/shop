@@ -28,15 +28,15 @@ public class CartList extends HttpServlet {
 		
 		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) { // 회원 로그인 되어있을 때 DB와 연동하여 장바구니 조회
 			Customer loginCustomer = (Customer)session.getAttribute("loginMember");
-			response.sendRedirect(request.getContextPath()+"/Login");
-			return;
+			
+			this.cartService = new CartService();
+			ArrayList<HashMap<String, Object>> list = cartService.getCart(loginCustomer);
+			session.setAttribute("cartList", list);
 		} else { // 비 로그인 + 관리자 로그인일 경우 세션으로 장바구니 조회
 			
 		}
 		
-		ArrayList<HashMap<String, Object>> list = cartService.getCart(null);
-		
-		request.getRequestDispatcher("/WEB-INF/view/myPage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/cartList.jsp").forward(request, response);
 	}
 
 	

@@ -21,6 +21,8 @@ public class CartDao {
 		
 		row = stmt.executeUpdate();
 		
+		stmt.close();
+		
 		return row;
 	}
 	
@@ -37,6 +39,8 @@ public class CartDao {
 		stmt.setInt(2, cart.getGoodsCode());
 		
 		row = stmt.executeUpdate();
+		
+		stmt.close();
 		
 		return row;
 	}
@@ -70,11 +74,13 @@ public class CartDao {
 		stmt.setString(1, cart.getCustomerId());
 		row = stmt.executeUpdate();
 		
+		stmt.close();
+		
 		return row;
 	}
 	
 	// 5) 장바구니 조회
-	public ArrayList<HashMap<String, Object>> selectCart(Connection conn, Customer customer) throws Exception {
+	public ArrayList<HashMap<String, Object>> selectCartList(Connection conn, Customer customer) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		
 		String sql = "SELECT img.filename fileName"
@@ -100,6 +106,31 @@ public class CartDao {
 			map.put("cartQuantity", rs.getInt("cartQuantity"));
 			list.add(map);
 		}
+		
+		rs.close();
+		stmt.close();
+		
 		return list;
+	}
+	
+	// 6) 장바구니속 물건인지 확인
+	public int selectCart(Connection conn, Cart cart) throws Exception {
+		int row = 0;
+		
+		String sql = "SELECT goods_code"
+				+ " FROM card"
+				+ " WHERE goods_code = ? AND Customer_id = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);	
+		stmt.setString(1, cart.getCustomerId());
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		row = rs.getRow();
+		
+		rs.close();
+		stmt.close();
+		return row;
+		
 	}
 }
