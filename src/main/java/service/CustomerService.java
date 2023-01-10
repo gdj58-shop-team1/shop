@@ -93,12 +93,12 @@ public class CustomerService {
 				throw new Exception();
 			}
 			
-			resultCustomer = customerDao.loginCustomer(conn, customer);
+			resultCustomer = customerDao.selectCustomer(conn, customer);
 			
 			if(resultCustomer != null) {
-				System.out.println("회원수정 후 , 재 로그인 성공");
+				System.out.println("회원수정 후 , 재 로딩 성공");
 			} else {
-				System.out.println("회원수정 후 , 재 로그인 실패");
+				System.out.println("회원수정 후 , 재 로딩 실패");
 				throw new Exception();
 			}
 			

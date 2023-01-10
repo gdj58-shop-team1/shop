@@ -93,7 +93,7 @@ public class EmpService {
 				throw new Exception();
 			}
 			
-			resultEmp = empDao.loginEmp(conn, emp);
+			resultEmp = empDao.selectEmp(conn, emp);
 			
 			if(resultEmp != null) {
 				System.out.println("관리자 회원수정 후 , 재 로그인 성공");

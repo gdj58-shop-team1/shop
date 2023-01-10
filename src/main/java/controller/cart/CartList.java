@@ -26,10 +26,12 @@ public class CartList extends HttpServlet {
 		// 세션정보 확인(비로그인, 로그인, 회원, 사원)
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginMember") == null ) { // 로그인 되어있을 때 DB와 연동하여 장바구니 조회
+		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) { // 회원 로그인 되어있을 때 DB와 연동하여 장바구니 조회
 			Customer loginCustomer = (Customer)session.getAttribute("loginMember");
 			response.sendRedirect(request.getContextPath()+"/Login");
 			return;
+		} else { // 비 로그인 + 관리자 로그인일 경우 세션으로 장바구니 조회
+			
 		}
 		
 		ArrayList<HashMap<String, Object>> list = cartService.getCart(null);
