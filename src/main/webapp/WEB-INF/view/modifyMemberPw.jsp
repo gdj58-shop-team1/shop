@@ -57,7 +57,7 @@
 			<table>
 				<tr>
 					<th>ID</th>
-					<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empID}"></td>
+					<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
 				</tr>
 				
 				<tr>

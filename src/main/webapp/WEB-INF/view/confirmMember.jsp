@@ -45,7 +45,7 @@
 					</tr>
 				</table>
 				
-				<button type="submit" id="customerBtn">정보변경</button>
+				<button type="submit" id="customerBtn">회원수정</button>
 			</form>
 	</c:if>
 	
@@ -65,7 +65,7 @@
 					</tr>
 				</table>
 				
-				<button type="submit" id="empBtn">정보변경</button>
+				<button type="submit" id="empBtn">회원수정</button>
 			</form>
 	</c:if>
 	

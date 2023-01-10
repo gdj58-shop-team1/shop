@@ -8,20 +8,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
-		
-		
+		// customer 유효성 검사
+		$('#customerBtn').click(function() {
+				
+			// customerName 미입력시
+			if($('#customerName').val().length < 1) {
+				
+				alert('수정할 이름을 입력하세요');
+				
+				$('#customerName').focus();
+				
+				return;
+			}
+			// customerPhone 미입력시
+			if($('#customerPhone').val().length < 1) {
+				
+				alert('수정할 전화번호를 입력해주세요');
+				
+				$('#customerPhone').focus();
+				
+				return;
+			}
+			$('#customermodifyForm').submit();
+			
+		});
+	
+		// emp 유효성 검사
+		$('#empBtn').click(function() {
+			
+			// empName 미입력시
+			if($('#empName').val().length < 1) {
+				
+				alert('수정할 이름을 입력하세요');
+				
+				$('#empName').focus();
+				
+				return;
+			}
+
+			$('#empModifyForm').submit();
+			
+		});
+	
 	});
+	
+	
 </script>
-<script type="text/javascript">
-	<%
-		if(request.getParameter("msg") != null)
-		{			
-	%>	
-			alert("<%=request.getParameter("msg")%>");
-	<%	
-		}
-	%>
-</script>
+
 </head>
 <body>
 
@@ -37,7 +70,7 @@
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
 				
 			<h1>고객 정보 변경</h1>
-			<form action="${pageContext.request.contextPath}/ModifyMember" method="post">
+			<form action="${pageContext.request.contextPath}/ModifyMember" method="post" id = "customermodifyForm">
 				<table>
 					<tr>
 						<th>ID</th>
@@ -63,11 +96,11 @@
 	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 			<h1>사원 정보 변경</h1>
-			<form action="${pageContext.request.contextPath}/ModifyMember" method="post">
+			<form action="${pageContext.request.contextPath}/ModifyMember" method="post" id = "empModifyForm">
 				<table>
 					<tr>
 						<th>ID</th>
-						<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empID}"></td>
+						<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
 					</tr>
 					
 					<tr>
