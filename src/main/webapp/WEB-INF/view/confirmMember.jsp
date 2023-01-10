@@ -12,6 +12,16 @@
 		
 	});
 </script>
+<script type="text/javascript">
+	<%
+		if(request.getParameter("msg") != null)
+		{			
+	%>	
+			alert("<%=request.getParameter("msg")%>");
+	<%	
+		}
+	%>
+</script>
 </head>
 <body>
 
@@ -41,22 +51,22 @@
 	
 	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
-		<h1>사원 정보 변경</h1>
-		<form action="${pageContext.request.contextPath}/ConfirmMember" method="post">
-			<table>
-				<tr>
-					<th>ID</th>
-					<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
-				</tr>
+			<h1>사원 정보 변경</h1>
+			<form action="${pageContext.request.contextPath}/ConfirmMember" method="post">
+				<table>
+					<tr>
+						<th>ID</th>
+						<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
+					</tr>
+					
+					<tr>
+						<th>PW</th>
+						<td><input type="password" id="empPw" name="empPw" ></td>
+					</tr>
+				</table>
 				
-				<tr>
-					<th>PW</th>
-					<td><input type="password" id="empPw" name="empPw" ></td>
-				</tr>
-			</table>
-			
-			<button type="submit" id="empBtn">정보변경</button>
-		</form>
+				<button type="submit" id="empBtn">정보변경</button>
+			</form>
 	</c:if>
 	
 

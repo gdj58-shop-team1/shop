@@ -12,6 +12,16 @@
 		
 	});
 </script>
+<script type="text/javascript">
+	<%
+		if(request.getParameter("msg") != null)
+		{			
+	%>	
+			alert("<%=request.getParameter("msg")%>");
+	<%	
+		}
+	%>
+</script>
 </head>
 <body>
 
@@ -31,17 +41,17 @@
 				<table>
 					<tr>
 						<th>ID</th>
-						<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${member.customerId}"></td>
+						<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
 					</tr>
 					
 					<tr>
 						<th>NAME</th>
-						<td><input type="text" id="customerName" name="customerName" placeholder="${member.customerName}"></td>
+						<td><input type="text" id="customerName" name="customerName" value="${loginMember.customerName}"></td>
 					</tr>
 					
 					<tr>
 						<th>PHONE</th>
-						<td><input type="text" id="customerPhone" name="customerPhone" placeholder="${member.customerPhone}"></td>
+						<td><input type="text" id="customerPhone" name="customerPhone" value="${loginMember.customerPhone}"></td>
 					</tr>
 				</table>
 				
@@ -57,16 +67,16 @@
 				<table>
 					<tr>
 						<th>ID</th>
-						<td><input type="text" id="empId" name="empId" readonly="readonly" value="${emp.empID}"></td>
+						<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empID}"></td>
 					</tr>
 					
 					<tr>
 						<th>NAME</th>
-						<td><input type="text" id="empName" name="empName" placeholder="${emp.empName}"></td>
+						<td><input type="text" id="empName" name="empName" value="${loginMember.empName}"></td>
 					</tr>
 					<tr>
 						<th>LEVEL</th>
-						<td><input type="text" id="level" name="level" readonly="readonly" value="${emp.level}"></td>
+						<td><input type="text" id="level" name="level" readonly="readonly" value="${loginMember.level}"></td>
 					</tr>
 				</table>
 				

@@ -24,27 +24,27 @@
 	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
 		
-		<h1>고객 비밀번호 변경</h1>
-		<form action="${pageContext.request.contextPath}/ModifyMemberPw" method="post">
-			<table>
-				<tr>
-					<th>ID</th>
-					<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
-				</tr>
+			<h1>고객 비밀번호 변경</h1>
+			<form action="${pageContext.request.contextPath}/ModifyMemberPw" method="post">
+				<table>
+					<tr>
+						<th>ID</th>
+						<td><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
+					</tr>
+					
+					<tr>
+						<th>PASSWORD</th>
+						<td><input type="password" id="newCustomerPw" name="newCustomerPw"></td>
+					</tr>
+					
+					<tr>
+						<th>PASSWORD</th>
+						<td><input type="password" id="newCustomerPw" name="newCustomerPw" ></td>
+					</tr>
+				</table>
 				
-				<tr>
-					<th>PASSWORD</th>
-					<td><input type="password" id="newCustomerPw" name="newCustomerPw"></td>
-				</tr>
-				
-				<tr>
-					<th>PASSWORD</th>
-					<td><input type="password" id="newCustomerPw" name="newCustomerPw" ></td>
-				</tr>
-			</table>
-			
-			<button type="submit" id="customerBtn">비밀번호 변경</button>
-		</form>
+				<button type="submit" id="customerBtn">비밀번호 변경</button>
+			</form>
 	
 	</c:if>
 	
@@ -57,16 +57,16 @@
 			<table>
 				<tr>
 					<th>ID</th>
-					<td><input type="text" id="empId" name="empId" readonly="readonly" value="${emp.empID}"></td>
+					<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empID}"></td>
 				</tr>
 				
 				<tr>
 					<th>PASSWORD</th>
-					<td><input type="text" id="newPw" name="newPw" ></td>
+					<td><input type="text" id="newEmpPw" name="newPw" ></td>
 				</tr>
 				<tr>
 					<th>PASSWORD</th>
-					<td><input type="text" id="newPw" name="newPw" ></td>
+					<td><input type="text" id="newEmpPw" name="newPw" ></td>
 				</tr>
 			</table>
 			
