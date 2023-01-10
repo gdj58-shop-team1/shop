@@ -51,8 +51,11 @@ public class ReviewList extends HttpServlet {
 			
 			if(autoCode == 3) { // 관리자 레벨이 3이면 모든 리뷰 조회
 				reviewList = reviewService.getReviewAll(); // 모든리뷰 조회 메서드
+				// System.out.println("모든리뷰 조회");
+			} else {
+				reviewList = reviewService.getReviewByEmpId(empId); // 그렇지 않으면(레벨이 1,2이면) 관리자아이디로 조회 메서드
+				// System.out.println("리뷰선택 조회");
 			}
-			reviewList = reviewService.getReviewByEmpId(empId); // 그렇지 않으면(레벨이 1,2이면) 관리자아이디로 조회 메서드
 		}
 		
 		// 세션에 리스트 저장
