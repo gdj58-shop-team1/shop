@@ -81,4 +81,34 @@ public class OrderService {
 		}
 		return orderList;
 	}
+	
+	// 주문상태 수정(update : orderList)
+	public int modifyOrder(int orderCode, String orderState) {
+		int row = 0;
+		Connection conn = null;
+		this.dbUtil = new DBUtil();
+		this.orderDao = new OrderDao();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("modifyOrder(OrderService) db 접속");
+			conn.setAutoCommit(false);
+			row = orderDao.updateOrder(conn, orderCode, orderState);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return row;
+	}
 }

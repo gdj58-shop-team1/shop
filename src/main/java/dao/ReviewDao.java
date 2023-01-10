@@ -27,7 +27,8 @@ public class ReviewDao {
 				+ "	on r.order_code = o.order_code"
 				+ "		INNER JOIN goods g"
 				+ "		ON o.goods_code = g.goods_code"
-				+ " WHERE o.customer_id = ?;";
+				+ " WHERE o.customer_id = ?"
+				+ " ORDER BY r.createdate DESC";
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
@@ -95,7 +96,7 @@ public class ReviewDao {
 				+ "	on r.order_code = o.order_code"
 				+ "		INNER JOIN goods g"
 				+ "		ON o.goods_code = g.goods_code"
-				+ " WHERE o.order_code = ?;";
+				+ " WHERE o.order_code = ?";				
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, orderCode);
@@ -132,7 +133,7 @@ public class ReviewDao {
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
 		rs = stmt.executeQuery();
-		if(rs.next()) {
+		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
 			map.put("reviewMemo", rs.getString("reviewMemo"));
@@ -163,12 +164,13 @@ public class ReviewDao {
 				+ "	ON r.order_code = o.order_code"
 				+ "		INNER JOIN goods g"
 				+ "		ON g.goods_code = o.goods_code"
-				+ " WHERE g.emp_id = ?;";
+				+ " WHERE g.emp_id = ?"
+				+ " ORDER BY r.createdate DESC";;
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, empId);
 		rs = stmt.executeQuery();
-		if(rs.next()) {
+		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
 			map.put("goodsCode", rs.getInt("goodsCode"));
@@ -200,11 +202,12 @@ public class ReviewDao {
 				+ " FROM review r INNER JOIN orders o"
 				+ "	ON r.order_code = o.order_code"
 				+ "		INNER JOIN goods g"
-				+ "		ON g.goods_code = o.goods_code";
+				+ "		ON g.goods_code = o.goods_code"
+				+ " ORDER BY r.createdate DESC";
 		
 		stmt = conn.prepareStatement(sql);
 		rs = stmt.executeQuery();
-		if(rs.next()) {
+		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
 			map.put("goodsCode", rs.getInt("goodsCode"));

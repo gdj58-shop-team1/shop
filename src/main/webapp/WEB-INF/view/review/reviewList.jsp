@@ -17,7 +17,7 @@
 		
 		<!-- 본문 -->
 		<h1>REVIEW LIST</h1>
-		<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+		<c:if test="${loginMember.level == 0}"> <!-- 회원일 때 -->
 			<table>
 				<tr>
 					<th>주문번호</th>
@@ -29,7 +29,9 @@
 				<c:forEach var="r" items="${reviewList}">
 					<tr>
 						<td>${r.orderCode}</td>
-						<td>${r.goodsName}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${r.goodsCode}">${r.goodsName}</a>
+						</td>
 						<td>${r.reviewMemo}</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/ModifyReview?orderCode=${r.orderCode}">리뷰수정</a>
@@ -39,7 +41,7 @@
 				</c:forEach>
 			</table>
 		</c:if>
-		<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+		<c:if test="${loginMember.level == 1}"> <!-- 관리자일 때 -->
 			<table>
 				<tr>
 					<th>주문번호</th>
@@ -50,7 +52,9 @@
 				<c:forEach var="r" items="${reviewList}">
 					<tr>
 						<td>${r.orderCode}</td>
-						<td>${r.goodsName}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${r.goodsCode}">${r.goodsName}</a>
+						</td>
 						<td>${r.reviewMemo}</td>
 						<td>${r.createdate}</td>
 					</tr>
