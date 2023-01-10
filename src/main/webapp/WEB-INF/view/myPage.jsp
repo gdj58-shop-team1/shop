@@ -38,8 +38,7 @@
 		<a href="${pageContext.request.contextPath}/OrderList">주문 목록</a>
 		<a href="${pageContext.request.contextPath}/ReviewList">리뷰 목록</a>
 		<a href="${pageContext.request.contextPath}/QuestionList">문의사항</a>
-		<a href="">회원정보 변경</a>
-		<a href="">비밀번호 변경</a>
+		<a href="${pageContext.request.contextPath}/ConfirmMember">정보 변경</a>
 		<a href="">배송지 변경</a>
 		<a href="">회원 탈퇴</a>
 	</c:if>
@@ -61,8 +60,7 @@
 		<a href="">상품 관리</a>
 		<a href="${pageContext.request.contextPath}/ReviewList">리뷰 관리</a>
 		<a href="${pageContext.request.contextPath}/QuestionList">문의 관리</a>
-		<a href="">사원정보 변경</a>
-		<a href="">비밀번호 변경</a>
+		<a href="${pageContext.request.contextPath}/ConfirmMember">정보 변경</a>
 		<a href="">사원 탈퇴</a>
 	</c:if>
 	

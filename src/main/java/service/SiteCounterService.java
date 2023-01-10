@@ -140,7 +140,7 @@ public class SiteCounterService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			totalSiteCounter = siteCounterDao.selectTodaySiteCounter(conn);
+			totalSiteCounter = siteCounterDao.selectTotalSiteCounter(conn);
 			
 			if(totalSiteCounter != 0) {
 				System.out.println("총 접속자수 데이터 로딩 성공!");

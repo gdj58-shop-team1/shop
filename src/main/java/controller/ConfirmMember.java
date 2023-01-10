@@ -1,4 +1,4 @@
-package controller.member;
+package controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,9 +13,12 @@ import service.EmpService;
 import vo.Customer;
 import vo.Emp;
 
-
-@WebServlet("/ModifyMemberPw")
-public class ModifyMemberPw extends HttpServlet {
+/**
+ * Servlet implementation class ConfirmMember
+ */
+@WebServlet("/ConfirmMember")
+public class ConfirmMember extends HttpServlet {
+	
 	private CustomerService customerService;
 	private EmpService empService;
 	
@@ -29,13 +32,12 @@ public class ModifyMemberPw extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Login");
 			return;
 		}
-				
-		request.getRequestDispatcher("/WEB-INF/view/modifyMemberPw.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("/WEB-INF/view/confirmMember.jsp").forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int row = 0;
 		Customer loginCustomer = null;
 		Emp loginEmp = null;
 		
@@ -44,39 +46,31 @@ public class ModifyMemberPw extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		String pw = request.getParameter("pw");
 		if(session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
 			loginCustomer = (Customer)session.getAttribute("loginMember");
-			String customerPw = request.getParameter("customerPw");
-			String newPw = request.getParameter("newPw");
-			
-			loginCustomer.setCustomerPw(customerPw);
+			loginCustomer.setCustomerPw(pw);
 			
 			this.customerService = new CustomerService();
-			row = customerService.modifyCustomerPw(loginCustomer, newPw);
+			Customer resultCustomer = customerService.getCustomer(loginCustomer);
 			
-			if(row != 1) { // 회원 비밀번호 변경 실패시
-				response.sendRedirect(request.getContextPath()+"/ModifyMemberPw");
-				return;
+			if(resultCustomer == null) {
+				response.sendRedirect(request.getContextPath()+"/ConfirmMember");
 			}
-					
+			
 		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
 			loginEmp = (Emp)session.getAttribute("loginMember");
-			String empPw = request.getParameter("empPw");
-			String newPw = request.getParameter("newPw");
-			
-			loginEmp.setEmpPw(empPw);
+			loginEmp.setEmpPw(pw);
 			
 			this.empService = new EmpService();
-			row = empService.modifyEmpPw(loginEmp, newPw);
+			Emp resultEmp = empService.getEmp(loginEmp);
 			
-			if(row != 1) { // 사원 비밀번호 변경 실패시
-				response.sendRedirect(request.getContextPath()+"/ModifyMemberPw");
-				return;
+			if(resultEmp == null) {
+				response.sendRedirect(request.getContextPath()+"/ConfirmMember");
 			}
-			
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/MyPage");
+		response.sendRedirect(request.getContextPath()+"/SelectModify");
 	}
 
 }

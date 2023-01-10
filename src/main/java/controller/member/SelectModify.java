@@ -9,23 +9,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MyPage
+ * Servlet implementation class SelectModify
  */
-@WebServlet("/MyPage")
-public class MyPage extends HttpServlet {
-	
-
+@WebServlet("/SelectModify")
+public class SelectModify extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 로그인 후에만 접근가능
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginMember") == null) { // 로그인되어있을 때 세션에 로그인정보 세팅
+		// 로그인 여부확인, 로그인 되어있을 경우 회원페이지로 이동	
+		if(session.getAttribute("loginMember") == null) {
+
 			response.sendRedirect(request.getContextPath()+"/Login");
 			return;
 		}
 		
-		
-		
-		request.getRequestDispatcher("/WEB-INF/view/myPage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/selectModify.jsp").forward(request, response);
 	}
+
 }

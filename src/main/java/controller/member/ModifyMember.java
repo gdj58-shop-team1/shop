@@ -18,10 +18,14 @@ import vo.Emp;
  */
 @WebServlet("/ModifyMember")
 public class ModifyMember extends HttpServlet {
+	
 	private CustomerService customerService;
 	private EmpService empService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Customer loginCustomer = null;
+		Emp loginEmp = null;
+		
 		// 로그인 후에만 접근가능
 		HttpSession session = request.getSession();
 		
@@ -31,13 +35,26 @@ public class ModifyMember extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Login");
 			return;
 		}
-				
+		
+		if(session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
+			loginCustomer = (Customer)session.getAttribute("loginMember");
+			this.customerService = new CustomerService();
+			loginCustomer = customerService.getCustomer(loginCustomer);
+			session.setAttribute("loginMember", loginCustomer);
+			
+		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
+			loginEmp = (Emp)session.getAttribute("loginMember");
+			this.empService = new EmpService();
+			loginEmp = empService.getEmp(loginEmp);
+			session.setAttribute("loginMember", loginEmp);
+		}
+		
+		
 		request.getRequestDispatcher("/WEB-INF/view/modifyMember.jsp").forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Customer loginCustomer = null;
 		Emp loginEmp = null;
 		
