@@ -161,8 +161,8 @@ public class GoodsService {
 	}
 	
 	// 상품 등록하기
-	public int getAddGoodsList(Goods goods, GoodsImg goodsImg, String dir) {
-		int row = 0;
+	public int getAddGoods(Goods goods, ArrayList<GoodsImg> list, String dir) {
+		int result = 0;
 		goodsDao = new GoodsDao();
 		goodsImgDao = new GoodsImgDao();
 		Connection conn = null;
@@ -172,97 +172,43 @@ public class GoodsService {
 			conn = dbUtil.getConnection();
 			System.out.println("getGoodsOne(GoodsService) db 접속");
 			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);
+			System.out.println("여기까지");
 			
-			goodsImg.setGoodsCode(map.get("autoKey"));
-			
-			int insertGoodsRow1 = map.get("row");
-			int insertGoodsRow2 = goodsImgDao.insertGoods(conn, goodsImg); 
-			
-			if(insertGoodsRow1 != 1 || insertGoodsRow2 != 1 ) { // 둘 중 어느하나라도 정상수행이 안되면 예외발생시켜서 롤백시키기
-				row = 0;
+			//상품 등록 실패 시
+			if(map.get("result")!= 1) {
 				throw new Exception();
-			} else {
-				row = 1;
 			}
+			
+			for(GoodsImg goodsImg : list) {
+				goodsImg.setGoodsCode(map.get("autoKey"));
+			}
+			result += goodsImgDao.insertGoodsImg(conn, list);
+			
 			conn.commit();
+			
+			
 		} catch (Exception e) {
 			try {
 				conn.rollback();
-				// 이미 업로드된 파일 삭제
-				File f = new File(dir + "\\" + goodsImg.getFileName());
-				if (f.exists()) { //파일이 존재한다면
-					f.delete(); // 파일삭제
+				
+				for(GoodsImg goodsImg : list) {		
+					File file = new File(dir + "\\" + goodsImg.getFileName());	// 하나라도 실패
+					if(file.exists()) {
+						file.delete();	// -> 전체 파일 삭제
+					}
 				}
-				return row;
-			} catch(SQLException e1) {
+			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			e.printStackTrace();
 		} finally {
 			try {
-				conn.close();
-			} catch(SQLException e) {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
 		
-		return row;
+		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

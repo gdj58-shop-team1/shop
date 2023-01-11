@@ -193,18 +193,21 @@ public class GoodsDao {
 	// 상품 등록하기
 	public HashMap<String, Integer> insertGoods(Connection conn, Goods goods) throws Exception {
 		
-		String sql = "INSERT INTO goods (goods_name goodsName, goods_price goodsPrice, goods_category goodsCategory, soldout, hit, createdate) VALUES(?)";
+		String sql = "INSERT INTO goods(goods_name, goods_price, goods_category, soldout, emp_id, hit, createdate) VALUES(?, ?, ?, ?, ?, ?, NOW())";
 		// Statement.RETURN_GENERATED_KEYS 옵션 -> 쿼리실행 후 생성된 auto_increment값을 ResultSet에 반환
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		stmt.setString(1,  goods.getGoodsName());
 		stmt.setInt(2, goods.getGoodsPrice());
 		stmt.setString(3, goods.getGoodsCategory());
 		stmt.setString(4, goods.getSoldout());
-		stmt.setInt(5, goods.getHit());
+		stmt.setString(5, goods.getEmpId());
+		stmt.setInt(6, goods.getHit());
 		
-		int row = stmt.executeUpdate();
-		
+		int result = stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
+		
+		System.out.println("여기까지");
+		
 		int autoKey = 0;
 		
 		if(rs.next()) {
@@ -212,8 +215,8 @@ public class GoodsDao {
 	
 		}
 		
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("row", row);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("result", result);
 		map.put("autoKey", autoKey);
 		
 		rs.close();
