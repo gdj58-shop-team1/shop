@@ -17,6 +17,7 @@ public class OrderDao {
 		
 		String sql = "SELECT "
 				+ "o.order_code orderCode"
+				+ ", g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
 				+ ", g.goods_price goodsPrice"
 				+ ", o.order_quantity orderQuantity"
@@ -36,6 +37,7 @@ public class OrderDao {
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
+			map.put("goodsCode", rs.getInt("goodsCode"));
 			map.put("goodsName", rs.getString("goodsName"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
 			map.put("orderQuantity", rs.getInt("orderQuantity"));
@@ -98,6 +100,7 @@ public class OrderDao {
 		
 		String sql = "SELECT"
 				+ "	o.order_code orderCode"
+				+ " , g.goods_code goodsCode"
 				+ "	, g.goods_name goodsName"
 				+ "	, g.goods_price goodsPrice"
 				+ "	, o.order_quantity orderQuantity"
@@ -114,6 +117,7 @@ public class OrderDao {
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("orderCode", rs.getInt("orderCode"));
+			map.put("goodsCode", rs.getInt("goodsCode"));
 			map.put("goodsName", rs.getString("goodsName"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
 			map.put("orderQuantity", rs.getInt("orderQuantity"));

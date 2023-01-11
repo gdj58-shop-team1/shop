@@ -12,57 +12,52 @@
 				
 				// orderQuantity, cartQuantity, orderPrice 초기값 설정
 				var goodsPrice = Number('<c:out value="${goodsMap.get('goodsPrice')}"/>');
-				// var goodsPriceWithOption = 0;
 				$('#orderQuantity').attr('value', 1);
 				$('#cartQuantity').attr('value', 1);
 				$('#orderPrice').attr('value', goodsPrice);
-				
-				var orderQuantity = Number($('#orderQuantity').val());
-				var cartQuantity = Number($('#cartQuantity').val());
-				var orderPrice = Number($('#orderPrice').val());
 
 				// plusBtn 클릭시
 				$('#plusBtn').click(function(){
-					$('#orderQuantity').attr('value', orderQuantity+Number(1));
-					$('#cartQuantity').attr('value', cartQuantity+Number(1));
-					$('#orderPrice').attr('value', goodsPrice*orderQuantity);
-					console.log(orderQuantity);
-					console.log(cartQuantity);
-					console.log(orderPrice);
-					console.log(typeof(orderQuantity));
-					console.log(typeof(cartQuantity));
-					console.log(typeof(orderPrice));
+					$('#orderQuantity').attr('value', Number($('#orderQuantity').val())+Number(1));
+					$('#cartQuantity').attr('value', Number($('#cartQuantity').val())+Number(1));
+					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 				});
 				
 				// minusBtn 클릭시
 				$('#minusBtn').click(function(){
-					if(orderQuantity == 1){ // minusBtn 클릭시 orderQuantity 1이면 '-' 못하게
+					if(Number($('#orderQuantity').val()) == 1){ // minusBtn 클릭시 orderQuantity 1이면 '-' 못하게
 						return;
 					} else {
-						$('#orderQuantity').attr('value', orderQuantity-Number(1));
-						$('#cartQuantity').attr('value', cartQuantity-Number(1));
-						$('#orderPrice').attr('value', goodsPrice*orderQuantity);
+						$('#orderQuantity').attr('value', Number($('#orderQuantity').val())-Number(1));
+						$('#cartQuantity').attr('value', Number($('#cartQuantity').val())-Number(1));
+						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 					}
 				});
 				
 				// 옵션 선택시
 				$('#goodsOrderOption').change(function(){
-					goodsPrice = goodsPrice;
-					console.log(goodsPrice);
+					goodsPrice = Number('<c:out value="${goodsMap.get('goodsPrice')}"/>');
 					// 가격 변경
-					if($('#goodsOrderOption').val() == '옵션1'){
+					if($('#goodsOrderOption').val() == '고급포장'){
 						goodsPrice = goodsPrice+2500;
+						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+						// console.log(goodsPrice);
 					} else if ($('#goodsOrderOption').val() == '옵션2'){
 						goodsPrice = goodsPrice+5900;
+						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+						// console.log(goodsPrice);
 					} else if ($('#goodsOrderOption').val() == '옵션3'){
 						goodsPrice = goodsPrice+11900;
-						//$('#orderPrice').attr('value', orderPrice+(cartQuantity*11900));
+						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+						// console.log(goodsPrice);
+					} else if($('#goodsOrderOption').val() == '일반포장'){
+						goodsPrice = goodsPrice;
+						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 					}
+						
 					// 카트폼의 goodsCartOption 속성(value값) 변경
 					$('#goodsCartOption').attr('value', $('#goodsOrderOption').val());
 				});
-				
-				
 				
 				$('#orderBtn').click(function(){
 					$('#orderForm').submit();
@@ -115,8 +110,8 @@
 							<div> <!-- 상품 옵션 -->
 								<span>상품옵션: </span>
 								<select name="goodsOption" id="goodsOrderOption">
-									<option value="">====옵션선택====</option>
-									<option value="옵션1">1) 옵션1(+2,500원)</option>
+									<option value="일반포장">1) 일반포장(+0원)</option>
+									<option value="고급포장">1) 고급포장(+2,500원)</option>
 									<option value="옵션2">2) 옵션2(+5,900원)</option>
 									<option value="옵션3">3) 옵션3(+11,900원)</option>
 								</select>

@@ -51,7 +51,9 @@
 				<c:forEach var="o" items="${orderList}">
 					<tr>
 						<td>${o.orderCode}</td>
-						<td>${o.goodsName}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${o.goodsCode}">${o.goodsName}</a>
+						</td>
 						<td>${o.goodsPrice}</td>
 						<td>${o.orderQuantity}</td>
 						<td>${o.orderPrice}</td>
@@ -99,7 +101,9 @@
 				<c:forEach var="o" items="${orderList}">
 					<tr>
 						<td>${o.orderCode}</td>
-						<td>${o.goodsName}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${o.goodsCode}">${o.goodsName}</a>
+						</td>
 						<td>${o.goodsPrice}</td>
 						<td>${o.orderQuantity}</td>
 						<td>${o.orderPrice}</td>
