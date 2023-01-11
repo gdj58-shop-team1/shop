@@ -34,8 +34,8 @@ public class AddCart extends HttpServlet {
 			
 		ArrayList<HashMap<String, Object>> cartList = (ArrayList<HashMap<String, Object>>) session.getAttribute("cartList");
 		int goodsCode =  Integer.parseInt(request.getParameter("goodsCode"));
-		int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
-		int orderPrice = 0; //Integer.parseInt(request.getParameter("orderPrice"));
+		int cartQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
+		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
 		String goodsName = request.getParameter("goodsName");
 		String fileName = request.getParameter("fileName");
 		String goodsOption = request.getParameter("goodsOption");
@@ -49,7 +49,7 @@ public class AddCart extends HttpServlet {
 				CartNum = i;
 			}
 		}
-		
+
 		if(countGoodsCode == 0) { // 카트(세션)에 담겨있지않은 물건 개수 수정
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsCode", goodsCode);
