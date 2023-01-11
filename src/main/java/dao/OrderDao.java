@@ -6,7 +6,31 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import vo.Orders;
+
 public class OrderDao {
+	
+	// 주문입력(goodsOne -> 바로 구매)
+	public int insertOrderDirect(Connection conn, Orders paramOrder) throws Exception{
+		int row = 0;
+		PreparedStatement stmt = null;
+		
+		String sql = "INSERT INTO order(goods_option, goods_code, customer_id, address_code, order_quantity, order_price, order_state)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, '주문완료')";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, paramOrder.getGoodsOption());
+		stmt.setInt(2, paramOrder.getGoodsCode());
+		stmt.setString(3, paramOrder.getCustomerId());
+		stmt.setInt(4, paramOrder.getAddressCode());
+		stmt.setInt(5, paramOrder.getOrderQuantity());
+		stmt.setInt(6, paramOrder.getOrderPrice());
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
+	}
+	
 	
 	// 회원
 	// 주문목록 출력(select) : 본인이 주문한 주문목록에 한해서

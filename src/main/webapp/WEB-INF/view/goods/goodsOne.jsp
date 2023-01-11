@@ -42,12 +42,8 @@
 						goodsPrice = goodsPrice+2500;
 						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 						// console.log(goodsPrice);
-					} else if ($('#goodsOrderOption').val() == '옵션2'){
+					} else if ($('#goodsOrderOption').val() == '보자기'){
 						goodsPrice = goodsPrice+5900;
-						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
-						// console.log(goodsPrice);
-					} else if ($('#goodsOrderOption').val() == '옵션3'){
-						goodsPrice = goodsPrice+11900;
 						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 						// console.log(goodsPrice);
 					} else if($('#goodsOrderOption').val() == '일반포장'){
@@ -98,9 +94,11 @@
 						<div>품절여부: ${goodsMap.get('soldout')}</div>
 						
 						<!-- 주문폼 -->
-						<form action="${pageContext.request.contextPath}/주문컨트롤러" method="post" id="orderForm">
+						<form action="${pageContext.request.contextPath}/AddOrder" method="post" id="orderForm">
 							<input type="hidden" name="goodsCode" value="${goodsMap.get('goodsCode')}">
-							<input type="hidden" name="customerId" value="">
+							<input type="hidden" name="goodsName" value="${goodsMap.get('goodsName')}">
+							<input type="hidden" name="fileName" value="${goodsMap.get('fileName')}">
+							<input type="hidden" name="customerId" value="${customerId}">
 							<div> <!-- 상품 갯수 -->
 								<span>상품갯수: </span>
 								<button type="button" id="minusBtn">-</button>
@@ -111,9 +109,8 @@
 								<span>상품옵션: </span>
 								<select name="goodsOption" id="goodsOrderOption">
 									<option value="일반포장">1) 일반포장(+0원)</option>
-									<option value="고급포장">1) 고급포장(+2,500원)</option>
-									<option value="옵션2">2) 옵션2(+5,900원)</option>
-									<option value="옵션3">3) 옵션3(+11,900원)</option>
+									<option value="고급포장">2) 고급포장(+2,500원)</option>
+									<option value="보자기">3) 보자기(+5,900원)</option>
 								</select>
 							</div>
 							<div> <!-- 상품 합계 -->
@@ -124,8 +121,10 @@
 						</form>
 						
 						<!-- 카트폼 -->
-						<form action="${pageContext.request.contextPath}/카트컨트롤러" method="post" id="cartForm">
+						<form action="${pageContext.request.contextPath}/AddCart" method="post" id="cartForm">
 							<input type="hidden" name="goodsCode" value="${goodsMap.get('goodsCode')}">
+							<input type="hidden" name="goodsName" value="${goodsMap.get('goodsName')}">
+							<input type="hidden" name="fileName" value="${goodsMap.get('fileName')}">
 							<input type="hidden" name="cartQuantity" id="cartQuantity">
 							<input type="hidden" name="goodsOption" id="goodsCartOption">
 							<button type="button" id="cartBtn">장바구니 담기</button>

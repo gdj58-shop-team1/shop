@@ -3,6 +3,7 @@ package vo;
 public class Cart {
 	private int goodsCode;
 	private String customerId;
+	private String goodsOption;
 	private int cartQuantity;
 	private String createdate;
 	
@@ -18,6 +19,12 @@ public class Cart {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
+	public String getGoodsOption() {
+		return goodsOption;
+	}
+	public void setGoodsOption(String goodsOption) {
+		this.goodsOption = goodsOption;
+	}
 	public int getCartQuantity() {
 		return cartQuantity;
 	}
@@ -30,6 +37,4 @@ public class Cart {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-	
 }
