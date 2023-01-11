@@ -11,6 +11,10 @@
 				$('#addOrderBtn').click(function(){
 					$('#addOrderForm').submit();
 				});
+				
+				$('#addAddressBtn').click(function(){
+					$('#addAddressForm').submit();
+				});
 			});
 		</script>
 	</head>
@@ -23,8 +27,12 @@
 		 <h1>Add Order Direct</h1>
 		 <form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm">
 		 	<input type="hidden" name="goodsCode" value="${order.goodsCode}">
-		 	<input type="hidden" name="cutomerId" value="${order.customerId}">
-		 	
+		 	<input type="hidden" name=goodsPrice value="${goodsPrice}">
+		 	<input type="hidden" name="customerId" value="${order.customerId}">
+		 	<input type="hidden" name="goodsOption" value="${order.goodsOption}">
+		 	<input type="hidden" name="orderQuantity" value="${order.orderQuantity}">
+		 	<input type="hidden" name="orderPrice" value="${order.orderPrice}"> <!-- 자바스크립트로 수정 -->
+		 	<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
 		 	<table> <!-- 주문고객정보 -->
 	 			<tr>
 	 				<th colspan="4">주문회원 정보</th>
@@ -37,10 +45,26 @@
 		 		</tr>
 		 		<tr>
 		 			<td colspan="1">주소</td>
-		 			<td colspan="3">select로 처리</td>
+		 			<td colspan="3">
+		 				<select name="addressCode">
+		 					<option value="">====주소 선택====</option>
+		 					<c:forEach var="address" items="${addressList}">
+		 						<option value="${address.addressCode}">${address.address}</option>
+		 					</c:forEach>
+		 				</select>
+		 			</td>
 		 		</tr>
 		 		<tr>
-		 			<td></td>
+		 			<td colspan="4">
+		 				<form action="${pageContext.request.contextPath}/AddAddress" method="post" id="addAddressForm">
+		 					<span>새 주소지 추가: </span>
+		 					<span><input type="text" name="newAddress" id="newAddress" placeholder="추가할 주소지 작성"></span>
+		 					<span><button type="button" id="addAddressBtn">주소 추가</button></span>
+		 				</form>
+		 			</td>
+		 		</tr>
+		 		<tr>
+		 			<td colspan="4">사용가능 포인트: ${customer.point}P</td>
 		 		</tr>
 		 	</table>
 		 	
@@ -49,21 +73,27 @@
 	 				<th colspan="5">주문상품</th>
 	 			</tr>
 	 			<tr>
-	 				<td>상품이미지</td>
-		 			<td>상품명</td>
-		 			<td>상품금액</td>
-		 			<td>갯수</td>
-		 			<td>상품옵션</td>
+	 				<th colspan="2">상품</th>
+		 			<th>상품금액</th>
+		 			<th>갯수</th>
+		 			<th>상품옵션</th>
 	 			</tr>
 	 			<tr>
-	 				<td>>${fileName}</td>
+	 				<td>
+	 					<img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100">
+	 				</td>
 		 			<td>${goodsName}</td>
 		 			<td>${goodsPrice}</td>
 		 			<td>${order.orderQuantity}</td>
 		 			<td>${order.goodsOption}</td>
 		 		</tr>
 		 		<tr>
-	 				<td colspan="5">총 주문금액: ${order.orderQuantity}</td>
+		 			<td colspan="1">사용할 포인트</td>
+		 			<td colspan="2">
+		 				<input type="text" name="point" id="point" placeholder="사용할 포인트 입력"> P
+		 				<button type="button">적용</button>
+		 			</td>
+	 				<td colspan="2" id="totalPrice">총 주문금액: ${order.orderPrice}원</td> <!-- 자바스크립트로 수정 -->
 	 			</tr>
 		 	</table>
 
