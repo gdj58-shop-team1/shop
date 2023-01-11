@@ -83,7 +83,7 @@ public class Home extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		
 		// home.jsp 호출
-		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
+ 		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 		
 	}
 }

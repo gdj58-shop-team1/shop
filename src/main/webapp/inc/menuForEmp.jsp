@@ -30,7 +30,7 @@
 	</c:if>
 	
 	<a href="${pageContext.request.contextPath}/">CATEGORY</a> <!-- 리스트 구현예정 -->
-	<a href="${pageContext.request.contextPath}/Cart">CART</a>
+	<a href="${pageContext.request.contextPath}/CartList">CART</a>
 	<a href="${pageContext.request.contextPath}/OrderList">ORDER</a>
 	<a href="${pageContext.request.contextPath}/NoticeList">NOTICE</a>
 	<div>${loginMember.empName}님 환영합니다.</div>

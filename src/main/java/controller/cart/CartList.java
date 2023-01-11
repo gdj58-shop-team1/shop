@@ -40,6 +40,15 @@ public class CartList extends HttpServlet {
 			String fileName = request.getParameter("fileName"+i);
 			String goodsOption = request.getParameter("goodsOption"+i);
 			
+			int goodsOptionPrice = 0;
+			if(goodsOption.equals("일반포장")) {
+				goodsOptionPrice = 0;
+			} else if(goodsOption.equals("고급포장")) {
+				goodsOptionPrice = 2500;
+			} else if(goodsOption.equals("보자기")) {
+				goodsOptionPrice = 5900;
+			}
+			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsCode", goodsCode);
 			map.put("cartQuantity", cartQuantity);
@@ -47,10 +56,12 @@ public class CartList extends HttpServlet {
 			map.put("goodsName", goodsName);
 			map.put("fileName", fileName);
 			map.put("goodsOption", goodsOption);
+			map.put("goodsOptionPrice", goodsOptionPrice);
 			newCartList.add(map);
 		}
 		
-		session.setAttribute("CartList", newCartList);		
+		session.setAttribute("CartList", newCartList);
+		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 		
 	}
 

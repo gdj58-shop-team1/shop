@@ -35,7 +35,7 @@ public class AddCart extends HttpServlet {
 		ArrayList<HashMap<String, Object>> cartList = (ArrayList<HashMap<String, Object>>) session.getAttribute("cartList");
 		int goodsCode =  Integer.parseInt(request.getParameter("goodsCode"));
 		int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
-		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
+		int orderPrice = 0; //Integer.parseInt(request.getParameter("orderPrice"));
 		String goodsName = request.getParameter("goodsName");
 		String fileName = request.getParameter("fileName");
 		String goodsOption = request.getParameter("goodsOption");
@@ -54,7 +54,7 @@ public class AddCart extends HttpServlet {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsCode", goodsCode);
 			map.put("cartQuantity", cartQuantity);
-			map.put("goodsPrice", goodsPrice);
+			map.put("orderPrice", orderPrice);
 			map.put("goodsName", goodsName);
 			map.put("fileName", fileName);
 			map.put("goodsOption", goodsOption);
@@ -72,7 +72,7 @@ public class AddCart extends HttpServlet {
 			cart.setCustomerId(loginCustomer.getCustomerId());
 			cart.setGoodsCode(goodsCode);
 			cart.setCartQuantity(cartQuantity);
-			// cart.setGoodsOption(goodsOption);
+			cart.setGoodsOption(goodsOption);
 			
 			this.cartService = new CartService();
 			if(cartService.confirmCart(cart) == 0) { // 카트에 담겨있지않은 물걸
@@ -82,6 +82,6 @@ public class AddCart extends HttpServlet {
 			}		
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/GoodsOne");
+		response.sendRedirect(request.getContextPath()+"/GoodsOne?goodsCode="+goodsCode);
 	}
 }
