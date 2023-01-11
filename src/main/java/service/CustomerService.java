@@ -58,7 +58,7 @@ public class CustomerService {
 			pwHistory.setPw(customer.getCustomerPw());
 			
 			insertPwHistoryRow = pwHistoryDao.insertPwHistory(conn, pwHistory);
-			if(insertPwHistoryRow != 1) {
+			if(insertPwHistoryRow == 1) {
 				System.out.println("회원가입한 customer의 비밀번호 pw_history에 추가 성공");
 			} else {
 				System.out.println("회원가입한 customer의 비밀번호 pw_history에 추가 실패");
@@ -69,6 +69,7 @@ public class CustomerService {
 		} catch(Exception e) {
 			try {
 				conn.rollback();
+				System.out.println("예외 발생 -> 모든 DB접근 rollback");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -173,10 +174,10 @@ public class CustomerService {
 			// 3) 새로운 비밀번호 pw_history에 추가
 			PwHistory pwHistory = new PwHistory();
 			pwHistory.setCustomerId(customer.getCustomerId());
-			pwHistory.setPw(customer.getCustomerPw());
+			pwHistory.setPw(newCustomerPw);
 			
 			insertPwHistoryRow = pwHistoryDao.insertPwHistory(conn, pwHistory);
-			if(insertPwHistoryRow != 1) {
+			if(insertPwHistoryRow == 1) {
 				System.out.println("회원가입한 customer의 비밀번호 pw_history에 추가 성공");
 			} else {
 				System.out.println("회원가입한 customer의 비밀번호 pw_history에 추가 실패");
@@ -185,12 +186,18 @@ public class CustomerService {
 			
 			// 4) 이력 3개 초과인지 확인
 			list = pwHistoryDao.selectPwHistoryList(conn, customer);
-			
+			System.out.println("pw_history size :" + list.size());
 			if(list.size() > 3) {
 				// 5) 이력 3개 초과시, 가장 오래된 비밀번호 정보 가져오기, 내림차순했기 때문에 가장 list에서 가장 첫번째 값이 제일 오래된 값
 				PwHistory oldPwHistory = list.get(0);
+				
 				// 6) 이력 3개 초과시, 가장 오래된 비밀번호 삭제
-				pwHistoryDao.deletePwHistory(conn, oldPwHistory);
+				if(pwHistoryDao.deletePwHistory(conn, oldPwHistory) == 1) {
+					System.out.println("비밀번호 이력 3개 초과!! -> 가장 오래된 비밀번호 삭제 성공!");
+				} else {
+					System.out.println("비밀번호 이력 3개 초과!! -> 가장 오래된 비밀번호 삭제 실패!");
+					throw new Exception();
+				}
 			}		
 			
 			conn.commit();
