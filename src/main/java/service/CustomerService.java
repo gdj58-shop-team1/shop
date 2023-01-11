@@ -138,7 +138,7 @@ public class CustomerService {
 	}
 	
 	// 3) 비밀번호수정
-	public int modifyCustomerPw(Customer customer, String newCustomerPw) {
+	public int modifyCustomerPw(Customer customer) {
 		int selectPwHistoryRow = 0;
 		int updateCustomerPwRow = 0;
 		int insertPwHistoryRow = 0;
@@ -156,25 +156,29 @@ public class CustomerService {
 			conn.setAutoCommit(false);
 			
 			// 1) pw_history 에서 검색
-			selectPwHistoryRow = pwHistoryDao.selectPwHistory(conn, customer, newCustomerPw);
-			
-			if(selectPwHistoryRow == 1) {
+			boolean flag = pwHistoryDao.selectPwHistory(conn, customer);
+			System.out.println(flag);
+			if(flag) {
 				System.out.println("비밀번호 수정 오류 : 최근 사용한 비밀번호 입니다.");
 				throw new Exception();
+			} else {
+				System.out.println("비밀번호 수정 오류 : 최근 사용하지않은 비밀번호 입니다.");
 			}
 			
 			// 2) 비밀번호 수정	
-			updateCustomerPwRow = customerDao.updateCustomerPw(conn, customer, newCustomerPw);
+			updateCustomerPwRow = customerDao.updateCustomerPw(conn, customer);
 			
 			if(updateCustomerPwRow != 1) {
 				System.out.println("비밀번호 수정 오류 : 비밀번호 수정 실패");
 				throw new Exception();
+			} else {
+				System.out.println("비밀번호 수정 오류 : 비밀번호 수정 성공");
 			}
 			
 			// 3) 새로운 비밀번호 pw_history에 추가
 			PwHistory pwHistory = new PwHistory();
 			pwHistory.setCustomerId(customer.getCustomerId());
-			pwHistory.setPw(newCustomerPw);
+			pwHistory.setPw(customer.getCustomerPw());
 			
 			insertPwHistoryRow = pwHistoryDao.insertPwHistory(conn, pwHistory);
 			if(insertPwHistoryRow == 1) {
