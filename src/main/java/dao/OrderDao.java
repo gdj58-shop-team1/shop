@@ -15,7 +15,7 @@ public class OrderDao {
 		int row = 0;
 		PreparedStatement stmt = null;
 		
-		String sql = "INSERT INTO order(goods_option, goods_code, customer_id, address_code, order_quantity, order_price, order_state)"
+		String sql = "INSERT INTO orders (goods_option, goods_code, customer_id, address_code, order_quantity, order_price, order_state)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, '주문완료')";
 		
 		stmt = conn.prepareStatement(sql);
