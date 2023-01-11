@@ -13,14 +13,12 @@
 				// orderQuantity, cartQuantity, orderPrice 초기값 설정
 				var goodsPrice = Number('<c:out value="${goodsMap.get('goodsPrice')}"/>');
 				$('#orderQuantity').attr('value', 1);
-				$('#cartQuantity').attr('value', 1);
 				$('#orderPrice').attr('value', goodsPrice);
 
 				// plusBtn 클릭시
 				$('#plusBtn').click(function(){
 					$('#orderQuantity').attr('value', Number($('#orderQuantity').val())+Number(1));
-					$('#cartQuantity').attr('value', Number($('#cartQuantity').val())+Number(1));
-					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));				
 				});
 				
 				// minusBtn 클릭시
@@ -29,7 +27,6 @@
 						return;
 					} else {
 						$('#orderQuantity').attr('value', Number($('#orderQuantity').val())-Number(1));
-						$('#cartQuantity').attr('value', Number($('#cartQuantity').val())-Number(1));
 						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 					}
 				});
@@ -41,26 +38,23 @@
 					if($('#goodsOrderOption').val() == '고급포장'){
 						goodsPrice = goodsPrice+2500;
 						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
-						// console.log(goodsPrice);
 					} else if ($('#goodsOrderOption').val() == '보자기'){
 						goodsPrice = goodsPrice+5900;
 						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
-						// console.log(goodsPrice);
 					} else if($('#goodsOrderOption').val() == '일반포장'){
 						goodsPrice = goodsPrice;
 						$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
 					}
-						
-					// 카트폼의 goodsCartOption 속성(value값) 변경
-					$('#goodsCartOption').attr('value', $('#goodsOrderOption').val());
 				});
-				
+
 				$('#orderBtn').click(function(){
+					$("#orderForm").attr("action", "${pageContext.request.contextPath}/GetOrderInfoDirect");
 					$('#orderForm').submit();
 				});
 				
 				$('#cartBtn').click(function(){
-					$('#cartForm').submit();
+					$("#orderForm").attr("action", "${pageContext.request.contextPath}/AddCart");
+					$('#orderForm').submit();
 				});
 			});
 		</script>
@@ -93,10 +87,11 @@
 						<h4>${goodsMap.get('goodsPrice')}원</h4>
 						<div>품절여부: ${goodsMap.get('soldout')}</div>
 						
-						<!-- 주문폼 -->
-						<form action="${pageContext.request.contextPath}/AddOrder" method="post" id="orderForm">
+						<!-- 주문/카트폼 -->
+						<form  method="post" id="orderForm">
 							<input type="hidden" name="goodsCode" value="${goodsMap.get('goodsCode')}">
 							<input type="hidden" name="goodsName" value="${goodsMap.get('goodsName')}">
+							<input type="hidden" name="goodsPrice" value="${goodsMap.get('goodsPrice')}">
 							<input type="hidden" name="fileName" value="${goodsMap.get('fileName')}">
 							<input type="hidden" name="customerId" value="${customerId}">
 							<div> <!-- 상품 갯수 -->
@@ -118,15 +113,6 @@
 								<input type="text" name="orderPrice" id="orderPrice" readonly="readonly">
 							</div>
 							<button type="button" id="orderBtn">바로 구매</button>
-						</form>
-						
-						<!-- 카트폼 -->
-						<form action="${pageContext.request.contextPath}/AddCart" method="post" id="cartForm">
-							<input type="hidden" name="goodsCode" value="${goodsMap.get('goodsCode')}">
-							<input type="hidden" name="goodsName" value="${goodsMap.get('goodsName')}">
-							<input type="hidden" name="fileName" value="${goodsMap.get('fileName')}">
-							<input type="hidden" name="cartQuantity" id="cartQuantity">
-							<input type="hidden" name="goodsOption" id="goodsCartOption">
 							<button type="button" id="cartBtn">장바구니 담기</button>
 						</form>
 					</div>
