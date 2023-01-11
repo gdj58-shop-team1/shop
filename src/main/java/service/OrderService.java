@@ -1,15 +1,47 @@
 package service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import dao.OrderDao;
 import util.DBUtil;
+import vo.Orders;
 
 public class OrderService {
 	private OrderDao orderDao;
 	private DBUtil dbUtil;
+	
+	// 주문입력(goodsOne -> 바로 구매)
+	public int insertOrderDirect(Orders paramOrder){
+		int row = 0;
+		Connection conn = null;
+		this.dbUtil = new DBUtil();
+		this.orderDao = new OrderDao();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("insertOrderDirect(OrderService) db 접속");
+			conn.setAutoCommit(false);
+			row = orderDao.insertOrderDirect(conn, paramOrder);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return row;
+	}
 	
 	// 회원
 	// 주문목록 출력(select) : 본인이 주문한 주문목록에 한해서

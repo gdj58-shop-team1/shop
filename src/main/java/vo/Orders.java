@@ -2,19 +2,26 @@ package vo;
 
 public class Orders {
 	private int orderCode;
+	private String goodsOption;
 	private int goodsCode;
 	private String customerId;
 	private int addressCode;
 	private int orderQuantity;
 	private int orderPrice;
 	private String orderState;
-	private String counterDate;
+	private String createdate;
 	
 	public int getOrderCode() {
 		return orderCode;
 	}
 	public void setOrderCode(int orderCode) {
 		this.orderCode = orderCode;
+	}
+	public String getGoodsOption() {
+		return goodsOption;
+	}
+	public void setGoodsOption(String goodsOption) {
+		this.goodsOption = goodsOption;
 	}
 	public int getGoodsCode() {
 		return goodsCode;
@@ -52,10 +59,10 @@ public class Orders {
 	public void setOrderState(String orderState) {
 		this.orderState = orderState;
 	}
-	public String getCounterDate() {
-		return counterDate;
+	public String getCreatedate() {
+		return createdate;
 	}
-	public void setCounterDate(String counterDate) {
-		this.counterDate = counterDate;
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
 	}
 }
