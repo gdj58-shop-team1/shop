@@ -7,38 +7,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script language=javascript>
 	$(document).ready(function(){
-    	
-		// plusBtn 클릭시
-		$('#plusBtn').click(function(){
-			$('#orderQuantity').attr('value', Number($('#orderQuantity').val())+Number(1));
-			$("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
-			$('#cartListForm').submit();
-		});
-		
-		// minusBtn 클릭시
-		$('#minusBtn').click(function(){
-			if(Number($('#orderQuantity').val()) == 1){ // minusBtn 클릭시 orderQuantity 1이면 '-' 못하게
-				return;
-			} else {
-				$('#orderQuantity').attr('value', Number($('#orderQuantity').val())-Number(1));
-				$("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
-				$('#cartListForm').submit();
-			}
-		});
-		
-		
-        $('#orderBtn').click(function(){
-        	$("#cartListForm").attr("action", "${pageContext.request.contextPath}/OrderPage");
-       	});
-        
-        $('#goodsOrderOption').change(function(){
-       		$("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
-
-        });
-        
-        $('#cartListForm').submit();
-    }
-  </script>
+				
+	});
+ </script>
+ <script>
+	 function chageLangSelect(){
+		    var langSelect = document.querySelectorAll('.goodsOption');
+		    // select element에서 선택된 option의 value가 저장된다.
+		    var selectValue = langSelect.options[langSelect.selectedIndex].value;
+		 
+		    // select element에서 선택된 option의 text가 저장된다.
+		    var selectText = langSelect.options[langSelect.selectedIndex].text;
+		    
+		    console.log(selectValue);
+			console.log(selectText);
+		}
+	 const showValue = (target) => {
+		  const value = target.value;
+		  const text =  target.options[target.selectedIndex].text;
+		  
+		  document.querySelector(`div`).innerHTML = `text: ${text} value: ${value}`;
+		}
+ </script>
 <title>장바구니</title>
 </head>
 <body>
@@ -67,15 +57,14 @@
 			</thead>
 			<c:forEach var="map" items="${cartList}" varStatus="vs">
 				<input type="text" id="${cartList}GoodsCode" name="goodsCode" value="${map.goodsCode}" hidden="hidden">
-				
 				<tr>					
-					<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
+					<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" width="100" height="100"></td>
 
-					<td><input type="text" id="goodsName${vs}" name="goodsName" value="${map.goodsName}"></td>
+					<td><input type="text" id="goodsName" name="goodsName" value="${map.goodsName}"></td>
 
 					<td>
-						<input type="text" id="goodsOption${vs}" name="goodsOption" value="${map.goodsOption}">
-						<select name="goodsOption" id="goodsOrderOption">
+						
+						<select name="goodsOption" id="goodsOption" class="goodsOption" onchange="showValue(this)">
 							<c:if test="${map.goodsOption eq '일반포장'}">
 								<option value="일반포장" selected="selected">1) 일반포장(+0원)</option>
 								<option value="고급포장">2) 고급포장(+2,500원)</option>
@@ -97,12 +86,13 @@
 					</td>
 
 					<td>
+						<input type="number" name="cartQuantity" id="cartQuantity" class="goodsName" value="${map.cartQuantity}">
 						<button type="button" id="minusBtn">-</button>
-						<input type="number" name="orderQuantity" id="orderQuantity" readonly="readonly" value="${map.cartQuantity}">
+						<input type="number" name="cartQuantity" id="cartQuantity" class="goodsName" readonly="readonly" value="${map.cartQuantity}">
 						<button type="button" id="plusBtn">+</button>
 					</td>
 
-					<td>{map.orderPrice}</td>
+					<td>${map.orderPrice}</td>
 				</tr>
 					
 			</c:forEach>

@@ -35,7 +35,7 @@ public class CartList extends HttpServlet {
 		for(int i = 0; i<cartList.size(); i++) {
 			int goodsCode =  Integer.parseInt(request.getParameter("goodsCode"+i));
 			int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"+i));
-			int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"+i));
+			int orderPrice = Integer.parseInt(request.getParameter("orderPrice"+i));
 			String goodsName = request.getParameter("goodsName"+i);
 			String fileName = request.getParameter("fileName"+i);
 			String goodsOption = request.getParameter("goodsOption"+i);
@@ -52,7 +52,7 @@ public class CartList extends HttpServlet {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsCode", goodsCode);
 			map.put("cartQuantity", cartQuantity);
-			map.put("goodsPrice", goodsPrice);
+			map.put("orderPrice", orderPrice);
 			map.put("goodsName", goodsName);
 			map.put("fileName", fileName);
 			map.put("goodsOption", goodsOption);
