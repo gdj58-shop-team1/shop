@@ -12,22 +12,26 @@ import vo.PwHistory;
 public class PwHistoryDao {
 	
 	// 1) 비밀번호 이력 조회
-	public int selectPwHistory(Connection conn, Customer customer, String newCustomerPw) throws Exception {
-		int row = 0;
+	public boolean selectPwHistory(Connection conn, Customer customer) throws Exception {
+		boolean flag = false;
 		
 		String sql = "SELECT customer_id, pw"
 				+ " FROM pw_history"
 				+ " WHERE customer_id = ? AND pw = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		System.out.println(customer.getCustomerId());
+		System.out.println(customer.getCustomerPw());
 		stmt.setString(1, customer.getCustomerId());
-		stmt.setString(2, newCustomerPw);
+		stmt.setString(2, customer.getCustomerPw());
 		
 		ResultSet rs = stmt.executeQuery();
 		
-		row = rs.getRow(); // 새로입력한 비밀번호가 기존 비밀번호 이력에 남아있을 시, row = 1 반환
-		
-		return row;
+		if(rs.next()) { // 새로입력한 비밀번호가 기존 비밀번호 이력에 남아있을 시, row = 1 반환
+			flag = true;
+		}
+		return flag;
 	}
 	
 	// 2) 비밀번호 이력 삽입
@@ -52,7 +56,7 @@ public class PwHistoryDao {
 				
 		String sql = "DELETE"
 				+ " FROM pw_history"
-				+ " WHERE customer_id = ? AND createdate = ?";
+				+ " WHERE customer_id = ? AND pw = ?";
 		
 		System.out.println(pwHistory.getCustomerId());
 		System.out.println(pwHistory.getPw());

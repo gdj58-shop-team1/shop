@@ -10,14 +10,17 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerService;
 import service.EmpService;
+import service.PwHistoryService;
 import vo.Customer;
 import vo.Emp;
+import vo.PwHistory;
 
 
 @WebServlet("/ModifyMemberPw")
 public class ModifyMemberPw extends HttpServlet {
 	private CustomerService customerService;
 	private EmpService empService;
+	private PwHistoryService pwHistoryService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 후에만 접근가능
@@ -50,8 +53,10 @@ public class ModifyMemberPw extends HttpServlet {
 			
 			loginCustomer.setCustomerPw(newCustomerPw);
 			
+			
+			
 			this.customerService = new CustomerService();
-			row = customerService.modifyCustomerPw(loginCustomer, newCustomerPw);
+			row = customerService.modifyCustomerPw(loginCustomer);
 			
 			if(row != 1) { // 회원 비밀번호 변경 실패시
 				response.sendRedirect(request.getContextPath()+"/ModifyMemberPw");
