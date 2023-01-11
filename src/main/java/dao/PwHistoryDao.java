@@ -54,6 +54,9 @@ public class PwHistoryDao {
 				+ " FROM pw_history"
 				+ " WHERE customer_id = ? AND createdate = ?";
 		
+		System.out.println(pwHistory.getCustomerId());
+		System.out.println(pwHistory.getPw());
+		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, pwHistory.getCustomerId());
 		stmt.setString(2, pwHistory.getPw());
@@ -70,7 +73,7 @@ public class PwHistoryDao {
 		String sql = "SELECT customer_id, pw, createdate"
 				+ " FROM pw_history"
 				+ " WHERE customer_id = ?"
-				+ " ORDER BY createdate DESC";
+				+ " ORDER BY createdate ASC";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
@@ -81,9 +84,9 @@ public class PwHistoryDao {
 		
 		while(rs.next()) {
 			PwHistory pwHistory = new PwHistory();
-			pwHistory.setCustomerId(sql);
-			pwHistory.setPw(sql);
-			pwHistory.setCreatedate(sql);
+			pwHistory.setCustomerId(rs.getString("customer_id"));
+			pwHistory.setPw(rs.getString("pw"));
+			pwHistory.setCreatedate(rs.getString("createdate"));
 			list.add(pwHistory);
 		}
 		
