@@ -4,11 +4,11 @@ public class Goods {
 	private int goodsCode;
 	private String goodsName;
 	private int goodsPrice;
+	private String goodsCategory;
 	private String soldout;
 	private String empId;
 	private int hit;
 	private String createdate;
-	
 	public int getGoodsCode() {
 		return goodsCode;
 	}
@@ -26,6 +26,12 @@ public class Goods {
 	}
 	public void setGoodsPrice(int goodsPrice) {
 		this.goodsPrice = goodsPrice;
+	}
+	public String getGoodsCategory() {
+		return goodsCategory;
+	}
+	public void setGoodsCategory(String goodsCategory) {
+		this.goodsCategory = goodsCategory;
 	}
 	public String getSoldout() {
 		return soldout;
