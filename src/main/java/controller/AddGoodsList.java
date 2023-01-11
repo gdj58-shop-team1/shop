@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import service.GoodsService;
 import vo.Goods;
 import vo.GoodsImg;
 
@@ -46,26 +48,22 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			GoodsImg goodsImg = new GoodsImg();
 			goodsImg.setFileName(fileSystemName); // 중복된 파일이름 -> 변환된 파일이름으로 등록
 			
+			GoodsService goodsService = new GoodsService();
+			if(goodsService.getAddGoodsList(goods, goodsImg, dir) == 1 ) {
+				System.out.println("이미지 업로드 성공");
+			} else {
+				System.out.println("이미지 업로드 실패");
+			}
+		} else {
+			System.out.println("*.jpg, *.png 파일만 업로드 가능");
+			File file = new File(dir+"\\"+mreq.getFilesystemName("goodsImg"));
 			
-			
-			// 굿즈서비스
-			
-			
-			
-			
-			
-			
-			
-			
-					
+			if(file.exists()) {
+				file.delete(); // 이미지가 아닌 파일이 업로드 되었기 때문에 삭제
+			}
+
 		}
-		
-		
-		
-		
-		
-		
-		
+		response.sendRedirect(request.getContextPath()+"/AddGoodsList");
 		
 	}
 

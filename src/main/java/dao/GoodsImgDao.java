@@ -11,7 +11,13 @@ public class GoodsImgDao {
 		
 		String sql = "INSERT INTO goods_img(goods_code, filename) VALUES(?, ?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(row, row);
+		stmt.setInt(1, goodsImg.getGoodsCode());
+		stmt.setString(2, goodsImg.getFileName());
+		
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
 	}
 
 }

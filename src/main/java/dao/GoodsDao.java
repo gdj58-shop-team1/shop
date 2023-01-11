@@ -193,10 +193,15 @@ public class GoodsDao {
 	// 상품 등록하기
 	public HashMap<String, Integer> insertGoods(Connection conn, Goods goods) throws Exception {
 		
-		String sql = "INSERT INTO goods (goods_name) VALUES(?)";
+		String sql = "INSERT INTO goods (goods_name goodsName, goods_price goodsPrice, goods_category goodsCategory, soldout, hit, createdate) VALUES(?)";
 		// Statement.RETURN_GENERATED_KEYS 옵션 -> 쿼리실행 후 생성된 auto_increment값을 ResultSet에 반환
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		stmt.setString(1,  goods.getGoodsName());
+		stmt.setInt(2, goods.getGoodsPrice());
+		stmt.setString(3, goods.getGoodsCategory());
+		stmt.setString(4, goods.getSoldout());
+		stmt.setInt(5, goods.getHit());
+		
 		int row = stmt.executeUpdate();
 		
 		ResultSet rs = stmt.getGeneratedKeys();
