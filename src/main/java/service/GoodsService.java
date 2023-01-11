@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import dao.GoodsDao;
 import util.DBUtil;
+import vo.Goods;
+import vo.GoodsImg;
 
 public class GoodsService {
 	private GoodsDao goodsDao;
@@ -153,4 +155,84 @@ public class GoodsService {
 		}
 		return goodsMap;
 	}
+	
+	// 상품 등록하기
+	public int getAddGoodsList(Goods goods, GoodsImg goodsImg, String dir) {
+		int row = 0;
+		goodsDao = new GoodsDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("getGoodsOne(GoodsService) db 접속");
+			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);
+			
+			goodsImg.setGoodsCode(map.get("autoKey"));
+			
+			int insertGoodsRow1 = map.get("row");
+			int insertGoodsRow2 = goodsImgDao.i
+		}
+		
+		
+		
+		return row;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

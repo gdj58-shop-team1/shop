@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   
 <script>
-	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
+<!--	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
 		
 		// customer 유효성 검사
 		$('#customerBtn').click(function() {
@@ -35,10 +35,38 @@
 			
 			$('#customerModifyPwForm').submit();
 
+		});	
+	
+		// 비밀번호 일치 검사
+		$('.customerPw').focusout(function () {
+		    var newCustomerPw = $("#newCustomerPw").val();
+		    var newCustomerPw2 = $("#newCustomerPw2").val();
 		
+		    if ( newCustomerPw != '' && newCustomerPw2 == '' ) {
+		        null;
+		        
+		    } else if (newCustomerPw != "" || newCustomerPw2 != "") {
+		        if (newCustomerPw == newCustomerPw2) {
+		            $("#alert-success").css('display', 'inline-block');
+		            $("#alert-danger").css('display', 'none');
+		        } else {
+		            alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+		            $("#alert-success").css('display', 'none');
+		            $("#alert-danger").css('display', 'inline-block');
+		        
+		            return false;
+		        }
+		        $('#customerModifyPwForm').submit(); 
+		        
+		    }
 		});
 	
+	
+	
+	
+		
 	});
+	-->
 </script>
 
 <!-- 
