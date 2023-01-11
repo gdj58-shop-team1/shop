@@ -18,7 +18,7 @@
 				
 				$('#customerPw').focus();
 				
-				return;
+				return false;
 			}
 			$('#customerConfirmForm').submit();
 			

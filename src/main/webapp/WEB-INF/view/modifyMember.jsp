@@ -18,7 +18,7 @@
 				
 				$('#customerName').focus();
 				
-				return;
+				return false;
 			}
 			// customerPhone 미입력시
 			if($('#customerPhone').val().length < 1) {
@@ -27,7 +27,7 @@
 				
 				$('#customerPhone').focus();
 				
-				return;
+				return false;
 			}
 			$('#customermodifyForm').submit();
 			
@@ -43,7 +43,7 @@
 				
 				$('#empName').focus();
 				
-				return;
+				return false;
 			}
 
 			$('#empModifyForm').submit();

@@ -21,7 +21,7 @@
 				
 				$('#newCustomerPw').focus();
 				
-				return;
+				return false;
 			}
 			// newCustomerPw2 미입력시
 			if($('#newCustomerPw2').val().length < 1) {
@@ -30,7 +30,7 @@
 				
 				$('#newCustomerPw2').focus();
 				
-				return;
+				return false;
 			}
 			
 			$('#customerModifyPwForm').submit();
