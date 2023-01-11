@@ -33,7 +33,6 @@ public class Home extends HttpServlet {
 		if(session.getAttribute("loginMember") != null) {
 			request.setAttribute("loginMember", session.getAttribute("loginMember"));
 		}
-		session.setAttribute("test", "test");
 		
 		// 페이지 정보 받기(검색값, 정렬값, 현재 페이지 값)
 		int rowPerPage = 20; // 한 페이지 당 보여질 상품 목록 수
@@ -84,7 +83,7 @@ public class Home extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		
 		// home.jsp 호출
-		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
+ 		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 		
 	}
 }

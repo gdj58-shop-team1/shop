@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import service.GoodsService;
 import service.ReviewService;
+import vo.Customer;
 
 
 @WebServlet("/GoodsOne")
@@ -21,11 +22,14 @@ public class GoodsOne extends HttpServlet {
 	private ReviewService reviewService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 세션정보 확인(비로그인, 로그인, 회원, 사원)
+		// 세션정보 확인(비로그인, 로그인)
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginMember") != null) {
-			request.setAttribute("loginMember", session.getAttribute("loginMember"));
+		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) { // customer 로그인 시,
+			Customer loginCustomer = new Customer();
+			loginCustomer = (Customer)session.getAttribute("loginMember");
+			String customerId = loginCustomer.getCustomerId();
+			request.setAttribute("customerId", customerId); // 회원아이디를 세션에 저장
 		}
 		
 		// 파라메터 넘겨받기

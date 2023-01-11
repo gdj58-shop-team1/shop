@@ -8,7 +8,7 @@
 <div>
 	<a href="${pageContext.request.contextPath}/Home">HOME</a>
 	<a href="${pageContext.request.contextPath}/">CATEGORY</a>
-	<a href="${pageContext.request.contextPath}/Cart">CART</a>
+	<a href="${pageContext.request.contextPath}/CartList">CART</a>
 	<a href="${pageContext.request.contextPath}/OrderList">ORDER</a>
 	<a href="${pageContext.request.contextPath}/NoticeList">NOTICE</a>
 	<div>${loginMember.customerName}님 환영합니다.</div>

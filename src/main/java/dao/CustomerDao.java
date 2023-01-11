@@ -49,7 +49,7 @@ public class CustomerDao {
 	}
 	
 	// 3) 비밀번호수정
-	public int updateCustomerPw(Connection conn, Customer customer, String newCustomerPw) throws Exception {
+	public int updateCustomerPw(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		
 		String sql = "UPDATE customer SET"
@@ -57,9 +57,8 @@ public class CustomerDao {
 				+ " WHERE customer_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, newCustomerPw);
+		stmt.setString(1, customer.getCustomerPw());
 		stmt.setString(2, customer.getCustomerId());
-		stmt.setString(3, customer.getCustomerPw());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 비밀번호 변경 성공
 		

@@ -21,26 +21,47 @@ import vo.Customer;
 public class CartList extends HttpServlet {
 	private CartService cartService;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 세션정보 확인(비로그인, 로그인, 회원, 사원)
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) { // 회원 로그인 되어있을 때 DB와 연동하여 장바구니 조회
-			Customer loginCustomer = (Customer)session.getAttribute("loginMember");
-			
-			this.cartService = new CartService();
-			ArrayList<HashMap<String, Object>> list = cartService.getCart(loginCustomer);
-			session.setAttribute("cartList", list);
-		} else { // 비 로그인 + 관리자 로그인일 경우 세션으로 장바구니 조회
-			
-		}
-		
-		request.getRequestDispatcher("/WEB-INF/view/cartList.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+				
+		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		ArrayList<HashMap<String, Object>> cartList = (ArrayList<HashMap<String, Object>>) session.getAttribute("cartList");
+		ArrayList<HashMap<String, Object>> newCartList = new ArrayList<HashMap<String,Object>>();
+		for(int i = 0; i<cartList.size(); i++) {
+			int goodsCode =  Integer.parseInt(request.getParameter("goodsCode"+i));
+			int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"+i));
+			int orderPrice = Integer.parseInt(request.getParameter("orderPrice"+i));
+			String goodsName = request.getParameter("goodsName"+i);
+			String fileName = request.getParameter("fileName"+i);
+			String goodsOption = request.getParameter("goodsOption"+i);
+			
+			int goodsOptionPrice = 0;
+			if(goodsOption.equals("일반포장")) {
+				goodsOptionPrice = 0;
+			} else if(goodsOption.equals("고급포장")) {
+				goodsOptionPrice = 2500;
+			} else if(goodsOption.equals("보자기")) {
+				goodsOptionPrice = 5900;
+			}
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("goodsCode", goodsCode);
+			map.put("cartQuantity", cartQuantity);
+			map.put("orderPrice", orderPrice);
+			map.put("goodsName", goodsName);
+			map.put("fileName", fileName);
+			map.put("goodsOption", goodsOption);
+			map.put("goodsOptionPrice", goodsOptionPrice);
+			newCartList.add(map);
+		}
+		
+		session.setAttribute("CartList", newCartList);
+		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 		
 	}
 
