@@ -7,28 +7,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script language=javascript>
 	$(document).ready(function(){
-				
+		let selectList = document.querySelectorAll('.goodsOption');
+		let selectListLength = selectList.length;
+		
+		for(let i = 0; i<selectListLength; i++) {
+			$(selectList[i]).change(function(){  
+				console.log($(selectList[i]).val());
+			    $("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
+			    $('#cartListForm').submit();   
+			});
+		}
+		
+		let numberList = document.querySelectorAll('.orderQuantity');
+		let numberListLength = numberList.length;
+		
+		console.log(numberList);
+		for(let i = 0; i<numberListLength; i++) {
+			$(numberList[i]).change(function(){
+			    $("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
+			    $('#cartListForm').submit();   
+			});
+		}
+		
 	});
- </script>
- <script>
-	 function chageLangSelect(){
-		    var langSelect = document.querySelectorAll('.goodsOption');
-		    // select element에서 선택된 option의 value가 저장된다.
-		    var selectValue = langSelect.options[langSelect.selectedIndex].value;
-		 
-		    // select element에서 선택된 option의 text가 저장된다.
-		    var selectText = langSelect.options[langSelect.selectedIndex].text;
-		    
-		    console.log(selectValue);
-			console.log(selectText);
-		}
-	 const showValue = (target) => {
-		  const value = target.value;
-		  const text =  target.options[target.selectedIndex].text;
-		  
-		  document.querySelector(`div`).innerHTML = `text: ${text} value: ${value}`;
-		}
- </script>
+</script>
 <title>장바구니</title>
 </head>
 <body>
@@ -53,10 +55,14 @@
 					<th>상품 옵션</th>
 					<th>수량</th>
 					<th>가격</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<c:forEach var="map" items="${cartList}" varStatus="vs">
-				<input type="text" id="${cartList}GoodsCode" name="goodsCode" value="${map.goodsCode}" hidden="hidden">
+				<input type="text" id="GoodsCode" name="goodsCode" value="${map.goodsCode}" hidden="hidden">
+				<input type="text" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}" hidden="hidden">
+				<input type="text" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}" hidden="hidden">
+				<input type="text" id="fileName" name="fileName" value="${map.fileName}" hidden="hidden">
 				<tr>					
 					<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" width="100" height="100"></td>
 
@@ -64,7 +70,7 @@
 
 					<td>
 						
-						<select name="goodsOption" id="goodsOption" class="goodsOption" onchange="showValue(this)">
+						<select name="goodsOption" id="goodsOption" class="goodsOption">
 							<c:if test="${map.goodsOption eq '일반포장'}">
 								<option value="일반포장" selected="selected">1) 일반포장(+0원)</option>
 								<option value="고급포장">2) 고급포장(+2,500원)</option>
@@ -86,18 +92,16 @@
 					</td>
 
 					<td>
-						<input type="number" name="cartQuantity" id="cartQuantity" class="goodsName" value="${map.cartQuantity}">
-						<button type="button" id="minusBtn">-</button>
-						<input type="number" name="cartQuantity" id="cartQuantity" class="goodsName" readonly="readonly" value="${map.cartQuantity}">
-						<button type="button" id="plusBtn">+</button>
+						<input type="number" name="orderQuantity" id="orderQuantity" class="orderQuantity" value="${map.orderQuantity}" min="1">
 					</td>
 
 					<td>${map.orderPrice}</td>
+					<td><a href="${pageContext.request.contextPath}/RemoveCartOne?goodsCode=${map.goodsCode}&goodsOption=${map.goodsOption}">삭제</a></td>
 				</tr>
 					
 			</c:forEach>
 		</table>
-		
+		<div><a href="${pageContext.request.contextPath}/RemoveCartAll">장바구니 비우기</a></div>
 		<button type="button" id="orderBtn">주문하기</button>
 	</form>
 </body>

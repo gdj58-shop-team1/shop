@@ -55,7 +55,7 @@ public class CartService {
 		}
 	}
 	// 2) 장바구니 있던 물건 수량 변경 (회원)
-	public void modifyCart(Cart cart) {
+	public void modifyCart(Cart cart, int modifyOrderQuantity) {
 		int row = 0;
 		
 		this.cartDao = new CartDao();
@@ -67,7 +67,7 @@ public class CartService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			row = cartDao.updateCart(conn, cart);
+			row = cartDao.updateCart(conn, cart, modifyOrderQuantity);
 			
 			if(row == 1) {
 				System.out.println("카트의 물품 수량 변경 성공(회원)");
@@ -113,7 +113,7 @@ public class CartService {
 				System.out.println("장바구니 물품 1개 지우기 성공!");
 			} else {
 				System.out.println("장바구니 물품 1개 지우기 실패!");
-				return;
+				throw new Exception();
 			}
 			
 			conn.commit();
@@ -149,7 +149,7 @@ public class CartService {
 			conn.setAutoCommit(false);
 			
 			row = cartDao.deleteCartAll(conn, cart);
-			if(row == 1) {
+			if(row != 0) {
 				System.out.println("장바구니 물품 모두 지우기 성공!");
 			} else {
 				System.out.println("장바구니 물품 모두 지우기 실패!");
@@ -176,7 +176,7 @@ public class CartService {
 	}
 	
 	// 5) 장바구니 조회
-	public ArrayList<HashMap<String, Object>> getCart(Customer customer) {
+	public ArrayList<HashMap<String, Object>> getCartList(Customer customer) {
 		ArrayList<HashMap<String, Object>> list = null;
 		
 		this.cartDao = new CartDao();
@@ -190,7 +190,7 @@ public class CartService {
 			
 			list = cartDao.selectCartList(conn, customer);
 			
-			if(list == null) {
+			if(list != null) {
 				System.out.println("장바구니 조회 성공!");
 			} else {
 				System.out.println("장바구니 조회 실패!");
@@ -218,8 +218,8 @@ public class CartService {
 	}
 	
 	// 6) 장바구니 DB속에 있는 물건인지 확인
-	public int confirmCart(Cart cart) {
-		int row = 0;
+	public boolean confirmCart(Cart cart) {
+		boolean flag = true;
 		
 		this.cartDao = new CartDao();
 		this.dbUtil = new DBUtil();
@@ -230,9 +230,9 @@ public class CartService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			row = cartDao.selectCart(conn, cart);
+			flag = cartDao.selectCart(conn, cart);
 			
-			if(row == 0) {
+			if(flag == false) {
 				System.out.println("장바구니에 담겨있지않는 물건");
 			} else {
 				System.out.println("장바구니에 담겨있는 물건");
@@ -255,7 +255,7 @@ public class CartService {
 				}
 			}
 		}
-		return row;
+		return flag;
 	}
 	
 }
