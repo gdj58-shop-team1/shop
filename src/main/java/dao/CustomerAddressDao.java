@@ -38,7 +38,7 @@ public class CustomerAddressDao {
 	}
 	
 	// 회원 주소 조회(select) : orderComplete
-	public String selectAddressByOrderCode(Connection conn, int addressCode) throws Exception{
+	public String selectAddressByAddressCode(Connection conn, int addressCode) throws Exception{
 		String address = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

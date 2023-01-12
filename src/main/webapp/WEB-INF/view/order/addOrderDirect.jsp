@@ -52,6 +52,8 @@
 		<h1>Add Order Direct</h1>
 		<form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm">
 		 	<input type="hidden" name="goodsCode" value="${order.goodsCode}">
+		 	<input type="hidden" name="goodsName" value="${goodsName}">
+		 	<input type="hidden" name="fileName" value="${fileName}">
 		 	<input type="hidden" name=goodsPrice value="${goodsPrice}">
 		 	<input type="hidden" name="customerId" value="${order.customerId}">
 		 	<input type="hidden" name="goodsOption" value="${order.goodsOption}">

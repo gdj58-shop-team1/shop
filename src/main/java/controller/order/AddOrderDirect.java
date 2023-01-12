@@ -79,15 +79,15 @@ public class AddOrderDirect extends HttpServlet {
 		// 데이터 묶기
 		Orders order = new Orders();
 		order.setGoodsCode(goodsCode);
-		order.setOrderCode(addressCode);
+		order.setAddressCode(addressCode);
 		order.setCustomerId(customerId);
 		order.setOrderQuantity(orderQuantity);
 		order.setGoodsOption(goodsOption);
 		order.setOrderPrice(orderPrice);
 		
 		// 서비스 호출
-		String address = customerAddressService.selectAddressByOrderCode(addressCode); // 주문한 주소 호촐
-		int row = orderService.insertOrderDirect(order); // add주문
+		String address = customerAddressService.getAddressByAddressCode(addressCode); // 주문한 주소 호촐
+		int row = orderService.addOrderDirect(order); // add주문
 		if(row == 0) {
 			System.out.println("주문 실패");
 			response.sendRedirect(request.getContextPath()+"/GoodsOne?goodsCode="+goodsCode);

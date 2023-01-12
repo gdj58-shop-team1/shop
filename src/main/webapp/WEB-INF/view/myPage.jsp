@@ -39,7 +39,7 @@
 		<a href="${pageContext.request.contextPath}/ReviewList">리뷰 목록</a>
 		<a href="${pageContext.request.contextPath}/QuestionList">문의사항</a>
 		<a href="${pageContext.request.contextPath}/ConfirmMember">정보 변경</a>
-		<a href="">배송지 변경</a>
+		<a href="${pageContext.request.contextPath}/AddressList">배송지 변경</a>
 		<a href="">회원 탈퇴</a>
 	</c:if>
 	

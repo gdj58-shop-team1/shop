@@ -26,7 +26,7 @@ public class GetOrderInfoDirect extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 세션 유효성 확인(관리자는 주문 페이지로 넘어가지 못하게 할지?)
+		// 세션 유효성 확인
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("loginMember") == null) { // 로그인 X -> 로그인 페이지로 이동

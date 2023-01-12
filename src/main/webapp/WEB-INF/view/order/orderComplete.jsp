@@ -20,14 +20,21 @@
 		<!-- 본문 -->
 		<h1>주문완료 페이지</h1>
 		<table border="1" style="width:50%;">
+			<tr>
+				<th colspan="5">
+					주문이 완료되었습니다.<br>
+					국민 000000-00-000000(예금주: 구디)<br>
+					위 계좌로 입금완료 시 주문발송 처리됩니다.<br>
+				</th>
+			</tr>
  			<tr>
  				<th colspan="5">주문정보</th>
  			</tr>
  			<tr> <!-- 주문자 정보 -->
- 				<th colspan="2">주문자 이름</th>
-	 			<th>상품금액</th>
-	 			<th>주문자 번호</th>
-	 			<th>상품옵션</th>
+ 				<th>주문자 이름</th>
+	 			<td>${customerId}</td>
+	 			<th>배송지</th>
+	 			<td colspan="2">${address}</td>
  			</tr>
  			<tr> <!-- 주문상품정보 -->
  				<th colspan="2">상품</th>
@@ -48,8 +55,5 @@
  				<td colspan="5" id="totalPrice">총 주문금액: ${order.orderPrice}원</td>
  			</tr>
 	 	</table>
-		 
-		<div>${address}</div>
-		 
 	</body>
 </html>
