@@ -160,9 +160,12 @@ public class GoodsService {
 		return goodsMap;
 	}
 	
-	// 상품 등록하기
-	public int getAddGoods(Goods goods, ArrayList<GoodsImg> list, String dir) {
-		int result = 0;
+	// admin) 상품 등록하기
+	public int getAddGoods(Goods goods, GoodsImg goodsImg, String dir) {
+		
+		int insertGoodsRow = 0;
+		int insertGoodsImgRow = 0;
+		
 		goodsDao = new GoodsDao();
 		goodsImgDao = new GoodsImgDao();
 		Connection conn = null;
@@ -170,45 +173,87 @@ public class GoodsService {
 		
 		try {
 			conn = dbUtil.getConnection();
-			System.out.println("getGoodsOne(GoodsService) db 접속");
-			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);
-			System.out.println("여기까지");
+			conn.setAutoCommit(false);
 			
-			//상품 등록 실패 시
-			if(map.get("result")!= 1) {
+			HashMap<String, Integer> m = goodsDao.insertGoods(conn, goods);
+			
+			if (m.get("result") == 1 ) {
+				System.out.println("굿즈정보등록 성공");
+			} else { 
+				System.out.println("굿즈정보등록 실패");
 				throw new Exception();
 			}
 			
-			for(GoodsImg goodsImg : list) {
-				goodsImg.setGoodsCode(map.get("autoKey"));
-			}
-			result += goodsImgDao.insertGoodsImg(conn, list);
+			int autoKey = m.get("autoKey");
+			insertGoodsImgRow = goodsImgDao.insertGoodsImg(conn, goodsImg, autoKey);
 			
+			if (insertGoodsImgRow  == 1) {
+				System.out.println("이미지 등록성공");
+			} else {
+				System.out.println("이미지 등록실패");
+				throw new Exception();
+			
+			}
+		 
 			conn.commit();
 			
-			
-		} catch (Exception e) {
+		} catch( Exception e ) {
 			try {
 				conn.rollback();
 				
-				for(GoodsImg goodsImg : list) {		
-					File file = new File(dir + "\\" + goodsImg.getFileName());	// 하나라도 실패
-					if(file.exists()) {
-						file.delete();	// -> 전체 파일 삭제
-					}
+				// 이미 업로드된 파일 삭제
+				File f = new File(dir + "\\" + goodsImg.getFileName());
+				if (f.exists()) { //파일이 존재한다면 
+					f.delete();	//파일삭제
+					System.out.println("delete");
 				}
+				return insertGoodsImgRow;
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			e.printStackTrace();
 		} finally {
-			try {
-				if(conn != null) {conn.close();}
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if(conn != null) {
+				try { 
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
-		return result;
+		return insertGoodsRow;
+		
+	}
+	
+	// admin) 상품 리스트
+	public ArrayList<HashMap <String, Object>> getGoodsListAdmin(int currentPage, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> goodsList = null;
+		goodsDao = new GoodsDao();
+		goodsImgDao = new GoodsImgDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			int beginRow = (currentPage-1)*rowPerPage;
+			int endRow = beginRow+rowPerPage;
+			goodsList = goodsDao.selectGoodsListAdmin(conn, beginRow, endRow);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		
+		
+		return goodsList;
+
 	}
 }

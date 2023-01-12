@@ -20,7 +20,7 @@
 
 
 	<h1>상품등록 페이지</h1>
-	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/AddGoodsList" method="post">
+	<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/AddGoods" method="post">
 		<table border="1">
 			
 			<tr>
@@ -58,13 +58,12 @@
 			<tr>
 				<th>사진등록</th>
 				<td>
-					<div><input type="file" name="filename" accept="image/jpeg, image/png"></div>
+					<div><input type="file" name="goodsImg" accept="image/jpeg, image/png"></div>
 				</td>
 			</tr>
 			<tr>
 				<th>관리자</th>
-				<td><input type="text" name="empId" id = "empId" value= "${loginEmp.empId}" readonly="readonly"></td>
-				
+				<td><input type="text" name="empId" id = "empId" value="${loginMember.empId}"></td>
 			</tr>
 		</table>
 		<button type="submit">상품등록</button>
