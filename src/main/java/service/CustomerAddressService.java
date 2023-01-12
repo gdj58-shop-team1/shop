@@ -37,7 +37,7 @@ public class CustomerAddressService {
 	}
 	
 	// 회원 주소 조회(select) : orderComplete
-	public String selectAddressByOrderCode(int orderCode){
+	public String getAddressByAddressCode(int addressCode){
 		String address = null;
 		this.customerAddressDao = new CustomerAddressDao();
 		this.dbUtil = new DBUtil();
@@ -45,8 +45,8 @@ public class CustomerAddressService {
 		
 		try {
 			conn = dbUtil.getConnection();
-			System.out.println("selectAddressByOrderCode(CustomerAddressService) db 접속");
-			address = customerAddressDao.selectAddressByOrderCode(conn, orderCode);
+			System.out.println("getAddressByAddressCode(CustomerAddressService) db 접속");
+			address = customerAddressDao.selectAddressByAddressCode(conn, addressCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -98,7 +98,7 @@ public class CustomerAddressService {
 
 		try {
 			conn = dbUtil.getConnection();
-			System.out.println("selectAddressCode(CustomerAddressService) db 접속");
+			System.out.println("getAddressCode(CustomerAddressService) db 접속");
 			addressCode = customerAddressDao.selectAddressCode(conn, customerId);
 		} catch (Exception e) {
 			e.printStackTrace();

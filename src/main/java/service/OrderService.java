@@ -14,7 +14,7 @@ public class OrderService {
 	private DBUtil dbUtil;
 	
 	// 주문입력(goodsOne -> 바로 구매)
-	public int insertOrderDirect(Orders paramOrder){
+	public int addOrderDirect(Orders paramOrder){
 		int row = 0;
 		Connection conn = null;
 		this.dbUtil = new DBUtil();
