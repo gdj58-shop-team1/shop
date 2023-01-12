@@ -22,8 +22,8 @@ import vo.Goods;
 import vo.GoodsImg;
 
 
-@WebServlet("/AddGoodsList")
-public class AddGoodsList extends HttpServlet {
+@WebServlet("/AddGoods")
+public class AddGoods extends HttpServlet {
 
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
@@ -46,109 +46,99 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		}
 
 	
-		request.getRequestDispatcher("/WEB-INF/view/goods/addGoodsList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/goods/addGoods.jsp").forward(request, response);
 	}	
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 직원이 아니라면 직원 home 페이지 전환
+		// 권한 1부터 가능
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginEmp") == null) {
-			response.sendRedirect(request.getContextPath() + "/Home");
-			return;
-		}
-
+	
 		
-		// new MultipartRequest(원본 request, 업로드폴더, 최대파일사이즈byte, 인코딩, 중복이름정책)
-		
+		// 파라미터 수집
 		request.setCharacterEncoding("utf-8"); // 한글
-		String dir = request.getServletContext().getRealPath("upload"); // 이미지를 담을 폴더 (실제 물리적 위치를 반환)
+		String dir = request.getServletContext().getRealPath("/upload"); // 이미지를 담을 폴더 (실제 물리적 위치를 반환)
 		int maxFileSize = 1024 * 1024 * 100; //최대 파일 크기 (100Mbyte)
-		
+		System.out.println("============ uploadFilePath = " + dir);
 		DefaultFileRenamePolicy fp = new DefaultFileRenamePolicy(); //파일 이름중복x ex a1, a2...
+		// new MultipartRequest(원본 request, 업로드폴더, 최대파일사이즈byte, 인코딩, 중복이름정책)
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "utf-8", fp);
 		
-		
-		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
-		Enumeration<?> files = mreq.getFileNames();
-		int fileSeq = 1;
-		while(files.hasMoreElements()) {
-			HashMap<String, Object> fileMap = new HashMap<String, Object>();
-			fileMap.put("filename", mreq.getFilesystemName("filename"+fileSeq));
-			fileMap.put("originName", mreq.getOriginalFileName("filename"+fileSeq));
-			fileMap.put("contentType", mreq.getContentType("filename"+fileSeq));	
-			
-			System.out.println("맵에 들어가는지 - 파일 확장자"+fileSeq+": " + mreq.getContentType("filename"+fileSeq));
-			
-			fileSeq++;
-			if(fileMap.get("contentType") == null) {
-				break;
-			}
-			fileList.add(fileMap);
-		}
+		String contentType = mreq.getContentType("goodsImg"); // 파일 형식
+		String contentOriginalFileName = mreq.getOriginalFileName("goodsImg"); // 원본파일 이름
+		String fileSystemName = mreq.getFilesystemName("goodsImg"); // 저장된 파일 이름(DefaultFileRenamePolicy fp);
 
 		
 		// 이미지파일 검사
-		String contentType = mreq.getContentType("goodsImg"); //파일확장자
 		String goodsName = mreq.getParameter("goodsName");
-		String contentOriginalFileName = mreq.getOriginalFileName("goodsImg"); // 원본 파일 이름
-		String fileSystemName = mreq.getFilesystemName("goodsImg"); // 저장된 파일 이름(DefaultFileRenamePolicy fp);
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
-		String soldOut = mreq.getParameter("soldOut");
-		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		String soldout = mreq.getParameter("soldout");
+		String goodsCategory = mreq.getParameter("goodsCategory");
+		Emp loginEmp = (Emp)session.getAttribute("loginMember");
 		String empId = loginEmp.getEmpId();
 		int hit = Integer.parseInt(mreq.getParameter("hit"));
-		String goodsCategory = mreq.getParameter("goodsCategory");
+		
+		/* 디버깅
+		System.out.println(contentType);
+		System.out.println(contentOriginalFileName);
+		System.out.println(fileSystemName);
+		
+		System.out.println(goodsName);
+		System.out.println(goodsPrice);
+		System.out.println(soldout);
+		System.out.println(hit);
+		System.out.println(goodsCategory);
+		*/
 		
 
 		Goods goods = null;
 		GoodsImg goodsImg = null;
 		ArrayList<GoodsImg> list = new ArrayList<GoodsImg>();
-		for(HashMap<String, Object> m : fileList) {
-			if(contentType.equals("image/png") || contentType.equals("image/png")) {
+		
+			if(contentType.equals("image/png") || contentType.equals("image/jpeg")) {
 				
-				// goods vo
+				// goods 
 				goods = new Goods();
 				goods.setGoodsName(goodsName);
 				goods.setGoodsPrice(goodsPrice);
 				goods.setGoodsCategory(goodsCategory);
-				goods.setSoldout(soldOut);
+				goods.setSoldout(soldout);
 				goods.setEmpId(empId);
 				goods.setHit(hit);
 				// goods.setCreatedate(createdate);
 				
 				
-				// goodsImg vo
+				// goodsImg 
 				goodsImg = new GoodsImg();
-				goodsImg.setFileName((String)m.get("filename"));
-				goodsImg.setOriginName((String)m.get("originName"));
-				goodsImg.setContentType((String)m.get("contentType"));
+				goodsImg.setFileName(fileSystemName);
+				goodsImg.setOriginName(contentOriginalFileName);
+				goodsImg.setContentType(contentType);
 				list.add(goodsImg);
 				
 				
 			}else {
 					System.out.print("*.jpg, *.png파일만 업로드 가능");
-					File f = new File(dir + "\\" + m.get("filename"));
+					File f = new File(dir + "\\" + fileSystemName);
 					if(f.exists()) {
 						f.delete();
 				}
 			}
-		}
-			
 		
-
 		// service 호출
 		GoodsService goodsService = new GoodsService();
-		int result = goodsService.getAddGoods(goods, list, dir);
+		int result = goodsService.getAddGoods(goods, goodsImg, dir);
 		
 		if(result != 1) {
+			System.out.println("상품 추가 성공");
+		}	else {
 			System.out.println("상품 추가 실패");
-		}	
+		}
 			
-
-		response.sendRedirect(request.getContextPath()+"/AddGoodsList");
+		response.sendRedirect(request.getContextPath()+"/AddGoods");
 		
-	}
+			}
 
-}
+	}
+	
+	

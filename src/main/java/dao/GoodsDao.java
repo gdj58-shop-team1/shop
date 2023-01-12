@@ -190,42 +190,89 @@ public class GoodsDao {
 		return goodsMap;
 	}
 	
-	// 상품 등록하기
+	// admin) 상품 등록하기
 	public HashMap<String, Integer> insertGoods(Connection conn, Goods goods) throws Exception {
+		
+		/*
+		 * String sql = "INSERT INTO" +
+		 * " goods (goods_name, goods_price, goods_category, soldout, emp_id, hit)" +
+		 * " VALUES (?, ?, ?, ?, ?, ?)";
+		 
+		System.out.println("==" + goods.getGoodsName());
+		System.out.println("==" + goods.getGoodsPrice());
+		System.out.println("==" + goods.getGoodsCategory());
+		System.out.println("==" + goods.getSoldout());
+		System.out.println("==" + goods.getEmpId());
+		*/
 		
 		String sql = "INSERT INTO goods(goods_name, goods_price, goods_category, soldout, emp_id, hit, createdate) VALUES(?, ?, ?, ?, ?, ?, NOW())";
 		// Statement.RETURN_GENERATED_KEYS 옵션 -> 쿼리실행 후 생성된 auto_increment값을 ResultSet에 반환
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		stmt.setString(1,  goods.getGoodsName());
+		stmt.setString(1, goods.getGoodsName());
 		stmt.setInt(2, goods.getGoodsPrice());
 		stmt.setString(3, goods.getGoodsCategory());
 		stmt.setString(4, goods.getSoldout());
 		stmt.setString(5, goods.getEmpId());
 		stmt.setInt(6, goods.getHit());
 		
+		
 		int result = stmt.executeUpdate();
-		ResultSet rs = stmt.getGeneratedKeys();
+		ResultSet rs = stmt.getGeneratedKeys(); 
 		
-		System.out.println("여기까지");
-		
-		int autoKey = 0;
-		
+		int autoKey = 0; 
 		if(rs.next()) {
-			autoKey = rs.getInt(1);  // stmt.executeUpdate(); 생성된 auto_increment값이 대입
-	
+			autoKey = rs.getInt(1); // goods.goods_code AUTO_INCREMENT
 		}
 		
-		HashMap<String, Integer> map = new HashMap<>();
-		map.put("result", result);
-		map.put("autoKey", autoKey);
+		HashMap<String, Integer> m = new HashMap<>();
+		m.put("result", result);
+		m.put("autoKey", autoKey);
 		
-		rs.close();
-		stmt.close();
-		return map;
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
+		return m;
 		
 	}
 	
-	
-	
-	
+	// admin) 상품 리스트 (정렬)
+	public ArrayList<HashMap<String, Object>> selectGoodsListAdmin(Connection conn, int beginRow, int endRow) throws Exception{
+		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT g.goods_code goodsCode"
+				+ ", g.goods_name goodsName"
+				+ ", g.goods_price goodsPrice"
+				+ ", g.goods_category goodsCategory"
+				+ ", g.soldout soldout"
+				+ ", g.emp_id empId"
+				+ ", g.hit hit"
+				+ ", img.filename fileName"
+				+ " FROM goods g INNER JOIN goods_img img"
+				+ "	ON g.goods_code = img.goods_code"
+				+ " ORDER BY DESC"
+				+ " LIMIT ?, ?";
+		
+		stmt = conn.prepareStatement(sql);		
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, endRow);
+		rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("goodsCode",rs.getInt("goodsCode"));
+			map.put("goodsName",rs.getString("goodsName"));
+			map.put("goodsPrice",rs.getInt("goodsPrice"));
+			map.put("goodsCategory",rs.getString("goodsCategory"));
+			map.put("soldout",rs.getString("soldout"));
+			map.put("empId",rs.getString("empId"));
+			map.put("hit",rs.getInt("hit"));
+			map.put("fileName",rs.getString("fileName"));
+			goodsList.add(map);
+		}
+		
+		rs.close();
+		stmt.close();
+		return goodsList;
+	}
 }
