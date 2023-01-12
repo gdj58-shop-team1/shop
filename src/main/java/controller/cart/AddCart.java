@@ -77,7 +77,7 @@ public class AddCart extends HttpServlet {
 			if(flag == false) { // 카트에 담겨있지않은 물걸
 				cartService.addCart(cart);
 			} else if (flag == true) { // 카트에 담겨있는 물걸
-				cartService.modifyCart(cart, modifyOrderQuantity);
+				cartService.modifyCart(cart);
 			}		
 		} else {
 			if(countGoodsCode == 0) { // 카트(세션)에 담겨있지않은 물건 개수 수정

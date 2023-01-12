@@ -32,15 +32,15 @@ public class CartDao {
 	}
 	
 	// 2) 장바구니에 있던 물품 수량변경
-	public int updateCart(Connection conn, Cart cart, int modifyOrderQuantity) throws Exception {
+	public int updateCart(Connection conn, Cart cart) throws Exception {
 		int row = 0;
 		
 		String sql = "UPDATE cart"
-				+ " SET cart_quantity = ?"
+				+ " SET cart_quantity = cart_quantity + ?"
 				+ " WHERE goods_code = ? AND customer_id = ? AND goods_option = ?";
 
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, modifyOrderQuantity);
+		stmt.setInt(1, cart.getCartQuantity());
 		stmt.setInt(2, cart.getGoodsCode());
 		stmt.setString(3, cart.getCustomerId());
 		stmt.setString(4, cart.getGoodsOption());
@@ -71,7 +71,7 @@ public class CartDao {
 	}
 	
 	// 4) 장바구니 속 물품 지우기(모든)
-	public int deleteCartAll(Connection conn, Cart cart) throws Exception {
+	public int deleteCartAll(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		
 		String sql = "DELETE"
@@ -79,7 +79,7 @@ public class CartDao {
 				+ " WHERE customer_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, cart.getCustomerId());
+		stmt.setString(1, customer.getCustomerId());
 		
 		row = stmt.executeUpdate();
 		
