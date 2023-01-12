@@ -89,6 +89,30 @@ public class CustomerAddressService {
 		return row;
 	}
 	
+	// 새로 추가된 주소의 주소코드 출력
+	public int getAddressCode(String customerId){
+		int addressCode = 0;
+		this.customerAddressDao = new CustomerAddressDao();
+		this.dbUtil = new DBUtil();
+		Connection conn = null;
+
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("selectAddressCode(CustomerAddressService) db 접속");
+			addressCode = customerAddressDao.selectAddressCode(conn, customerId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return addressCode;
+	}
+	
 	// 회원 주소 수정
 	public int modifyAddress(CustomerAddress paramAddress){
 		int row = 0;
