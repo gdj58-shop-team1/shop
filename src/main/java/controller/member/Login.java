@@ -2,6 +2,8 @@ package controller.member;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.CartService;
 import service.CustomerService;
 import service.EmpService;
+import vo.Cart;
 import vo.Customer;
 import vo.Emp;
 
@@ -22,6 +26,7 @@ import vo.Emp;
 public class Login extends HttpServlet {
 	private CustomerService customerService;
 	private EmpService empService;
+	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -54,6 +59,49 @@ public class Login extends HttpServlet {
 			this.customerService = new CustomerService();
 			loginCustomer = customerService.loginCustomer(customer);
 			
+			// 로그인 전 세션에 담아 두었던 장바구니 DB랑 합치기
+			this.cartService = new CartService();
+			ArrayList<HashMap<String, Object>> cartList = cartService.getCartList(loginCustomer); // DB에 있는 cart가져오기
+			
+			if(session.getAttribute("cartList") != null) {
+				ArrayList<HashMap<String, Object>> sessionCartList = (ArrayList<HashMap<String, Object>>)session.getAttribute("cartList");
+				for(int i = 0; i<sessionCartList.size(); i++) {
+					Cart cart = new Cart();
+					cart.setGoodsCode((int)sessionCartList.get(i).get("goodsCode"));
+					cart.setCustomerId(loginCustomer.getCustomerId());
+					cart.setGoodsOption((String)sessionCartList.get(i).get("goodsOption"));
+					cart.setCartQuantity((int)sessionCartList.get(i).get("orderQuantity"));
+					
+					boolean flag = cartService.confirmCart(cart);
+					if(flag == false) {
+						cartService.addCart(cart);
+					} else {
+						cartService.modifyCart(cart);
+					}
+				}
+				cartList = cartService.getCartList(loginCustomer);
+				
+				for(int i = 0; i<cartList.size(); i++) {
+					int goodsOptionPrice = 0;
+					int goodsPrice = (int) cartList.get(i).get("goodsPrice");
+					int orderQuantity = (int) cartList.get(i).get("orderQuantity");
+					
+					if(cartList.get(i).get("goodsOption").equals("일반포장")) {
+						goodsOptionPrice = 0;
+					} else if(cartList.get(i).get("goodsOption").equals("고급포장")) {
+						goodsOptionPrice = 2500;
+					} else if(cartList.get(i).get("goodsOption").equals("보자기")) {
+						goodsOptionPrice = 5900;
+					}
+					
+					cartList.get(i).put("goodsOptionPrice", goodsOptionPrice);
+					cartList.get(i).put("orderPrice", (goodsOptionPrice + goodsPrice) * orderQuantity);
+				}
+				
+				session.setAttribute("cartList", cartList);
+			} else {
+				session.setAttribute("cartList", cartList);
+			}
 			session.setAttribute("loginMember", loginCustomer);
 		} else { // emp 로그인
 			Emp emp = new Emp();

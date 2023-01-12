@@ -34,12 +34,9 @@ public class RemoveCartAll extends HttpServlet {
 		
 		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) { // 회원 로그인 되어있을 때 DB와 연동하여 장바구니 조회 
 			Customer loginCustomer = (Customer)session.getAttribute("loginMember");
-			
-			Cart cart = new Cart(); 
-			cart.setCustomerId(loginCustomer.getCustomerId());
 
 			this.cartService = new CartService(); 
-			cartService.removeCartAll(cart);
+			cartService.removeCartAll(loginCustomer);
 			
 		 }
 		 

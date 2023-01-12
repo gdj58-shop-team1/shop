@@ -55,7 +55,7 @@ public class CartService {
 		}
 	}
 	// 2) 장바구니 있던 물건 수량 변경 (회원)
-	public void modifyCart(Cart cart, int modifyOrderQuantity) {
+	public void modifyCart(Cart cart) {
 		int row = 0;
 		
 		this.cartDao = new CartDao();
@@ -67,7 +67,7 @@ public class CartService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			row = cartDao.updateCart(conn, cart, modifyOrderQuantity);
+			row = cartDao.updateCart(conn, cart);
 			
 			if(row == 1) {
 				System.out.println("카트의 물품 수량 변경 성공(회원)");
@@ -136,7 +136,7 @@ public class CartService {
 	}
 	
 	// 4) 장바구니 속 물품지우기 모든
-	public void removeCartAll(Cart cart) {
+	public void removeCartAll(Customer customer) {
 		int row = 0;
 		
 		this.cartDao = new CartDao();
@@ -148,7 +148,7 @@ public class CartService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			row = cartDao.deleteCartAll(conn, cart);
+			row = cartDao.deleteCartAll(conn, customer);
 			if(row != 0) {
 				System.out.println("장바구니 물품 모두 지우기 성공!");
 			} else {
@@ -219,7 +219,7 @@ public class CartService {
 	
 	// 6) 장바구니 DB속에 있는 물건인지 확인
 	public boolean confirmCart(Cart cart) {
-		boolean flag = true;
+		boolean flag = false;
 		
 		this.cartDao = new CartDao();
 		this.dbUtil = new DBUtil();

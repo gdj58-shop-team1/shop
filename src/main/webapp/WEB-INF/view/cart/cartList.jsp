@@ -29,6 +29,9 @@
 			});
 		}
 		
+		$('.orderBtn').click(function(){
+			$("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
+		});
 	});
 </script>
 <title>장바구니</title>
@@ -58,7 +61,7 @@
 					<th>삭제</th>
 				</tr>
 			</thead>
-			<c:forEach var="map" items="${cartList}" varStatus="vs">
+			<c:forEach var="map" items="${cartList}">
 				<input type="text" id="GoodsCode" name="goodsCode" value="${map.goodsCode}" hidden="hidden">
 				<input type="text" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}" hidden="hidden">
 				<input type="text" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}" hidden="hidden">
@@ -102,7 +105,7 @@
 			</c:forEach>
 		</table>
 		<div><a href="${pageContext.request.contextPath}/RemoveCartAll">장바구니 비우기</a></div>
-		<button type="button" id="orderBtn">주문하기</button>
+		<div><a href="${pageContext.request.contextPath}/GetOrderInfoFromCart">주문하기</a></div>
 	</form>
 </body>
 </html>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.CartService;
+import vo.Cart;
 import vo.Customer;
 
 /**
@@ -29,7 +30,6 @@ public class CartList extends HttpServlet {
 			
 			cartService = new CartService();
 			ArrayList<HashMap<String, Object>> cartList = cartService.getCartList(loginCustomer); // DB에 있는 cart가져오기
-			ArrayList<HashMap<String, Object>> newCartList = new ArrayList<HashMap<String,Object>>(); // 세션에있는 cartlist를 받기위함
 			
 			for(int i = 0; i<cartList.size(); i++) {
 				int goodsOptionPrice = 0;
@@ -46,15 +46,8 @@ public class CartList extends HttpServlet {
 				
 				cartList.get(i).put("goodsOptionPrice", goodsOptionPrice);
 				cartList.get(i).put("orderPrice", (goodsOptionPrice + goodsPrice) * orderQuantity);
-			}
-			
-			if(session.getAttribute("cartList") != null) {
-				newCartList.addAll(cartList);
-				newCartList.addAll((ArrayList<HashMap<String, Object>>)session.getAttribute("cartList"));
-				session.setAttribute("cartList", newCartList);
-			} else {
+			}	
 				session.setAttribute("cartList", cartList);
-			}
 		}
 		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 	}
@@ -63,20 +56,56 @@ public class CartList extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		ArrayList<HashMap<String, Object>> newCartList = new ArrayList<HashMap<String,Object>>();
 		String[] goodsCodeArr =  request.getParameterValues("goodsCode");
 		String[] orderQuantityArr =  request.getParameterValues("orderQuantity");
 		String[] goodsPriceArr =  request.getParameterValues("goodsPrice");
 		String[] goodsNameArr =  request.getParameterValues("goodsName");
 		String[] fileNameArr =  request.getParameterValues("fileName");
 		String[] goodsOptionArr =  request.getParameterValues("goodsOption");
-		for(int i =0; i<goodsCodeArr.length; i++) {
-			System.out.println(orderQuantityArr[i]);
-		}
 		
 		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) {
+			Customer loginCustomer = (Customer) session.getAttribute("loginMember");
 			
+			// 기존 카트의 모든 DB를 지우기
+			cartService = new CartService();
+			cartService.removeCartAll(loginCustomer);
+			
+			for(int i =0; i<goodsCodeArr.length; i++) {
+				Cart cart = new Cart();
+				cart.setGoodsCode(Integer.parseInt(goodsCodeArr[i]));
+				cart.setCustomerId(loginCustomer.getCustomerId());
+				cart.setGoodsOption(goodsOptionArr[i]);
+				cart.setCartQuantity(Integer.parseInt(orderQuantityArr[i]));
+				
+				// view에서 가져온 모든 값을 한 행 씩다시 insert
+				cartService.addCart(cart);
+				
+			}
+			
+			// DB에서 카트 데이터 가져오기
+			ArrayList<HashMap<String, Object>> cartList = cartService.getCartList(loginCustomer);
+			
+			for(int i = 0; i<cartList.size(); i++) {
+				int goodsOptionPrice = 0;
+				int goodsPrice = (int) cartList.get(i).get("goodsPrice");
+				int orderQuantity = (int) cartList.get(i).get("orderQuantity");
+				
+				if(cartList.get(i).get("goodsOption").equals("일반포장")) {
+					goodsOptionPrice = 0;
+				} else if(cartList.get(i).get("goodsOption").equals("고급포장")) {
+					goodsOptionPrice = 2500;
+				} else if(cartList.get(i).get("goodsOption").equals("보자기")) {
+					goodsOptionPrice = 5900;
+				}
+				
+				cartList.get(i).put("goodsOptionPrice", goodsOptionPrice);
+				cartList.get(i).put("orderPrice", (goodsOptionPrice + goodsPrice) * orderQuantity);
+			}	
+				session.setAttribute("cartList", cartList);
+				
 		} else {
+			ArrayList<HashMap<String, Object>> newCartList = new ArrayList<HashMap<String,Object>>();
+			
 			for(int i = 0; i<goodsCodeArr.length; i++) {
 				int goodsCode =  Integer.parseInt(goodsCodeArr[i]);
 				int orderQuantity = Integer.parseInt(orderQuantityArr[i]);
@@ -107,13 +136,11 @@ public class CartList extends HttpServlet {
 				System.out.println("goodsOption : " + map.get("goodsOption"));
 				newCartList.add(map);
 			}
+			
+			session.setAttribute("cartList", newCartList);
 		}
 		
-		
-		
-		session.setAttribute("cartList", newCartList);
-		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);		
 	}
 
 }
