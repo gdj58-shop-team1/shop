@@ -71,6 +71,30 @@ public class CustomerAddressDao {
 		return row;
 	}
 	
+	// 새로 추가된 주소의 주소코드 출력
+	public int selectAddressCode(Connection conn, String customerId) throws Exception{
+		int addressCode = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT address_code addressCode"
+				+ " FROM customer_address"
+				+ " WHERE customer_id = ?"
+				+ " ORDER BY createdate DESC";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			addressCode = rs.getInt("addressCode");
+			System.out.println("addressCode: "+addressCode);
+		}
+		
+		rs.close();
+		stmt.close();
+		return addressCode;
+	}
+	
 	// 회원 주소 수정
 	public int updateAddress(Connection conn, CustomerAddress paramAddress) throws Exception{
 		int row = 0;

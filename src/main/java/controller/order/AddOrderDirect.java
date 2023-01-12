@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.OrderService;
+import vo.CustomerAddress;
 import vo.Emp;
 import vo.Orders;
 
@@ -21,6 +22,8 @@ public class AddOrderDirect extends HttpServlet {
 	private CustomerAddressService customerAddressService;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.orderService = new OrderService();
+		this.customerAddressService = new CustomerAddressService();
 		
 		// 세션 유효성 확인
 		HttpSession session = request.getSession();
@@ -40,13 +43,35 @@ public class AddOrderDirect extends HttpServlet {
 		}
 		
 		// 파라메터 넘겨 받기
-		
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));
 		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
 		String customerId = request.getParameter("customerId");
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
 		String goodsOption = request.getParameter("goodsOption");
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		
+		String newAddress = null; // 새 주소 작성 유무에 따라 아래 코드 실행
+		if(request.getParameter("newAddress") != null) {
+			newAddress = request.getParameter("newAddress");
+			
+			CustomerAddress paramAddress = new CustomerAddress();
+			paramAddress.setAddress(newAddress);
+			paramAddress.setCustomerId(customerId);
+			
+			// 새로운 주소 insert
+			int row = customerAddressService.addAddress(paramAddress);
+			if(row == 0) {
+				System.out.println("주소 추가 실패");
+				response.sendRedirect(request.getContextPath()+"/GoodsOne?goodsCode="+goodsCode);
+				return;
+			}
+			System.out.println("주소 추가 성공");
+			
+			// 새로운 주소코드 select
+			addressCode = customerAddressService.getAddressCode(customerId);
+		}
+		// System.out.println("newAddress: "+newAddress);
+		// System.out.println("addressCode: "+addressCode);
 		
 		String goodsName = request.getParameter("goodsName"); // 세션에 따로 저장
 		String fileName = request.getParameter("fileName"); // 세션에 따로 저장
@@ -61,8 +86,6 @@ public class AddOrderDirect extends HttpServlet {
 		order.setOrderPrice(orderPrice);
 		
 		// 서비스 호출
-		this.orderService = new OrderService();
-		this.customerAddressService = new CustomerAddressService();
 		String address = customerAddressService.selectAddressByOrderCode(addressCode); // 주문한 주소 호촐
 		int row = orderService.insertOrderDirect(order); // add주문
 		if(row == 0) {
