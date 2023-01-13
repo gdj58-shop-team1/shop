@@ -3,12 +3,14 @@ package service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import dao.CustomerDao;
 import dao.PointHistoryDao;
 import util.DBUtil;
 import vo.PointHistory;
 
 public class PointHistoryService {
 	private PointHistoryDao pointHistoryDao;
+	private CustomerDao customerDao;
 	private DBUtil dbUtil;
 	
 	// 포인트 내역 조회(select)
@@ -63,12 +65,55 @@ public class PointHistoryService {
 	}
 	
 	// 포인트 처리(히스토리 남기고 고객 포인트 변경)
-	public int pointProcess(String customerId, int point) {
-		int processResult = 0;
+	public boolean pointProcess(String customerId, PointHistory paramPoint) {
+		boolean processResult = false;
 		this.pointHistoryDao = new PointHistoryDao();
+		this.customerDao = new CustomerDao();
 		Connection conn = null;
 		
-		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("pointProcess(PointHistoryService) db 진입");
+			conn.setAutoCommit(false);
+			
+			// 1) 포인트 입력
+			int insertRow = pointHistoryDao.insertPoint(conn, paramPoint);
+			if(insertRow == 1) {
+				System.out.println("포인트 입력 성공");
+			} else {
+				System.out.println("포인트 입력 실패");
+				throw new Exception();
+			}
+			
+			// 2) 최종 포인트 조회
+			int totalPoint = pointHistoryDao.selectCustomerPoint(conn, customerId);
+			System.out.println(customerId+"의 totalPoint: "+totalPoint);
+			
+			// 3) 고객 포인트 수정
+			int updateRow = customerDao.updatePoint(conn, customerId, totalPoint);
+			if(updateRow == 1) {
+				System.out.println("포인트 수정 성공");
+			} else {
+				System.out.println("포인트 수정 실패");
+				throw new Exception();
+			}
+			
+			conn.commit();
+			processResult = true;
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 		return processResult;
 	}
 	

@@ -108,7 +108,14 @@ public class AddOrderDirect extends HttpServlet {
 			paramPoint.setOrderCode(orderCode);
 			paramPoint.setPoint(usedPoint);
 			paramPoint.setPointKind("사용");
-			
+
+			boolean pointProcess = pointHistoryService.pointProcess(customerId, paramPoint);
+			if(!pointProcess) {
+				System.out.println("포인트 처리 실패");
+				response.sendRedirect(request.getContextPath()+"/GoodsOne?goodsCode="+goodsCode);
+				return;
+			}
+			System.out.println("포인트 처리 성공");
 		}
 		
 		// 세션에 저장(뷰에서 보여줄 정보)

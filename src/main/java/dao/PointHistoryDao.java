@@ -16,7 +16,7 @@ public class PointHistoryDao {
 		ResultSet rs = null;
 		
 		String sql = "SELECT"
-				+ "	, po.point_kind pointKind"
+				+ "	po.point_kind pointKind"
 				+ "	, po.point point"
 				+ "	, po.createdate createdate"
 				+ " FROM orders o INNER JOIN point_history po"
@@ -37,6 +37,28 @@ public class PointHistoryDao {
 		rs.close();
 		stmt.close();
 		return pointList;
+	}
+	
+	// 회원 현재 포인트 조회
+	public int selectCustomerPoint(Connection conn, String customerId) throws Exception{
+		int totalPoint = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT sum(po.point) point"
+				+ " FROM orders o INNER JOIN point_history po"
+				+ "		ON o.order_code = po.order_code"
+				+ " WHERE o.customer_id = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			totalPoint = rs.getInt("point");
+		}
+		
+		rs.close();
+		stmt.close();
+		return totalPoint;
 	}
 	
 	// 포인트 적립/사용(insert)

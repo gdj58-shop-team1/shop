@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.CustomerService;
-import service.OrderService;
 import vo.Customer;
 import vo.CustomerAddress;
 import vo.Emp;
