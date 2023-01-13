@@ -36,6 +36,65 @@
 					$('#addOrderForm').submit();
 				});
 				
+				$('#usePoint').change(function(){
+					"<c:out value='${orderCustomer.point}'/>";
+					let orderPoint = "<c:out value='${orderCustomer.point}'/>";
+					let usePoint = Number($('#usePoint').val());
+					
+					if(usePoint < 0) { // 사용하려는 point가 음수 일경우
+						$('#orderPoint').text("<c:out value='${orderCustomer.point}'/>");
+						alert('0 이상의 포인트를 입력해주세요');
+						return;
+					}
+					
+					if(orderPoint < usePoint) { // 사용하려는 point가 보유 포인트 보다 클 경우
+						$('#orderPoint').text("<c:out value='${orderCustomer.point}'/>");
+						alert('보유 포인트가 모자랍니다.');
+						return;
+					}
+
+					// 포인트 처리
+					console.log('orderPoint : ' + orderPoint);
+					console.log('usePoint : ' + usePoint);
+					let tempPoint = orderPoint - usePoint;
+					$('#orderPoint').text(tempPoint);
+					console.log(usePoint);
+					console.log($('#orderPoint').val());
+					
+					// 포인트 사용으로 인해 변경된 가격 처리
+					
+					// 전체 가격 처리
+					let totalPrice = "<c:out value='${totalPrice}'/>";
+					$('#totalPrice').text(totalPrice - usePoint);
+					
+					// 상품별 가격처리
+					let orderPriceList = document.querySelectorAll('.orderPrice');
+					let orderPriceHiddeneList = document.querySelectorAll('.orderPriceHidden');
+					let shareUsePotintList = document.querySelectorAll('.shareUsePotint');
+					let remainderUsePointList = document.querySelectorAll('.remainderUsePoint');
+					
+					let listLength = orderPriceList.length;
+					
+					let shareUsePoint = Math.floor(usePoint / listLength);
+					let remainderUsePoint = usePoint % listLength;
+					console.log(shareUsePoint);
+					console.log(remainderUsePoint);
+					for(let i = 0; i<listLength; i++) {
+						
+						let orderPrice = $(orderPriceHiddeneList[i]).val();
+						
+						if(i == 0) {
+							orderPrice = orderPrice - shareUsePoint - remainderUsePoint;
+							$(orderPriceList[i]).val(orderPrice);
+							$(shareUsePotintList[i]).val(shareUsePoint + remainderUsePoint);
+						} else {
+							orderPrice = orderPrice - shareUsePoint;
+							$(orderPriceList[i]).val(orderPrice);
+							$(shareUsePotintList[i]).val(shareUsePoint);
+						}
+					}
+				});
+				
 			});
 		</script>
 	</head>
@@ -50,13 +109,8 @@
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>
 
 		<h1>Add Order Direct</h1>
-		<form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm">
-		 	<input type="hidden" name="goodsCode" value="${order.goodsCode}">
-		 	<input type="hidden" name=goodsPrice value="${goodsPrice}">
-		 	<input type="hidden" name="customerId" value="${order.customerId}">
-		 	<input type="hidden" name="goodsOption" value="${order.goodsOption}">
-		 	<input type="hidden" name="orderQuantity" value="${order.orderQuantity}">
-		 	<input type="hidden" name="orderPrice" value="${order.orderPrice}"> <!-- 자바스크립트로 수정 -->
+		<form action="${pageContext.request.contextPath}/AddOrderFromCart" method="post" id="addOrderForm">
+		 	<!-- 자바스크립트로 수정 -->
 		 	<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
 		 	<table border="1" style="width:50%;"> <!-- 주문고객정보 -->
 	 			<tr>
@@ -64,9 +118,9 @@
 	 			</tr>
 		 		<tr>
 		 			<td>이름</td>
-		 			<td>${customer.customerName}</td>
+		 			<td>${orderCustomer.customerName}</td>
 		 			<td>전화번호</td>
-		 			<td>${customer.customerPhone}</td>
+		 			<td>${orderCustomer.customerPhone}</td>
 		 		</tr>
 		 		<tr>
 		 			<td colspan="1">주소</td>
@@ -94,9 +148,6 @@
 	 					<input type="text" name="newAddress" id="newAddress" placeholder="추가할 주소지 작성">
 	 				</td>
 		 		</tr>
-		 		<tr>
-		 			<td colspan="4">사용가능 포인트: ${customer.point}P</td>
-		 		</tr>
 		 	</table>
 		 	<br>
 		 	<table border="1" style="width:50%;"> <!-- 주문상품정보 -->
@@ -110,24 +161,38 @@
 		 			<th>상품옵션</th>
 	 			</tr>
 	 			<c:forEach var="map" items="${cartList}">
+	 				<input type="hidden" name="goodsCode" value="${map.goodsCode}">
+	 				<input type="hidden" name="goodsName" value="${map.goodsName}">
+				 	<input type="hidden" name="orderPrice" value="${map.orderPrice}"> 	
+				 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
+				 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
+				 
 		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
-			 			<td>${map.goodsName}</td>
-			 			<td>${map.orderPrice}</td>
+		 				<td id="filename"><img src="${pageContext.request.contextPath}/upload/${map.fileName}" name="filename" width="100" height="100"></td>
+			 			<td id="goodsName">${map.goodsName}</td>
+			 			<td>
+			 				<input type="text" id="orderPrice" class="orderPrice" value="${map.orderPrice}" readonly="readonly">
+			 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
+			 			</td>
 			 			<td>${map.orderQuantity}</td>
 			 			<td>${map.goodsOption}</td>
 			 		</tr>
 	 			</c:forEach>
+
 		 		<tr>
-		 			<td colspan="1">사용할 포인트</td>
+		 			<td colspan="1">잔여 포인트 <span id="orderPoint">${orderCustomer.point}</span></td>
 		 			<td colspan="2">
-		 				<input type="text" name="point" id="point" placeholder="사용할 포인트 입력"> P
+		 				<input type="number" name="usePoint" id="usePoint" placeholder="사용할 포인트 입력"> P
 		 				<button type="button">적용</button>
 		 			</td>
-	 				<td colspan="2" id="totalPrice">총 주문금액: ${totalPrice}원</td> <!-- 자바스크립트로 수정 -->
+	 				<td colspan="2">총 주문금액: <span id="totalPrice">${totalPrice}</span>원</td> <!-- 자바스크립트로 수정 -->
 	 			</tr>
 		 	</table>
-
+		 	
+			<input type="hidden" name="shareUsePoint" value="">
+		 	<input type="hidden" name="remainderUsePotin" value="">
+		 	<input type="hidden" name="totalPrice" value="${totalPrice}">
+		 	
 			<button type="button" id="addOrderBtn">주문</button>
 		</form>
 	</body>

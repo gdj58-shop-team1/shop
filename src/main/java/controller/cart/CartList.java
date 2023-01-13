@@ -46,6 +46,7 @@ public class CartList extends HttpServlet {
 				
 				cartList.get(i).put("goodsOptionPrice", goodsOptionPrice);
 				cartList.get(i).put("orderPrice", (goodsOptionPrice + goodsPrice) * orderQuantity);
+				cartList.get(i).put("useMaxPoint", Math.round((goodsOptionPrice + goodsPrice) * orderQuantity * 0.05));
 			}	
 				session.setAttribute("cartList", cartList);
 		}
@@ -100,6 +101,7 @@ public class CartList extends HttpServlet {
 				
 				cartList.get(i).put("goodsOptionPrice", goodsOptionPrice);
 				cartList.get(i).put("orderPrice", (goodsOptionPrice + goodsPrice) * orderQuantity);
+				cartList.get(i).put("useMaxPoint", Math.round((goodsOptionPrice + goodsPrice) * orderQuantity * 0.05));
 			}	
 				session.setAttribute("cartList", cartList);
 				
