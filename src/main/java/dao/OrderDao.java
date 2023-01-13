@@ -51,8 +51,6 @@ public class OrderDao {
 		return orderCode;
 	}
 	
-	
-	
 	// 회원
 	// 주문목록 출력(select) : 본인이 주문한 주문목록에 한해서
 	public ArrayList<HashMap<String, Object>> selectOrderListById(Connection conn, String customerId) throws Exception{

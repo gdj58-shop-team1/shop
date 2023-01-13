@@ -72,7 +72,7 @@ public class RemoveMember extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/RemoveMember");
 				return;
 			}
-			
+
 		}
 		
 		response.sendRedirect(request.getContextPath()+"/Logout");

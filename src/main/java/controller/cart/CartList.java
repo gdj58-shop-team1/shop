@@ -15,9 +15,7 @@ import service.CartService;
 import vo.Cart;
 import vo.Customer;
 
-/**
- * Servlet implementation class CartList
- */
+
 @WebServlet("/CartList")
 public class CartList extends HttpServlet {
 	private CartService cartService;
