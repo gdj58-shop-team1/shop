@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.CustomerService;
-import service.OrderService;
 import vo.Customer;
 import vo.CustomerAddress;
 import vo.Emp;
@@ -73,12 +72,13 @@ public class GetOrderInfoDirect extends HttpServlet {
 		Customer customer = customerService.getCustomer(paramCustomer); // 회원 정보
 		
 		// 파라메터(주문정보), 호출 데이터(사용자 정보) 세션에 저장
-		request.setAttribute("goodsName", goodsName);
-		request.setAttribute("goodsPrice", goodsPrice);
-		request.setAttribute("fileName", fileName);
-		request.setAttribute("order", order);
+		session.setAttribute("goodsName", goodsName);
+		session.setAttribute("goodsPrice", goodsPrice);
+		session.setAttribute("fileName", fileName);
+		session.setAttribute("order", order); // Orders type
+		session.setAttribute("customer", customer); // Customer type
 		request.setAttribute("addressList", addressList);
-		request.setAttribute("customer", customer);
+		request.setAttribute("goodsCode", goodsCode);
 		
 		// 주문 페이지로
 		request.getRequestDispatcher("/WEB-INF/view/order/addOrderDirect.jsp").forward(request, response);

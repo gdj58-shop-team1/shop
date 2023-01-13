@@ -165,4 +165,20 @@ public class CustomerDao {
 		rs.close();
 		return row;
 	}
+	
+	// 8) 포인트 변동
+	public int updatePoint(Connection conn, String customerId, int point) throws Exception{
+		int row = 0;
+		PreparedStatement stmt = null;
+		
+		String sql = "UPDATE customer SET POINT = ? WHERE customer_id = ?";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, point);
+		stmt.setString(2, customerId);
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
+	}
 }
