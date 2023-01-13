@@ -58,50 +58,48 @@
 				</thead>
 				<tbody>
 					<c:forEach var="g" items="${goodsList}">
-						
+			
+						<tr>
+							<td>
+								<input type = "hidden" name = "goodsCode" value = "${g.goodsCode}">
+								${g.goodsCode}
+							</td>						
+							<td>
+								<a>
+									<img src="${pageContext.request.contextPath}/upload/${g.fileName}" width="100px" height="100px" alt="상품 이미지"/>
+									${g.goodsName}
+								</a>
+							</td>
+							<td>${g.goodsPrice}</td>
+							<td>${g.goodsCategory}</td>
+							<td>${g.soldout}</td>
 							
-							<tr>
-								<td>
-									<input type = "hidden" name = "goodsCode" value = "${g.goodsCode}">
-									${g.goodsCode}
-								</td>						
-								<td>
-									<a>
-										<img src="${pageContext.request.contextPath}/upload/${g.fileName}" width="100px" height="100px" alt="상품 이미지"/>
-										${g.goodsName}
-									</a>
-								</td>
-								<td>${g.goodsPrice}</td>
-								<td>${g.goodsCategory}</td>
-								<td>${g.soldout}</td>
-								
-								
-								<td>
-									<form id="goodsListForAdminForm${g.goodsCode}" action="${pageContext.request.contextPath}/GoodsListForAdmin3?goodsCode=${g.goodsCode}" method="post">
-										<select name = "hit" id = "hit${g.goodsCode}">
-											<c:if test="${g.hit == 0}">
-												<option value='0' selected="selected">상단노출x</option>
-												<option value='1'>상단노출o</option>
+							
+							<td>
+								<form id="goodsListForAdminForm${g.goodsCode}" action="${pageContext.request.contextPath}/GoodsListForAdmin3?goodsCode=${g.goodsCode}" method="post">
+									<select name = "hit" id = "hit${g.goodsCode}">
+										<c:if test="${g.hit == 0}">
+											<option value='0' selected="selected">상단노출x</option>
+											<option value='1'>상단노출o</option>
+		
+										</c:if>
+										<c:if test="${g.hit == 1}">
+											<option value='0'>상단노출x</option>
+											<option value='1'selected="selected">상단노출o</option>
+		
+										</c:if>
+									</select>
+								</form>
+							</td>
 			
-											</c:if>
-											<c:if test="${g.hit == 1}">
-												<option value='0'>상단노출x</option>
-												<option value='1'selected="selected">상단노출o</option>
-			
-											</c:if>
-										</select>
-									</form>
-								</td>
-				
-								
-								<td>${g.empId}</td>
-								
-							</tr>
-						</form>
+							
+							<td>${g.empId}</td>
+						</tr>
+					
 					</c:forEach>
 				</tbody>
 			</table>
-		</form>
+		
 		<!--  페이지 -->
 		<div>
 			<c:if test="${currentPage > 1}">
