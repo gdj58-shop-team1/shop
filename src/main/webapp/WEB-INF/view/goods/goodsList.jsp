@@ -29,33 +29,55 @@
 					<th>상품명</th>
 					<th>판매가</th>
 					<th>카테고리</th>
-					<th>솔드아웃<th>
-					<th>hit</th>
+					<th>솔드아웃</th>
+					
 					<th>관리자</th>
 					<th>action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="goodsList" items="${goodsList}">
+				<c:forEach var="g" items="${goodsList}">
 					<tr>
-						<td>${goodsList.goodsCode}</td>
+						<td>${g.goodsCode}</td>						
 						<td>
-							<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${goodsList.goodsCode}">
-								<img src="${pageContext.request.contextPath}/upload/${goodsList.filename}" width="100px" height="100px" alt="상품 이미지"/>
-								${goodsList.goodsName}
+							<a>
+								<img src="${pageContext.request.contextPath}/upload/${g.fileName}" width="100px" height="100px" alt="상품 이미지"/>
+								${g.goodsName}
 							</a>
 						</td>
-						<td>${goodsList.goodsPrice}</td>
+						<td>${g.goodsPrice}</td>
+						<td>${g.goodsCategory}</td>
+						<td>${g.soldout}</td>
+						
+						<td>${g.empId}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/removeGoods?goodsCode=${goodsList.goodsCode}&filename=${goodsList.filename}">삭제</a>
+							<a href="${pageContext.request.contextPath}/ModifyGoods?goodsCode=${g.goodsCode}&fileName=${g.fileName}">수정</a>
+							<a href="${pageContext.request.contextPath}/DeleteGoods?goodsCode=${g.goodsCode}&fileName=${g.fileName}">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-
-
-
+		
+		<!--  페이지 -->
+		<div>
+			<c:if test="${currentPage > 1}">
+				<span><a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage-1}">이전</a></span>
+			</c:if>
+			<c:if test="${currentPage == 1}">
+				<span>이전</span>
+			</c:if>
+			
+			<span>${currentPage}</span>
+							
+			<c:if test="${currentPage < endPage}">
+				<span><a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage+1}">다음</a></span>
+			</c:if>
+			<c:if test="${currentPage == endPage}">
+				<span>다음</span>
+			</c:if>
+		
+		</div>
 
 
 </body>

@@ -27,5 +27,17 @@ public class GoodsImgDao {
 	
 		
 	}
+	
+	// admin) 상품삭제
+		public int deleteGoodsImg(Connection conn, int goodsCode) throws Exception {
+			String sql = "DELETE FROM goods_img WHERE goods_code = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, goodsCode);
+			int result = stmt.executeUpdate();
+			
+			if(stmt != null) {stmt.close();}
+			
+			return result;
+		}
 
 }
