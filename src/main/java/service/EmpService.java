@@ -10,6 +10,7 @@ import dao.PwHistoryDao;
 import util.DBUtil;
 import vo.Customer;
 import vo.Emp;
+import vo.Outid;
 
 public class EmpService {
 	
@@ -248,8 +249,10 @@ public class EmpService {
 	// 6) emp 탈퇴
 	public int removeEmp(Emp emp) {
 		this.empDao = new EmpDao();
+		this.outidDao = new OutidDao();
 		this.dbUtil = new DBUtil();
 		
+		int insertOutidRow = 0;
 		int deleteEmpRow = 0;
 		
 		Connection conn = null;
@@ -258,6 +261,19 @@ public class EmpService {
 			conn = dbUtil.getConnection();
 			conn.setAutoCommit(false);
 			
+			Outid outid = new Outid();
+			outid.setId(emp.getEmpId());
+			
+			// 1) outid에 id남기기
+			insertOutidRow = outidDao.insertOutid(conn, outid);
+			
+			if(insertOutidRow == 1) {
+				System.out.println("oudid 삽입성공");
+			} else {
+				System.out.println("oudid 삽입실패");
+				throw new Exception();
+			}
+						
 			deleteEmpRow = empDao.deleteEmp(conn, emp);
 			
 			if(deleteEmpRow == 1) {

@@ -69,8 +69,8 @@
 					
 					// 상품별 가격처리
 					let orderPriceList = document.querySelectorAll('.orderPrice');
-					let orderPriceHiddeneList = document.querySelectorAll('.orderPriceHidden');
-					let shareUsePotintList = document.querySelectorAll('.shareUsePotint');
+					let orderPriceHiddenList = document.querySelectorAll('.orderPriceHidden');
+					let shareUsePointList = document.querySelectorAll('.shareUsePotint');
 					let remainderUsePointList = document.querySelectorAll('.remainderUsePoint');
 					
 					let listLength = orderPriceList.length;
@@ -86,11 +86,11 @@
 						if(i == 0) {
 							orderPrice = orderPrice - shareUsePoint - remainderUsePoint;
 							$(orderPriceList[i]).val(orderPrice);
-							$(shareUsePotintList[i]).val(shareUsePoint + remainderUsePoint);
+							$(shareUsePointList[i]).val(shareUsePoint + remainderUsePoint);
 						} else {
 							orderPrice = orderPrice - shareUsePoint;
 							$(orderPriceList[i]).val(orderPrice);
-							$(shareUsePotintList[i]).val(shareUsePoint);
+							$(shareUsePointList[i]).val(shareUsePoint);
 						}
 					}
 				});
@@ -189,8 +189,8 @@
 	 			</tr>
 		 	</table>
 		 	
-			<input type="hidden" name="shareUsePoint" value="">
-		 	<input type="hidden" name="remainderUsePotin" value="">
+			<input type="hidden" name="shareUsePoint" value="0">
+		 	<input type="hidden" name="remainderUsePoint" value="0">
 		 	<input type="hidden" name="totalPrice" value="${totalPrice}">
 		 	
 			<button type="button" id="addOrderBtn">주문</button>
