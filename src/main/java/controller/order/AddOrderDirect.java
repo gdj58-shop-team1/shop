@@ -109,7 +109,6 @@ public class AddOrderDirect extends HttpServlet {
 			paramPoint.setPoint(usedPoint);
 			paramPoint.setPointKind("사용");
 			
-			
 		}
 		
 		// 세션에 저장(뷰에서 보여줄 정보)
