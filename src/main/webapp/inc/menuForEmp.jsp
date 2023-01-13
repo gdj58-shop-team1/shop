@@ -27,6 +27,7 @@
 		<span>주문관리</span>
 		<span>공지관리</span>
 		<span>사원관리</span>
+		
 	</c:if>
 	
 	<a href="${pageContext.request.contextPath}/">CATEGORY</a> <!-- 리스트 구현예정 -->
