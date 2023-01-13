@@ -46,25 +46,26 @@ public class GetOrderInfoFromCart extends HttpServlet {
 		this.customerService = new CustomerService();
 		ArrayList<CustomerAddress> addressList = new ArrayList<CustomerAddress>();		
 		addressList = customerAddressService.getAddressByCustomerId(loginCustomer.getCustomerId()); // 주소 리스트
-		Customer customer = customerService.getCustomer(loginCustomer); // 회원 정보
+		Customer orderCustomer = customerService.getCustomer(loginCustomer); // 회원 정보
 		
 		int totalPrice = 0;
 		// 세션 속 cartList의 orderPrice 전부 더해 주기(총 합계 금액 산출)
 		ArrayList<HashMap<String, Object>> cartList = (ArrayList<HashMap<String, Object>>) session.getAttribute("cartList");	
 		for(int i=0 ; i<cartList.size() ; i++) {
-			System.out.println("돌아라~");
 			totalPrice = totalPrice + (int)cartList.get(i).get("orderPrice");
 		}
 		
 		request.setAttribute("totalPrice", totalPrice);
 		request.setAttribute("addressList", addressList);
-		request.setAttribute("customer", customer);
+		request.setAttribute("orderCustomer", orderCustomer);
 		
 		// 주문 페이지로
 		request.getRequestDispatcher("/WEB-INF/view/order/addOrderFromCart.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		HttpSession session = request.getSession();
+		
+		
 	}
 }
