@@ -165,4 +165,14 @@ public class CustomerDao {
 		rs.close();
 		return row;
 	}
+	
+	// 8) 포인트 변동
+	public int updatePoint(Connection conn, String customerId, int point) throws Exception{
+		int row = 0;
+		
+		String sql = "UPDATE customer SET ";
+		
+		
+		return row;
+	}
 }

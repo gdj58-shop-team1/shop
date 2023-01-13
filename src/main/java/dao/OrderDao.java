@@ -31,6 +31,27 @@ public class OrderDao {
 		return row;
 	}
 	
+	// 포인트 처리 위한 주문코드 출력
+	public int selectRecentOrder(Connection conn, String customerId) throws Exception{
+		int orderCode = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT order_code orderCode FROM orders WHERE customer_id = ? ORDER BY createdate DESC";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			orderCode = rs.getInt("orderCode");
+		}
+		
+		rs.close();
+		stmt.close();
+		return orderCode;
+	}
+	
+	
 	
 	// 회원
 	// 주문목록 출력(select) : 본인이 주문한 주문목록에 한해서
