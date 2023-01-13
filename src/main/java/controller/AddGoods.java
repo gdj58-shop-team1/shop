@@ -45,7 +45,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			return;
 		}
 
-	
+		// 뷰 호출
 		request.getRequestDispatcher("/WEB-INF/view/goods/addGoods.jsp").forward(request, response);
 	}	
 	
@@ -77,7 +77,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		String goodsCategory = mreq.getParameter("goodsCategory");
 		Emp loginEmp = (Emp)session.getAttribute("loginMember");
 		String empId = loginEmp.getEmpId();
-		int hit = Integer.parseInt(mreq.getParameter("hit"));
+		//int hit = Integer.parseInt(mreq.getParameter("hit"));
 		
 		/* 디버깅
 		System.out.println(contentType);
@@ -105,7 +105,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				goods.setGoodsCategory(goodsCategory);
 				goods.setSoldout(soldout);
 				goods.setEmpId(empId);
-				goods.setHit(hit);
+				// goods.setHit(hit);
 				// goods.setCreatedate(createdate);
 				
 				
@@ -135,7 +135,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			System.out.println("상품 추가 실패");
 		}
 			
-		response.sendRedirect(request.getContextPath()+"/AddGoods");
+		response.sendRedirect(request.getContextPath()+"/GoodsList");
 		
 			}
 

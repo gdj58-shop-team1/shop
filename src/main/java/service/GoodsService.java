@@ -9,6 +9,7 @@ import java.util.HashMap;
 import dao.GoodsDao;
 import dao.GoodsImgDao;
 import util.DBUtil;
+import vo.Emp;
 import vo.Goods;
 import vo.GoodsImg;
 
@@ -226,7 +227,7 @@ public class GoodsService {
 	}
 	
 	// admin) 상품 리스트
-	public ArrayList<HashMap <String, Object>> getGoodsListAdmin(int currentPage, int rowPerPage) {
+	public ArrayList<HashMap <String, Object>> getGoodsListAdmin(Emp emp, int currentPage, int rowPerPage) {
 		ArrayList<HashMap<String, Object>> goodsList = null;
 		goodsDao = new GoodsDao();
 		goodsImgDao = new GoodsImgDao();
@@ -239,7 +240,7 @@ public class GoodsService {
 			
 			int beginRow = (currentPage-1)*rowPerPage;
 			int endRow = beginRow+rowPerPage;
-			goodsList = goodsDao.selectGoodsListAdmin(conn, beginRow, endRow);
+			goodsList = goodsDao.selectGoodsListAdmin(conn, emp, beginRow, endRow);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -251,9 +252,186 @@ public class GoodsService {
 			}
 		}
 
-		
-		
 		return goodsList;
 
 	}
+	
+	// admin) 상품one 상세페이지
+		public HashMap<String, Object> getGoodsOneAdmin(int goodsCode){
+			HashMap<String, Object> goodsMap = null;
+			Connection conn = null;
+			goodsDao = new GoodsDao();
+			DBUtil dbUtil = new DBUtil();
+			
+			try {
+				conn = dbUtil.getConnection();
+				System.out.println("getGoodsOneAdmin(GoodsService) db 접속");
+				goodsMap = goodsDao.selectGoodsOneAdmin(conn, goodsCode);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			return goodsMap;
+		}
+
+	
+	// admin) 상품수정
+	public int modifyGoods(Goods goods) {
+		goodsDao = new GoodsDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+	
+		int row = 0;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			row = goodsDao.updateGoods(conn, goods);
+		
+			if (row ==1 ) {
+				System.out.println("상품수정 성공");
+			} else {
+				System.out.println("상품수정 실패");
+				throw new Exception();
+			}
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+		
+	}
+	
+	
+	
+	// admin) 상품삭제
+	
+	public int removeGoods(int goodsCode) {
+		goodsDao = new GoodsDao();
+		goodsImgDao = new GoodsImgDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		int result = 0;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			goodsImgDao = new GoodsImgDao();
+			result = goodsImgDao.deleteGoodsImg(conn, goodsCode);
+			
+			// 상품 삭제 실패 시
+			if(result < 1) {
+				throw new Exception();
+			}
+			
+			goodsDao = new GoodsDao();
+			result = goodsDao.deleteGoods(conn, goodsCode);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	// owner 관리자 레벨 3) 상품 리스트
+	public ArrayList<HashMap <String, Object>> getGoodsListForAdmin3(int currentPage, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> goodsList = null;
+		goodsDao = new GoodsDao();
+		goodsImgDao = new GoodsImgDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			int beginRow = (currentPage-1)*rowPerPage;
+			int endRow = beginRow+rowPerPage;
+			goodsList = goodsDao.selectGoodsListForAdmin3(conn, beginRow, endRow);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return goodsList;
+
+	}
+	
+	// owner 관리자 레벨 3) hit 수정
+	public int modifyGoodsForAdmin3(Goods goods) {
+		goodsDao = new GoodsDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+	
+		int row = 0;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			row = goodsDao.updateGoodsForAdmin3(conn, goods);
+		
+			if (row ==1 ) {
+				System.out.println("hit 성공");
+			} else {
+				System.out.println("hit 실패");
+				throw new Exception();
+			}
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+		
+	}
+	
 }
