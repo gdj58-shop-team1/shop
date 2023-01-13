@@ -1,6 +1,7 @@
 package controller.order;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +12,23 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.OrderService;
+import service.PointHistoryService;
 import vo.CustomerAddress;
 import vo.Emp;
 import vo.Orders;
+import vo.PointHistory;
 
 
 @WebServlet("/AddOrderDirect")
 public class AddOrderDirect extends HttpServlet {
 	private OrderService orderService;
 	private CustomerAddressService customerAddressService;
+	private PointHistoryService pointHistoryService;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.orderService = new OrderService();
 		this.customerAddressService = new CustomerAddressService();
+		this.pointHistoryService = new PointHistoryService();
 		
 		// 세션 유효성 확인
 		HttpSession session = request.getSession();
@@ -43,18 +48,21 @@ public class AddOrderDirect extends HttpServlet {
 		}
 		
 		// 파라메터 넘겨 받기
+		Orders paramOrder = (Orders)session.getAttribute("order"); // 세션에서 주문정보 받아오기
+		String customerId = paramOrder.getCustomerId();
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));
-		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
-		String customerId = request.getParameter("customerId");
-		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
-		String goodsOption = request.getParameter("goodsOption");
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		int usedPoint = 0; // 포인트 사용했다면 값 받아오고, 주문 성공 후 포인트 처리
+		if((request.getParameter("point") != null && !request.getParameter("point").equals("")) || usedPoint > 0 ) {
+			usedPoint = Integer.parseInt(request.getParameter("point"));
+		}
+		System.out.println("usedPoint: "+usedPoint);
 		
 		String newAddress = null; // 새 주소 작성 유무에 따라 아래 코드 실행
-		if(request.getParameter("newAddress") != null) {
+		if(request.getParameter("newAddress") != null && !request.getParameter("newAddress").equals("")) {
 			newAddress = request.getParameter("newAddress");
 			
-			CustomerAddress paramAddress = new CustomerAddress();
+			CustomerAddress paramAddress = new CustomerAddress(); // 주소 추가 메서드에 들어갈 매개변수
 			paramAddress.setAddress(newAddress);
 			paramAddress.setCustomerId(customerId);
 			
@@ -73,19 +81,16 @@ public class AddOrderDirect extends HttpServlet {
 		// System.out.println("newAddress: "+newAddress);
 		// System.out.println("addressCode: "+addressCode);
 		
-		String goodsName = request.getParameter("goodsName"); // 세션에 따로 저장
-		String fileName = request.getParameter("fileName"); // 세션에 따로 저장
-		
 		// 데이터 묶기
 		Orders order = new Orders();
 		order.setGoodsCode(goodsCode);
-		order.setAddressCode(addressCode);
 		order.setCustomerId(customerId);
-		order.setOrderQuantity(orderQuantity);
-		order.setGoodsOption(goodsOption);
+		order.setOrderQuantity(paramOrder.getOrderQuantity());
+		order.setGoodsOption(paramOrder.getGoodsOption());
+		order.setAddressCode(addressCode);
 		order.setOrderPrice(orderPrice);
 		
-		// 서비스 호출
+		// order 서비스 호출
 		String address = customerAddressService.getAddressByAddressCode(addressCode); // 주문한 주소 호촐
 		int row = orderService.addOrderDirect(order); // add주문
 		if(row == 0) {
@@ -95,17 +100,37 @@ public class AddOrderDirect extends HttpServlet {
 		}
 		System.out.println("주문 성공");
 		
+		// 포인트 사용했다면 포인트 처리(히스토리 남기고 고객 포인트 수정)
+		if(usedPoint > 0) {
+			usedPoint = usedPoint*-1; // 음수로 db에 입력하기 위함
+			int orderCode = orderService.getRecentOrder(customerId); // 포인트 내역 입력할 주문번호 출력
+			PointHistory paramPoint = new PointHistory(); // 포인트 처리 메서드에 들어갈 매개변수
+			paramPoint.setOrderCode(orderCode);
+			paramPoint.setPoint(usedPoint);
+			paramPoint.setPointKind("사용");
+			
+			
+		}
+		
 		// 세션에 저장(뷰에서 보여줄 정보)
-		request.setAttribute("goodsName", goodsName);
-		request.setAttribute("goodsPrice", goodsPrice);
-		request.setAttribute("fileName", fileName);
 		request.setAttribute("order", order);
-		request.setAttribute("customerId", customerId);
 		request.setAttribute("address", address);
 		
 		// 뷰 호출
 		request.getRequestDispatcher("WEB-INF/view/order/orderComplete.jsp").forward(request, response);
+		session.removeAttribute("goodsName");
+		session.removeAttribute("goodsPrice");
+		session.removeAttribute("fileName");
+		session.removeAttribute("order");
+		session.removeAttribute("customer");
 		
+		// 세션에 저장된 모든 값 확인
+		Enumeration<String> attributes = request.getSession().getAttributeNames();
+		while (attributes.hasMoreElements()) {
+		    String attribute = (String) attributes.nextElement();
+		    System.err.println(attribute+" : "+request.getSession().getAttribute(attribute));
+		}
+		System.out.println("세션 종료");
 	}
 
 }

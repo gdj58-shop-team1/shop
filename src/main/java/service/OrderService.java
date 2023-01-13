@@ -43,6 +43,29 @@ public class OrderService {
 		return row;
 	}
 	
+	// 포인트 처리 위한 주문코드 출력
+	public int getRecentOrder(String customerId){
+		int orderCode = 0;
+		Connection conn = null;
+		this.dbUtil = new DBUtil();
+		this.orderDao = new OrderDao();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("getRecentOrder(OrderService) db 접속");
+			orderCode = orderDao.selectRecentOrder(conn, customerId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return orderCode;
+	}
+	
 	// 회원
 	// 주문목록 출력(select) : 본인이 주문한 주문목록에 한해서
 	public ArrayList<HashMap<String, Object>> getOrderListById(String customerId) {

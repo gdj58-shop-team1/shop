@@ -10,8 +10,11 @@
 		<script>
 			$(document).ready(function(){
 				
+				var customerPoint = Number('<c:out value="${customer.point}"/>');
+				var goodsPrice = Number('<c:out value="${goodsPrice}"/>');
 				var optionCk = $('select option:selected').val(); // 선택된 옵션의 값
 				console.log(optionCk);
+				console.log(goodsPrice);
 				
 				$('#addressCode').change(function(){ // 주소 선택 값이 바뀌면
 					optionCk = $('select option:selected').val(); // 선택된 옵션의 값을 가져오기
@@ -23,6 +26,23 @@
 					}
 				});
 				
+				// 포인트 적용 버튼이 눌리면
+				$('#applyPoint').click(function(){
+					if(Number($('#point').val()) > customerPoint){
+						alert('보유 포인트가 모자랍니다.');
+						$('#point').val('');
+						return;
+					}
+					if(Number($('#point').val()) < 0){
+						alert('0 이상 입력가능합니다.');
+						$('#point').val('');
+						return;
+					}
+					$('#currentPoint').text(customerPoint-Number($('#point').val())); // 현재 포인트 변경
+					$('#totalPrice').text(goodsPrice-Number($('#point').val())); // 총 금액 변경
+					$('#orderPrice').attr('value', goodsPrice-Number($('#point').val())); // 넘어갈 주문 금액 value 변경
+				});
+				
 				$('#addOrderBtn').click(function(){
 					if($('#newAddress').val() && optionCk != 0){ // 두 곳에 주소 작성이 되었을 경우
 						console.log($('#newAddress').val());
@@ -31,6 +51,10 @@
 					} else if(!$('#newAddress').val() && optionCk == 0){ // 주소 작성이 되지 않았을 경우 
 						console.log($('#newAddress').text());
 						alert('기존 주소를 선택하거나 새 주소를 입력하세요.');
+						return;
+					}
+					if(Number($('#point').val()) > customerPoint){
+						alert('사용 가능한 포인트 보다 입력 포인트가 많습니다.');
 						return;
 					}
 					$('#addOrderForm').submit();
@@ -51,14 +75,8 @@
 
 		<h1>Add Order Direct</h1>
 		<form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm">
-		 	<input type="hidden" name="goodsCode" value="${order.goodsCode}">
-		 	<input type="hidden" name="goodsName" value="${goodsName}">
-		 	<input type="hidden" name="fileName" value="${fileName}">
-		 	<input type="hidden" name=goodsPrice value="${goodsPrice}">
-		 	<input type="hidden" name="customerId" value="${order.customerId}">
-		 	<input type="hidden" name="goodsOption" value="${order.goodsOption}">
-		 	<input type="hidden" name="orderQuantity" value="${order.orderQuantity}">
-		 	<input type="hidden" name="orderPrice" value="${order.orderPrice}"> <!-- 자바스크립트로 수정 -->
+			<input type="hidden" name="goodsCode" value="${goodsCode}">
+		 	<input type="hidden" name="orderPrice" id="orderPrice" value="${order.orderPrice}">
 		 	<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
 		 	<table border="1" style="width:50%;"> <!-- 주문고객정보 -->
 	 			<tr>
@@ -97,7 +115,7 @@
 	 				</td>
 		 		</tr>
 		 		<tr>
-		 			<td colspan="4">사용가능 포인트: ${customer.point}P</td>
+		 			<td colspan="4">사용가능 포인트: <span id="currentPoint">${customer.point}</span>P</td>
 		 		</tr>
 		 	</table>
 		 	<br>
@@ -123,10 +141,10 @@
 		 		<tr>
 		 			<td colspan="1">사용할 포인트</td>
 		 			<td colspan="2">
-		 				<input type="text" name="point" id="point" placeholder="사용할 포인트 입력"> P
-		 				<button type="button">적용</button>
+		 				<input type="number" name="point" id="point" max="${customer.point}" placeholder="사용할 포인트 입력">P
+		 				<button type="button" id="applyPoint">적용</button>
 		 			</td>
-	 				<td colspan="2" id="totalPrice">총 주문금액: ${order.orderPrice}원</td> <!-- 자바스크립트로 수정 -->
+	 				<td colspan="2">총 주문금액: <span id="totalPrice">${order.orderPrice}</span>원</td> <!-- 자바스크립트로 수정 -->
 	 			</tr>
 		 	</table>
 
