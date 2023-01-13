@@ -52,10 +52,6 @@
 				</td>
 			</tr>
 			<tr>
-				<th>추천상품</th>
-				<td><input type="number" name="hit" id = "hit">☆☆☆</td>
-			</tr>
-			<tr>
 				<th>사진등록</th>
 				<td>
 					<div><input type="file" name="goodsImg" accept="image/jpeg, image/png"></div>
@@ -63,7 +59,7 @@
 			</tr>
 			<tr>
 				<th>관리자</th>
-				<td><input type="text" name="empId" id = "empId" value="${loginMember.empId}"></td>
+				<td><input type="text" name="empId" id = "empId" value="${loginMember.empId}" readonly="readonly"></td>
 			</tr>
 		</table>
 		<button type="submit">상품등록</button>

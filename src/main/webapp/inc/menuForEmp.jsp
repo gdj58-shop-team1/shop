@@ -16,14 +16,14 @@
 	
 	<c:if test="${loginMember.authCode == 2}">
 		<a href="${pageContext.request.contextPath}/">ADMIN</a> <!-- 리스트 구현예정(상품관리) -->
-		<span>상품관리</span>
+		<a href = "${pageContext.request.contextPath}/GoodsList">상품관리</a>
 		<span>주문관리</span>
 		<span>공지관리</span>
 	</c:if>
 	
 	<c:if test="${loginMember.authCode == 3}">
 		<a href="${pageContext.request.contextPath}/">ADMIN</a> <!-- 리스트 구현예정(상품관리) -->
-		<span>상품관리</span>
+		<a href = "${pageContext.request.contextPath}/GoodsListForAdmin3">상품관리</a>
 		<span>주문관리</span>
 		<span>공지관리</span>
 		<span>사원관리</span>
@@ -39,6 +39,6 @@
 	<div>관리자 레벨 : ${loginMember.authCode}</div>
 	<div>오늘의 접속자 : ${todaySiteCounter}</div>
 	<div>총 접속자 : ${totalSiteCounter}</div>
-	<a href = "${pageContext.request.contextPath}/GoodsList">상품관리</a>
+	
 </div>
 
