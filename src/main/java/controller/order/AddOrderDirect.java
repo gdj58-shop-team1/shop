@@ -23,12 +23,10 @@ import vo.PointHistory;
 public class AddOrderDirect extends HttpServlet {
 	private OrderService orderService;
 	private CustomerAddressService customerAddressService;
-	private PointHistoryService pointHistoryService;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.orderService = new OrderService();
 		this.customerAddressService = new CustomerAddressService();
-		this.pointHistoryService = new PointHistoryService();
 		
 		// 세션 유효성 확인
 		HttpSession session = request.getSession();
@@ -90,35 +88,25 @@ public class AddOrderDirect extends HttpServlet {
 		order.setAddressCode(addressCode);
 		order.setOrderPrice(orderPrice);
 		
-		// order 서비스 호출
-		String address = customerAddressService.getAddressByAddressCode(addressCode); // 주문한 주소 호촐
-		int row = orderService.addOrderDirect(order); // add주문
-		if(row == 0) {
+		// order 서비스 호출(포인트 사용 유무에 따라 분기)
+		int orderRow = 0; // 주문 입력 결과 반환 변수
+		if(usedPoint > 0) { // 포인트 사용
+			usedPoint = usedPoint*-1; // 음수로 db에 입력하기 위함
+			orderRow = orderService.addOrderDirectWithPoint(order, customerId, usedPoint);
+		} else { // 포인트 미사용
+			orderRow = orderService.addOrderDirect(order);
+		}
+		
+		if(orderRow == 0) {
 			System.out.println("주문 실패");
 			response.sendRedirect(request.getContextPath()+"/GoodsOne?goodsCode="+goodsCode);
 			return;
 		}
 		System.out.println("주문 성공");
 		
-		// 포인트 사용했다면 포인트 처리(히스토리 남기고 고객 포인트 수정)
-		if(usedPoint > 0) {
-			usedPoint = usedPoint*-1; // 음수로 db에 입력하기 위함
-			int orderCode = orderService.getRecentOrder(customerId); // 포인트 내역 입력할 주문번호 출력
-			PointHistory paramPoint = new PointHistory(); // 포인트 처리 메서드에 들어갈 매개변수
-			paramPoint.setOrderCode(orderCode);
-			paramPoint.setPoint(usedPoint);
-			paramPoint.setPointKind("사용");
-
-			boolean pointProcess = pointHistoryService.pointProcess(customerId, paramPoint);
-			if(!pointProcess) {
-				System.out.println("포인트 처리 실패");
-				response.sendRedirect(request.getContextPath()+"/GoodsOne?goodsCode="+goodsCode);
-				return;
-			}
-			System.out.println("포인트 처리 성공");
-		}
 		
 		// 세션에 저장(뷰에서 보여줄 정보)
+		String address = customerAddressService.getAddressByAddressCode(addressCode); // 주문한 주소 호촐
 		request.setAttribute("order", order);
 		request.setAttribute("address", address);
 		
