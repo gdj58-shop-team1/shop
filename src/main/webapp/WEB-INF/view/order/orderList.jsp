@@ -46,6 +46,7 @@
 					<th>주문수량</th>
 					<th>주문금액</th>
 					<th>주문상태</th>
+					<th>문의</th>
 					<th>주문일자</th>
 				</tr>
 				<c:forEach var="o" items="${orderList}">
@@ -67,19 +68,13 @@
 									<a href="${pageContext.request.contextPath}/AddReview?orderCode=${o.orderCode}">리뷰작성</a>
 								</td>
 							</c:if>
-							
 						</c:if>
-						
-						<c:if test="${o.orderState.equals('결제')}"> <!-- 주문상태가 결제이면 -->
-							<td>
-								${o.orderState}
-								<a href="${pageContext.request.contextPath}/AddQuestion?orderCode=${o.orderCode}">문의작성</a>
-							</td>
-						</c:if>
-						
 						<c:if test="${!o.orderState.equals('결제') && !o.orderState.equals('구매확정')}"> <!-- 주문상태가 구매확정도 아니고, 결제도 아니면 -->
 							<td>${o.orderState}</td>
 						</c:if>
+						<td>
+							<a href="${pageContext.request.contextPath}/AddQuestion?orderCode=${o.orderCode}">문의작성</a>
+						</td>
 						<td>${o.createdate}</td>
 					</tr>
 				</c:forEach>
