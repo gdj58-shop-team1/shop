@@ -95,19 +95,25 @@ public class AddOrderFromCart extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> orderList = new ArrayList<HashMap<String,Object>>();
 		for(int i = 0; i < goodsCodeArr.length; i++) {
-			
 			// DB내 order테이블에 insert하기 위해 값 세팅			
-			Orders order = new Orders();
-			order.setGoodsOption(goodsOptionArr[i]);
-			order.setGoodsCode(Integer.parseInt(goodsCodeArr[i]));
-			order.setCustomerId(orderCustomer.getCustomerId());
-			order.setAddressCode(addressCode);
-			order.setOrderQuantity(Integer.parseInt(orderQuantityArr[i]));
-			order.setOrderPrice(Integer.parseInt(goodsPriceArr[i]));
-			order.setOrderState("주문완료");
+			Orders orders = new Orders();
+			orders.setGoodsOption(goodsOptionArr[i]);
+			orders.setGoodsCode(Integer.parseInt(goodsCodeArr[i]));
+			orders.setCustomerId(orderCustomer.getCustomerId());
+			orders.setAddressCode(addressCode);
+			orders.setOrderQuantity(Integer.parseInt(orderQuantityArr[i]));
+			orders.setOrderPrice(Integer.parseInt(goodsPriceArr[i]));
+			orders.setOrderState("주문완료");
 			
+			// 주문 서비스로 들어갈때 해야할 것
+			// 1) insert order
+			// 2) insert point(customer)
+			// 3) insert point_history
+			if(i == 0) {
+				
+			}
 			// order테이블에 insert
-			int addOrderRow = orderService.addOrderDirect(order);
+			int addOrderRow = orderService.addOrderDirect(orders);
 			if(addOrderRow == 0) {
 				System.out.println("주문 실패");
 				response.sendRedirect(request.getContextPath()+"/GetOrderInfoFromCart");

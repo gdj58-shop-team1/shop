@@ -166,4 +166,41 @@ public class OrderService {
 		}
 		return row;
 	}
+	
+	// 주문하기
+	// 1) insert order
+	// 2) insert point(customer)
+	// 3) insert point_history
+	public int addOrderFromCart(Orders Orders, int usePoint) {
+		int row = 0;
+		
+		this.dbUtil = new DBUtil();
+		this.orderDao = new OrderDao();
+		
+		Connection conn = null;
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("modifyOrder(OrderService) db 접속");
+			conn.setAutoCommit(false);
+			row = orderDao.updateOrder(conn, orderCode, orderState);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return usePoint;
+		
+	}
 }

@@ -25,6 +25,8 @@ public class AddQuestion extends HttpServlet {
 			return;
 		}
 		
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		request.setAttribute("orderCode", orderCode);
 		request.getRequestDispatcher("/WEB-INF/view/question/addQuestion.jsp").forward(request, response);
 	}
 
