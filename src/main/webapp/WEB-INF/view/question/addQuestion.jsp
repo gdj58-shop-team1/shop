@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/AddQuestion">
-		<input type="number" id="questionCode" name="questionCode" value="${q.questionCode}">
+	<form action="${pageContext.request.contextPath}/AddQuestion" method="post">
+		<input type="hidden" id="orderCode" name="orderCode" value="${map.orderCode}">
 		
 		<table border="1">
 			<thead>
@@ -24,15 +24,24 @@
 			
 			<tbody>
 				<tr>
-					<td>${question.goodsName}</td>
+					<td>${map.goodsName}</td>
 					<!-- select 로 구현예정 -->
-					<td><input type="text" id="category" name="category"></td>
+					<td>
+						<select id="category" name="category">
+							<option value="배송">배송</option>
+							<option value="반품">반품</option>
+							<option value="교환">교환</option>
+							<option value="기타">기타</option>
+						</select>
+					</td>
 					<td><input type="text" id="questionTitle" name="questionTitle"></td>
 					<td><textarea id="questionMemo" name="questionMemo"></textarea></td>
-					<td>${question.customerId}</td>
+					<td>${loginMember.customerId}</td>
 				</tr>
 			</tbody>
 		</table>
+		<br>
+		<button type="submit">문의 작성</button>
 	</form>
 </body>
 </html>
