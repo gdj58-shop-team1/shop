@@ -41,14 +41,41 @@ public class OrderList extends HttpServlet {
 			loginCustomer = (Customer)session.getAttribute("loginMember");
 			String customerId = loginCustomer.getCustomerId();
 			orderList = orderService.getOrderListById(customerId); // 서비스 호출
+
+			
+			for(int i=0; i<orderList.size(); i++) {
+				int goodsPrice = (int)orderList.get(i).get("goodsPrice");
+				
+				if(orderList.get(i).get("goodsOption").equals("일반포장")) {
+					orderList.get(i).put("goodsPrice", goodsPrice);
+				} else if(orderList.get(i).get("goodsOption").equals("고급포장")) {
+					orderList.get(i).put("goodsPrice", goodsPrice+2500);
+				} else if(orderList.get(i).get("goodsOption").equals("보자기")) {
+					orderList.get(i).put("goodsPrice", goodsPrice+5900);
+				}
+			}
+			
+			request.setAttribute("orderList", orderList);
+			
 		} else if (session.getAttribute("loginMember") instanceof Emp) {
 			System.out.println("세션정보 : 관리자");
 			loginEmp = (Emp)session.getAttribute("loginMember");
 			orderList = orderService.getOrderListAll(); // 서비스 호출
+			
+			for(int i=0; i<orderList.size(); i++) {
+				int goodsPrice = (int)orderList.get(i).get("goodsPrice");
+				
+				if(orderList.get(i).get("goodsOption").equals("일반포장")) {
+					orderList.get(i).put("goodsPrice", goodsPrice);
+				} else if(orderList.get(i).get("goodsOption").equals("고급포장")) {
+					orderList.get(i).put("goodsPrice", goodsPrice+2500);
+				} else if(orderList.get(i).get("goodsOption").equals("보자기")) {
+					orderList.get(i).put("goodsPrice", goodsPrice+5900);
+				}
+			}
+			
+			request.setAttribute("orderList", orderList);
 		}
-		
-		// 세션에 리스트 저장
-		request.setAttribute("orderList", orderList);
 		
 		// 뷰 호출
 		request.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp").forward(request, response);
