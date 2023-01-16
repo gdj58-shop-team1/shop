@@ -75,7 +75,7 @@
 						<c:if test="${o.orderState.equals('주문완료')}"> <!-- 주문상태가 주문완료이면 -->
 							<td>
 								${o.orderState}
-								<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}&goodsPrice=${o.goodsPrice}&orderPrice=${o.orderPrice}">주문취소</a>
+								<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}&goodsPrice=${o.goodsPrice}&orderPrice=${o.orderPrice}&orderQuantity=${o.orderQuantity}">주문취소</a>
 							</td>
 						</c:if>
 						
@@ -114,7 +114,12 @@
 						<td>${o.orderPrice}</td>
 						<td>${o.customerId}</td>
 						<td> <!-- select로 주문상태 업데이트 -->
-							<form action="${pageContext.request.contextPath}/OrderList?orderCode=${o.orderCode}" method="post" id="orderStateForm${o.orderCode}"> <!-- 자바스크립트 적용 -->
+							<form action="${pageContext.request.contextPath}/OrderList?orderCode=${o.orderCode}" method="post" id="orderStateForm${o.orderCode}"> <!-- 자바스크립트 적용 -->					
+								<input type="hidden" name="orderCode" value="${o.orderCode}">
+								<input type="hidden" name="goodsPrice" value="${o.goodsPrice}">
+								<input type="hidden" name="orderPrice" value="${o.orderPrice}">
+								<input type="hidden" name="orderQuantity" value="${o.orderQuantity}">
+								
 								<select name="orderState" id="orderState${o.orderCode}">
 									<c:if test="${o.orderState.equals('주문완료')}">
 										<option value="주문완료" selected="selected">주문완료</option>
