@@ -41,7 +41,7 @@ public class ReviewService {
 		return reviewList;
 	}
 	// 1-2) 회원 리뷰 작성(본인 작성 리뷰만)
-	public int addReview(Review paramReview, String customerId){
+	public int addReview(Review paramReview, String customerId, int orderPrice){
 		int row = 0;
 		reviewDao = new ReviewDao();
 		pointHistoryDao = new PointHistoryDao();
@@ -65,8 +65,10 @@ public class ReviewService {
 			
 			// 2) 포인트 히스토리 입력
 			PointHistory paramPoint = new PointHistory();
+			int point = (int)(orderPrice*0.05);
+			System.out.println("point : "+point);
 			paramPoint.setOrderCode(paramReview.getOrderCode());
-			paramPoint.setPoint(500);
+			paramPoint.setPoint(point);
 			paramPoint.setPointKind("적립");
 			int pointHsRow = pointHistoryDao.insertPoint(conn, paramPoint);
 			if(pointHsRow == 1) {
@@ -77,7 +79,6 @@ public class ReviewService {
 			}
 			
 			// 3) 고객 포인트 수정
-			int point = paramPoint.getPoint();
 			int pointRow = customerDao.updatePoint(conn, customerId, point);
 			if(pointRow == 1) {
 				System.out.println("포인트 수정 성공");

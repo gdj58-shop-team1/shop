@@ -41,7 +41,7 @@ public class AddReview extends HttpServlet {
 		
 		// 파라메터 받기
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
-		System.out.println("orderCode: "+orderCode);
+		// System.out.println("orderCode: "+orderCode);
 		
 		// 서비스 호출(리뷰 작성시 필요한 주문 정보 불러오게끔)
 		this.orderService = new OrderService();
@@ -76,6 +76,7 @@ public class AddReview extends HttpServlet {
 		Customer customer = (Customer)session.getAttribute("loginMember");
 		String customerId = customer.getCustomerId();
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
 		String reviewMemo = request.getParameter("reviewMemo");
 		
 		// 데이터 묶기
@@ -85,7 +86,7 @@ public class AddReview extends HttpServlet {
 		
 		// 서비스 호출
 		this.reviewService = new ReviewService();
-		int row = reviewService.addReview(paramReview, customerId);
+		int row = reviewService.addReview(paramReview, customerId, orderPrice);
 		if(row == 0) {
 			System.out.println("리뷰 추가 실패");
 			response.sendRedirect(request.getContextPath()+"/AddReview?orderCode="+orderCode);
