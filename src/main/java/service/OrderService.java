@@ -220,21 +220,60 @@ public class OrderService {
 	
 	// 주문하기
 	// 1) insert order
-	// 2) insert point(customer)
+	// 2) update point(customer)
 	// 3) insert point_history
-	public int addOrderFromCart(Orders Orders, int usePoint) {
-		int row = 0;
+	public void addOrderFromCart(Orders orders, int shareUsePoint) {
+		int insertOrderRow = 0;
+		int updatePointRow = 0;
+		int insertPointHistoryRow = 0;
 		
 		this.dbUtil = new DBUtil();
 		this.orderDao = new OrderDao();
+		this.customerDao = new CustomerDao();
+		this.pointHistoryDao = new PointHistoryDao();
 		
 		Connection conn = null;
 		
 		try {
 			conn = dbUtil.getConnection();
-			System.out.println("modifyOrder(OrderService) db 접속");
 			conn.setAutoCommit(false);
-			row = orderDao.updateOrder(conn, orderCode, orderState);
+			
+			// 1) insert order
+			HashMap<String, Integer> map = orderDao.insertOrderFromCart(conn, orders);
+			System.out.println("service 디버깅 : goodsCode" + orders.getGoodsCode());
+			if(map.get("row") == 1) {
+				System.out.println("주문 추가 성공!");
+			} else {
+				System.out.println("주문 추가 실패!");
+				return;
+			}
+			
+			int orderCode = map.get("autoKey");
+			System.out.println("orderCode : " + orderCode);
+			
+			// 2) update point(customer)
+			updatePointRow = customerDao.updatePoint(conn, orders.getCustomerId(), (shareUsePoint * -1));
+			if(updatePointRow == 1) {
+				System.out.println("point 수정 성공!");
+			} else {
+				System.out.println("point 수정 실패!");
+				return;
+			}
+			
+			// 3) insert point_history
+			PointHistory pointHistory = new PointHistory();
+			pointHistory.setOrderCode(orderCode);
+			pointHistory.setPointKind("사용");
+			pointHistory.setPoint((shareUsePoint * -1));
+			
+			insertPointHistoryRow = pointHistoryDao.insertPoint(conn, pointHistory);
+			if(insertPointHistoryRow == 1) {
+				System.out.println("point 사용내역 추가 성공!");
+			} else {
+				System.out.println("point 사용내역 추가 실패!");
+				return;
+			}
+			
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -250,8 +289,5 @@ public class OrderService {
 				e2.printStackTrace();
 			}
 		}
-		
-		return usePoint;
-		
 	}
 }

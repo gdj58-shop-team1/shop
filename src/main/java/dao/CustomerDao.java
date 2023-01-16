@@ -19,7 +19,7 @@ public class CustomerDao {
 		stmt.setString(2, customer.getCustomerPw());
 		stmt.setString(3, customer.getCustomerName());
 		stmt.setString(4, customer.getCustomerPhone());
-		stmt.setInt(5, 0);
+		stmt.setInt(5, 500);
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 회원가입 성공
 		

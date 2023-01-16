@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +31,36 @@ public class OrderDao {
 		stmt.close();
 		return row;
 	}
+	
+	// 주문입력(cart -> 구매)
+		public HashMap<String, Integer> insertOrderFromCart(Connection conn, Orders orders) throws Exception{
+			int row = 0;
+			int autoKey = 0;
+			String sql = "INSERT INTO orders (goods_option, goods_code, customer_id, address_code, order_quantity, order_price, order_state)"
+					+ " VALUES(?, ?, ?, ?, ?, ?, '주문완료')";
+			
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, orders.getGoodsOption());
+			stmt.setInt(2, orders.getGoodsCode());
+			stmt.setString(3, orders.getCustomerId());
+			stmt.setInt(4, orders.getAddressCode());
+			stmt.setInt(5, orders.getOrderQuantity());
+			stmt.setInt(6, orders.getOrderPrice());
+			
+			row = stmt.executeUpdate();
+			
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(rs.next()) {
+				autoKey = rs.getInt(1); // stmt.executeUpdate(); 생성된 auto_increment값이 대입
+			}
+			
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("row", row);
+			map.put("autoKey", autoKey);
+			
+			stmt.close();
+			return map;
+		}
 	
 	// 포인트 처리 위한 주문코드 출력
 	public int selectRecentOrder(Connection conn, String customerId) throws Exception{
