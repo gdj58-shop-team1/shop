@@ -69,10 +69,10 @@ public class QuestionDao {
 				+ "		ON q.order_code = o.order_code"
 				+ "		INNER JOIN goods g"
 				+ "		ON o.goods_code = g.goods_code"
-				+ " WHERE g.emp_id = 'testEmpId'";
+				+ " WHERE g.emp_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		//stmt.setString(1, emp.getEmpId());
+		stmt.setString(1, emp.getEmpId());
 		
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
@@ -132,6 +132,10 @@ public class QuestionDao {
 	// 3) 문의 글 작성 (회원)
 	public int insertQuestionForCustomer(Connection conn, Question question) throws Exception {
 		int row = 0;
+		System.out.println(question.getOrderCode());
+		System.out.println(question.getCategory());
+		System.out.println(question.getQuestionTitle());
+		System.out.println(question.getQuestionMemo());
 		
 		String sql = "INSERT INTO"
 				+ " question (order_code, category, question_title, question_memo)"
