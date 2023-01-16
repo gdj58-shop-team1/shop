@@ -232,7 +232,7 @@ public class OrderService {
 		
 		try {
 			conn = dbUtil.getConnection();
-			System.out.println("modifyOrder(OrderService) db 접속");
+			System.out.println("modifyOrderCancel(OrderService) db 접속");
 			conn.setAutoCommit(false);
 			
 			updateOrderRow = orderDao.updateOrder(conn, orderCode, orderState);

@@ -92,9 +92,11 @@ public class OrderList extends HttpServlet {
 			return;
 		}
 		
-		// 세션의 로그인 정보 가져오기
-		Customer loginCustomer = (Customer) session.getAttribute("loginMember");
-		String customerId = loginCustomer.getCustomerId();
+		if(session.getAttribute("loginMember") instanceof Customer) {
+			response.sendRedirect(request.getContextPath()+"/OrderList");
+			System.out.println("잘못된 접근 : 관리자만 진입 가능");
+			return;
+		}
 		
 		// 파라메터 받기
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
@@ -102,6 +104,7 @@ public class OrderList extends HttpServlet {
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
 		String orderState = request.getParameter("orderState");
+		String customerId = request.getParameter("customerId");
 		
 		// point 계산
 		int point = (goodsPrice * orderQuantity) - orderPrice;

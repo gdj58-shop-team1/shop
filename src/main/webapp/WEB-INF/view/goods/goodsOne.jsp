@@ -14,6 +14,16 @@
 				var goodsPrice = Number('<c:out value="${goodsMap.get('goodsPrice')}"/>');
 				$('#orderQuantity').attr('value', 1);
 				$('#orderPrice').attr('value', goodsPrice);
+				
+				// 상품이 품절이면 버튼 비활성화
+				var soldout = '<c:out value="${goodsMap.get('soldout')}"/>';
+				if(soldout == 'Y'){
+					$('#plusBtn').attr("disabled", true);
+					$('#minusBtn').attr("disabled", true);
+					$('#orderBtn').attr("disabled", true);
+					$('#cartBtn').attr("disabled", true);
+					$('#goodsOrderOption').attr("disabled", true);
+				}
 
 				// plusBtn 클릭시
 				$('#plusBtn').click(function(){
