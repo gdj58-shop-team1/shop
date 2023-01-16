@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import service.OrderService;
 import service.ReviewService;
+import vo.Customer;
+import vo.Emp;
 import vo.Review;
 
 
@@ -30,6 +32,13 @@ public class AddReview extends HttpServlet {
 			return;
 		}
 
+		// 세션에 담긴 정보 확인(회원, 관리자)
+		if(session.getAttribute("loginMember") instanceof Emp) { // 세션에 저장된 정보가 Emp 타입이면
+			System.out.println("관리자는 리뷰 작성 불가");
+			response.sendRedirect(request.getContextPath()+"/ReviewList");
+			return;
+		}
+		
 		// 파라메터 받기
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		System.out.println("orderCode: "+orderCode);
@@ -56,8 +65,16 @@ public class AddReview extends HttpServlet {
 			return;
 		}
 		
+		// 세션에 담긴 정보 확인(회원, 관리자)
+		if(session.getAttribute("loginMember") instanceof Emp) { // 세션에 저장된 정보가 Emp 타입이면
+			System.out.println("관리자는 리뷰 작성 불가");
+			response.sendRedirect(request.getContextPath()+"/ReviewList");
+			return;
+		}
+		
 		// 파라메터 받기
-		request.setCharacterEncoding("utf-8");
+		Customer customer = (Customer)session.getAttribute("loginMember");
+		String customerId = customer.getCustomerId();
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		String reviewMemo = request.getParameter("reviewMemo");
 		
@@ -68,10 +85,10 @@ public class AddReview extends HttpServlet {
 		
 		// 서비스 호출
 		this.reviewService = new ReviewService();
-		int row = reviewService.addReview(paramReview);
+		int row = reviewService.addReview(paramReview, customerId);
 		if(row == 0) {
 			System.out.println("리뷰 추가 실패");
-			response.sendRedirect(request.getContextPath()+"/AddReview");
+			response.sendRedirect(request.getContextPath()+"/AddReview?orderCode="+orderCode);
 			return;
 		}
 		System.out.println("리뷰 추가 성공");

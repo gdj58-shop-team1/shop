@@ -12,11 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.OrderService;
-import service.PointHistoryService;
 import vo.CustomerAddress;
 import vo.Emp;
 import vo.Orders;
-import vo.PointHistory;
 
 
 @WebServlet("/AddOrderDirect")
@@ -92,8 +90,10 @@ public class AddOrderDirect extends HttpServlet {
 		int orderRow = 0; // 주문 입력 결과 반환 변수
 		if(usedPoint > 0) { // 포인트 사용
 			usedPoint = usedPoint*-1; // 음수로 db에 입력하기 위함
+			System.out.println("포인트 사용 메서드");
 			orderRow = orderService.addOrderDirectWithPoint(order, customerId, usedPoint);
 		} else { // 포인트 미사용
+			System.out.println("포인트 미사용 메서드");
 			orderRow = orderService.addOrderDirect(order);
 		}
 		

@@ -1,17 +1,20 @@
 package service;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dao.CustomerDao;
+import dao.PointHistoryDao;
 import dao.ReviewDao;
 import util.DBUtil;
+import vo.PointHistory;
 import vo.Review;
 
 public class ReviewService {
 	private ReviewDao reviewDao;
+	private PointHistoryDao pointHistoryDao;
+	private CustomerDao customerDao;
 	private DBUtil dbUtil;
 	
 	// 1) 회원
@@ -38,9 +41,11 @@ public class ReviewService {
 		return reviewList;
 	}
 	// 1-2) 회원 리뷰 작성(본인 작성 리뷰만)
-	public int addReview(Review paramReview){
+	public int addReview(Review paramReview, String customerId){
 		int row = 0;
 		reviewDao = new ReviewDao();
+		pointHistoryDao = new PointHistoryDao();
+		customerDao = new CustomerDao();
 		dbUtil = new DBUtil();
 		Connection conn = null;
 		
@@ -48,7 +53,39 @@ public class ReviewService {
 			conn = dbUtil.getConnection();
 			System.out.println("addReview(ReviewService) db 접속");
 			conn.setAutoCommit(false);
-			row = reviewDao.insertReview(conn, paramReview);
+			
+			// 1) 리뷰 작성
+			int reviewRow = reviewDao.insertReview(conn, paramReview);
+			if(reviewRow == 1) {
+				System.out.println("리뷰입력 임시 성공");
+			} else {
+				System.out.println("리뷰입력 임시 실패");
+				throw new Exception();
+			}
+			
+			// 2) 포인트 히스토리 입력
+			PointHistory paramPoint = new PointHistory();
+			paramPoint.setOrderCode(paramReview.getOrderCode());
+			paramPoint.setPoint(500);
+			paramPoint.setPointKind("적립");
+			int pointHsRow = pointHistoryDao.insertPoint(conn, paramPoint);
+			if(pointHsRow == 1) {
+				System.out.println("포인트 입력 성공");
+			} else {
+				System.out.println("포인트 입력 실패");
+				throw new Exception();
+			}
+			
+			// 3) 고객 포인트 수정
+			int point = paramPoint.getPoint();
+			int pointRow = customerDao.updatePoint(conn, customerId, point);
+			if(pointRow == 1) {
+				System.out.println("포인트 수정 성공");
+			} else {
+				System.out.println("포인트 수정 실패");
+				throw new Exception();
+			}
+			row = 1;
 			conn.commit();
 		} catch (Exception e) {
 			try {

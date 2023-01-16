@@ -85,7 +85,7 @@ public class CustomerDao {
 		return row;	
 	}
 	
-	// 5) 로그인(세션에 담을 로그인정보 )
+	// 5) 로그인(세션에 담을 로그인정보)
 	public Customer loginCustomer(Connection conn, Customer customer) throws Exception {
 		Customer resultCustomer = null;
 		
@@ -171,7 +171,7 @@ public class CustomerDao {
 		int row = 0;
 		PreparedStatement stmt = null;
 		
-		String sql = "UPDATE customer SET POINT = ? WHERE customer_id = ?";
+		String sql = "UPDATE customer SET point = point+(?) WHERE customer_id = ?";
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, point);

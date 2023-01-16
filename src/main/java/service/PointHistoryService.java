@@ -85,12 +85,9 @@ public class PointHistoryService {
 				throw new Exception();
 			}
 			
-			// 2) 최종 포인트 조회
-			int totalPoint = pointHistoryDao.selectCustomerPoint(conn, customerId);
-			System.out.println(customerId+"의 totalPoint: "+totalPoint);
-			
-			// 3) 고객 포인트 수정
-			int updateRow = customerDao.updatePoint(conn, customerId, totalPoint);
+			// 2) 고객 포인트 수정
+			int point = paramPoint.getPoint();
+			int updateRow = customerDao.updatePoint(conn, customerId, point);
 			if(updateRow == 1) {
 				System.out.println("포인트 수정 성공");
 			} else {
