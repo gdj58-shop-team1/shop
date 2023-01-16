@@ -181,6 +181,7 @@ public class OrderDao {
 				+ " , g.goods_code goodsCode"
 				+ "	, g.goods_name goodsName"
 				+ "	, g.goods_price goodsPrice"
+				+ " , o.goods_option goodsOption"
 				+ "	, o.order_quantity orderQuantity"
 				+ "	, o.order_price orderPrice"
 				+ "	, o.customer_id customerId"
@@ -197,6 +198,7 @@ public class OrderDao {
 			map.put("orderCode", rs.getInt("orderCode"));
 			map.put("goodsCode", rs.getInt("goodsCode"));
 			map.put("goodsName", rs.getString("goodsName"));
+			map.put("goodsOption", rs.getString("goodsOption"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
 			map.put("orderQuantity", rs.getInt("orderQuantity"));
 			map.put("orderPrice", rs.getInt("orderPrice"));
