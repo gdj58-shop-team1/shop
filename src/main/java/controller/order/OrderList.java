@@ -92,17 +92,32 @@ public class OrderList extends HttpServlet {
 			return;
 		}
 		
+		// 세션의 로그인 정보 가져오기
+		Customer loginCustomer = (Customer) session.getAttribute("loginMember");
+		String customerId = loginCustomer.getCustomerId();
+		
 		// 파라메터 받기
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
+		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
 		String orderState = request.getParameter("orderState");
+		
+		// point 계산
+		int point = (goodsPrice * orderQuantity) - orderPrice;
 		
 		// 서비스 호출
 		this.orderService = new OrderService();
-		int row = orderService.modifyOrder(orderCode, orderState);
-		if(row == 0) {
-			System.out.println("주문상태 변경 실패");
+		if(orderState.equals("주문취소")) {
+			orderService.modifyOrderCancel(customerId, orderCode, orderState, point);
+		} else {
+			int row = orderService.modifyOrder(orderCode, orderState);
+			if(row == 0) {
+				System.out.println("주문상태 변경 실패");
+			}
+			System.out.println("주문상태 변경 성공");
 		}
-		System.out.println("주문상태 변경 성공");
+
 		response.sendRedirect(request.getContextPath()+"/OrderList");
 	}	
 }
