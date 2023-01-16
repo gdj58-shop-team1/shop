@@ -47,7 +47,7 @@
  					<img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100">
  				</td>
 	 			<td>${goodsName}</td>
-	 			<td>${goodsPrice}</td>
+	 			<td>${order.orderPrice}원</td>
 	 			<td>${order.orderQuantity}</td>
 	 			<td>${order.goodsOption}</td>
 	 		</tr> <!-- c:forEach 사용 -->

@@ -32,7 +32,7 @@
 		<h1>ADD REVIEW</h1>
 		<form action="${pageContext.request.contextPath}/AddReview" method="post" id="reviewForm">
 			<input type="hidden" name="orderCode" value="${order.orderCode}">
-			<input type="hidden" name="orderPrice" value="${order.orderPrice}">
+			<input type="hidden" name="goodsPrice" value="${order.goodsPrice}">
 			<table>
 				<tr>
 					<th>주문번호</th>
