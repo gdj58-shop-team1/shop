@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import vo.Customer;
 import vo.Emp;
@@ -195,5 +197,85 @@ public class EmpDao {
 		rs.close();
 		return row;
 	}
+	
+	// 10) 관리자 레벨 3 ) empList
+	public ArrayList<HashMap<String, Object>> selectEmpListForAdmin3(Connection conn,  int beginRow, int endRow) throws Exception{
+		ArrayList<HashMap<String, Object>> empList = new ArrayList<HashMap<String, Object>>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		
+		String sql = "SELECT emp_code empCode"
+				+ ", emp_id empId"
+				+ ", emp_name empName"
+				+ ", active"
+				+ ", auth_code authCode"
+				+ ", createdate"
+				+ " FROM emp"
+				+ " ORDER BY emp_code"
+				+ " LIMIT ?,? ";
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, endRow);
+	
+		rs = stmt.executeQuery();
+
+		while(rs.next()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("empCode", rs.getInt("empCode"));
+			map.put("empId", rs.getString("empId"));
+			map.put("empName", rs.getString("empName"));
+			map.put("active", rs.getString("active"));
+			map.put("authCode", rs.getInt("authCode"));
+			map.put("createdate", rs.getString("createdate"));
+			empList.add(map);
+
+		}
+		rs.close();
+		stmt.close();	
+		return empList;
+	}
+	
+	
+	
+	// 11) 총 emp수
+	public int selectEmpListCnt(Connection conn) throws Exception {
+		int cnt = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) cnt FROM emp";
+		
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			cnt = rs.getInt("cnt");
+		}
+		rs.close();
+		stmt.close();
+		return cnt;
+	}
+	
+	// 12 ) empList active, authCode 수정
+	public int updateEmpForAdmin3(Connection conn, Emp emp) throws Exception {
+		int row = 0;
+
+		
+		String sql = "UPDATE emp SET"
+				+ " active = ?"
+				+ " ,auth_code = ?"
+				+ " WHERE emp_code = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, emp.getActive());
+		stmt.setInt(2, emp.getAuthCode());
+		stmt.setInt(3, emp.getEmpCode());
+
+		row = stmt.executeUpdate();
+		System.out.println("updateEmpDao 접속성공");
+		
+		stmt.close();
+		return row;
+	}
+	
 }

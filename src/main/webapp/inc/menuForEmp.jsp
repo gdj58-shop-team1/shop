@@ -28,7 +28,7 @@
 		<a href = "${pageContext.request.contextPath}/GoodsListForAdmin3">상단노출</a>
 		<span>주문관리</span>
 		<span>공지관리</span>
-		<span>사원관리</span>
+				<a href = "${pageContext.request.contextPath}/EmpList">사원관리</a>
 		
 	</c:if>
 	

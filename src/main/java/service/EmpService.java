@@ -2,6 +2,8 @@ package service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import dao.CustomerDao;
 import dao.EmpDao;
@@ -383,4 +385,103 @@ public class EmpService {
 		
 		return resultEmp;
 	}
+	
+	
+	// 9) 관리자 레벨 3 emp List	
+	public ArrayList<HashMap <String, Object>> getEmpListForAdmin3(Emp emp, int currentPage, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> empList = null;
+		empDao = new EmpDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			System.out.println("getEmpListForAdmin3(EmpService) db 접속");
+			int beginRow = (currentPage-1)*rowPerPage;
+			int endRow = beginRow+rowPerPage;
+			empList = empDao.selectEmpListForAdmin3(conn, beginRow, endRow);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+	return empList;	
+	}
+	
+	
+	// 10) 총 emp 수 
+	public int getEmpCnt() {
+		int cnt = 0;
+		empDao = new EmpDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			cnt = empDao.selectEmpListCnt(conn);
+			System.out.println("getEmpCnt) EmpService db 접속");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	return cnt;
+	}
+	
+	// 11) empList active, authCode 수정
+	public int modifyEmpForAdmin3(Emp emp) {
+	
+		empDao= new EmpDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+	
+		int row = 0;
+		
+		try {
+			conn = dbUtil.getConnection();
+			conn.setAutoCommit(false);
+			System.out.println("modifyEmpForAdmin) EmpService db 접속");
+			row = empDao.updateEmpForAdmin3(conn, emp);
+			
+			if(row ==1) {
+				System.out.println("수정 성공");
+			} else {
+				System.out.println("수정 실패");
+				throw new Exception();
+			
+			}
+			conn.commit();
+			
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	return row;	
+	}
+	
+	
 }
+

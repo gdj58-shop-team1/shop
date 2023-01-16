@@ -6,24 +6,24 @@
 <meta charset="EUC-KR">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <c:forEach var="g" items="${goodsList}">
-			<script>
-				$(document).ready(function() {
-					
-					const goodsCode = '<c:out value="${g.goodsCode}"/>';
-					const goodsCodeWithHit = '#hit' + goodsCode;
-					const goodsCodewithForm = '#goodsListForAdminForm' + goodsCode;
-					
-					console.log('goodsCode '+goodsCode);
-					console.log('goodsCodeWithHit '+goodsCodeWithHit);
-					console.log('goodsCodewithForm'+goodsCodewithForm);
-					
-					$(goodsCodeWithHit).change(function() {
-							$(goodsCodewithForm).submit();			
-					});
-					
-				});
-			</script>
-		</c:forEach>
+	<script>
+		$(document).ready(function() {
+			
+			const goodsCode = '<c:out value="${g.goodsCode}"/>';
+			const goodsCodeWithHit = '#hit' + goodsCode;
+			const goodsCodewithForm = '#goodsListForAdminForm' + goodsCode;
+			
+			console.log('goodsCode '+goodsCode);
+			console.log('goodsCodeWithHit '+goodsCodeWithHit);
+			console.log('goodsCodewithForm'+goodsCodewithForm);
+			
+			$(goodsCodeWithHit).change(function() {
+					$(goodsCodewithForm).submit();			
+			});
+			
+		});
+	</script>
+</c:forEach>
 <title>Insert title here</title>
 </head>
 <body>

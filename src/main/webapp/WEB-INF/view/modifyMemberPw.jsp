@@ -8,36 +8,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   
 <script>
-<!--	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
+	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
 		
 		// customer 유효성 검사
 		$('#customerBtn').click(function() {
 				
 			$('#newCustomerPw').focus();
 			// newCustomerPw 미입력시
-			if($('#newCustomerPw').val().length < 1) {
-				
-				alert('비밀번호를 입력해주세요');
-				
-				$('#newCustomerPw').focus();
-				
+			if($('#newCustomerPw').val().length < 1) {				
+				alert('비밀번호를 입력해주세요');				
+				$('#newCustomerPw').focus();				
 				return false;
 			}
 			// newCustomerPw2 미입력시
-			if($('#newCustomerPw2').val().length < 1) {
-				
-				alert('비밀번호를 입력해주세요');
-				
-				$('#newCustomerPw2').focus();
-				
+			if($('#newCustomerPw2').val().length < 1) {				
+				alert('비밀번호를 입력해주세요');				
+				$('#newCustomerPw2').focus();				
 				return false;
-			}
-			
+			}			
 			$('#customerModifyPwForm').submit();
-
 		});	
 	
-		// 비밀번호 일치 검사
+		// customer 비밀번호 일치 검사
 		$('.customerPw').focusout(function () {
 		    var newCustomerPw = $("#newCustomerPw").val();
 		    var newCustomerPw2 = $("#newCustomerPw2").val();
@@ -50,57 +42,61 @@
 		            $("#alert-success").css('display', 'inline-block');
 		            $("#alert-danger").css('display', 'none');
 		        } else {
-		            alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+		            // alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
 		            $("#alert-success").css('display', 'none');
-		            $("#alert-danger").css('display', 'inline-block');
-		        
+		            $("#alert-danger").css('display', 'inline-block');		        
 		            return false;
 		        }
-		        $('#customerModifyPwForm').submit(); 
-		        
+		        $('#customerModifyPwForm').submit(); 		        
 		    }
 		});
-	
-	
-	
-	
 		
-	});
-	-->
-</script>
-
-<!-- 
-<script>
-	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
 		
-		$('.customerPw').focusout(function () {
-		    var newCustomerPw = $("#newCustomerPw").val();
-		    var newCustomerPw2 = $("#newCustomerPw2").val();
+		// emp 유효성 검사
+		$('#empBtn').click(function() {
+				
+			$('#newEmpPw').focus();
+			// newCustomerPw 미입력시
+			if($('#newEmpPw').val().length < 1) {				
+				alert('비밀번호를 입력해주세요');				
+				$('#newEmpPw').focus();				
+				return false;
+			}
+			// newEmpPw2 미입력시
+			if($('#newEmpPw2').val().length < 1) {				
+				alert('비밀번호를 입력해주세요');				
+				$('#newEmpPw2').focus();				
+				return false;
+			}
+			$('#empModifyPwForm').submit();
+		});	
 		
-		    if ( newCustomerPw != '' && newCustomerPw2 == '' ) {
+		// emp 비밀번호 일치 검사
+		$('.empPw').focusout(function () {
+		    var newEmpPw = $("#newEmpPw").val();
+		    var newEmpPw2 = $("#newEmpPw2").val();
+		
+		    if ( newEmpPw != '' && newEmpPw2 == '' ) {
 		        null;
 		        
-		    } else if (newCustomerPw != "" || newCustomerPw2 != "") {
-		        if (newCustomerPw == newCustomerPw2) {
+		    } else if (newEmpPw != "" || newEmpPw2 != "") {
+		        if (newEmpPw == newEmpPw2) {
 		            $("#alert-success").css('display', 'inline-block');
 		            $("#alert-danger").css('display', 'none');
 		        } else {
-		            alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+		        	// alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
 		            $("#alert-success").css('display', 'none');
-		            $("#alert-danger").css('display', 'inline-block');
-		        
-		            return;
+		            $("#alert-danger").css('display', 'inline-block');		        
+		            return false;
 		        }
-		        $('#customerModifyPwForm').submit(); 
-		        
+		        $('#empModifyPwForm').submit(); 		        
 		    }
-		});
-	
-	
-	
+		});	
+		
 	});
+	
 </script>
--->
+
 </head>
 <body>
 
@@ -159,6 +155,8 @@
 					<th>PASSWORD</th>
 					<td><input type="password" id="newEmpPw2" name="newEmpPw2" class="empPw" placeholder ="비밀번호 확인"></td>
 				</tr>
+				<span id = "alert-success" style="display:none;"> 비밀번호가 일치합니다.</span>
+				<span id = "alert-danger" style="display:none; color:#d92742;"> 비밀번호가 일치하지않습니다.</span>
 			</table>
 			
 			<button type="submit" id="empBtn">비밀번호 변경</button>

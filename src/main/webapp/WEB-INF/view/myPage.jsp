@@ -40,7 +40,7 @@
 		<a href="${pageContext.request.contextPath}/QuestionList">문의사항</a>
 		<a href="${pageContext.request.contextPath}/ConfirmMember">정보 변경</a>
 		<a href="${pageContext.request.contextPath}/AddressList">배송지 변경</a>
-		<a href="">회원 탈퇴</a>
+		<a href="${pageContext.request.contextPath}/RemoveMember">회원 탈퇴</a>
 	</c:if>
 	
 	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
@@ -61,7 +61,7 @@
 		<a href="${pageContext.request.contextPath}/ReviewList">리뷰 관리</a>
 		<a href="${pageContext.request.contextPath}/QuestionList">문의 관리</a>
 		<a href="${pageContext.request.contextPath}/ConfirmMember">정보 변경</a>
-		<a href="">사원 탈퇴</a>
+		<a href="${pageContext.request.contextPath}/RemoveMember">사원 탈퇴</a>
 	</c:if>
 	
 </body>
