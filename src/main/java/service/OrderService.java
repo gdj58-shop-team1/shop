@@ -218,6 +218,74 @@ public class OrderService {
 		return row;
 	}
 	
+	// 주문상태( -> 주문취소)
+	public void modifyOrderCancel(String customerId, int orderCode, String orderState, int point) {
+		int updateOrderRow = 0;
+		int updatePointRow = 0;
+		int insertPointRow = 0;
+		
+		Connection conn = null;
+		this.dbUtil = new DBUtil();
+		this.orderDao = new OrderDao();
+		this.customerDao = new CustomerDao();
+		this.pointHistoryDao = new PointHistoryDao();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("modifyOrder(OrderService) db 접속");
+			conn.setAutoCommit(false);
+			
+			updateOrderRow = orderDao.updateOrder(conn, orderCode, orderState);
+			if(updateOrderRow == 1) {
+				System.out.println("주문 상태 변경 성공");
+			} else {
+				System.out.println("주문 상태 변경 실패");
+				return;
+			}
+			
+			if(orderState.equals("주문취소")) { // 주문취소 상태로 변경 시, 포인트를 돌려주기 위함
+				
+				// 1) 포인트 반환
+				updatePointRow = customerDao.updatePoint(conn, customerId, point);
+				
+				if(updatePointRow == 1) {
+					System.out.println("고객 포인트 변경 성공");
+				} else {
+					System.out.println("고객 포인트 변경 실패");
+					return;
+				}
+				// 2) 포인트 내역 추가
+				PointHistory pointHistory = new PointHistory();
+				pointHistory.setOrderCode(orderCode);
+				pointHistory.setPointKind("반환");
+				pointHistory.setPoint(point);
+				
+				insertPointRow = pointHistoryDao.insertPoint(conn, pointHistory);
+				if(insertPointRow == 1) {
+					System.out.println("포인트 내역 추가 성공");
+				} else {
+					System.out.println("포인트 내역 추가 실패");
+					return;
+				}
+			}
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
 	// 주문하기
 	// 1) insert order
 	// 2) update point(customer)
@@ -265,13 +333,14 @@ public class OrderService {
 			pointHistory.setOrderCode(orderCode);
 			pointHistory.setPointKind("사용");
 			pointHistory.setPoint((shareUsePoint * -1));
-			
-			insertPointHistoryRow = pointHistoryDao.insertPoint(conn, pointHistory);
-			if(insertPointHistoryRow == 1) {
-				System.out.println("point 사용내역 추가 성공!");
-			} else {
-				System.out.println("point 사용내역 추가 실패!");
-				return;
+			if(shareUsePoint != 0) {
+				insertPointHistoryRow = pointHistoryDao.insertPoint(conn, pointHistory);
+				if(insertPointHistoryRow == 1) {
+					System.out.println("point 사용내역 추가 성공!");
+				} else {
+					System.out.println("point 사용내역 추가 실패!");
+					return;
+				}
 			}
 			
 			conn.commit();

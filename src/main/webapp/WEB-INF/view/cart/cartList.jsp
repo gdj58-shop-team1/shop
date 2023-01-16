@@ -62,14 +62,15 @@
 				</tr>
 			</thead>
 			<c:forEach var="map" items="${cartList}">
-				<input type="text" id="GoodsCode" name="goodsCode" value="${map.goodsCode}" hidden="hidden">
-				<input type="text" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}" hidden="hidden">
-				<input type="text" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}" hidden="hidden">
-				<input type="text" id="fileName" name="fileName" value="${map.fileName}" hidden="hidden">
+				<input type="hidden" id="GoodsCode" name="goodsCode" value="${map.goodsCode}">
+				<input type="hidden" id="goodsName" name="goodsName" value="${map.goodsName}">
+				<input type="hidden" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}">
+				<input type="hidden" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}">
+				<input type="hidden" id="fileName" name="fileName" value="${map.fileName}">
 				<tr>					
 					<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" width="100" height="100"></td>
 
-					<td><input type="text" id="goodsName" name="goodsName" value="${map.goodsName}"></td>
+					<td>${map.goodsName}</td>
 
 					<td>
 						

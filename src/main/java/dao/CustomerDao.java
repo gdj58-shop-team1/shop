@@ -12,7 +12,7 @@ public class CustomerDao {
 		int row = 0;
 		
 		String sql = "INSERT INTO customer(customer_id, customer_pw, customer_name, customer_phone, point, createdate)"
-				+ " VALUES(?, ?, ?, ?, ?, CURDATE())";
+				+ " VALUES(?, PASSWORD(?), ?, ?, ?, CURDATE())";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
@@ -73,7 +73,7 @@ public class CustomerDao {
 		
 		String sql = "DELETE"
 				+ " FROM customer"
-				+ " WHERE customer_id = ? AND customer_pw = ?";
+				+ " WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
@@ -91,7 +91,7 @@ public class CustomerDao {
 		
 		String sql = "SELECT customer_id, customer_name, point, level"
 				+ " FROM customer"
-				+ " WHERE customer_id = ? AND customer_pw = ?";
+				+ " WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
@@ -171,8 +171,9 @@ public class CustomerDao {
 		int row = 0;
 		PreparedStatement stmt = null;
 		
-		String sql = "UPDATE customer SET point = point+(?) WHERE customer_id = ?";
-		
+		String sql = "UPDATE customer"
+				+ "	SET point = (point + ?)"
+				+ " WHERE customer_id = ?";
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, point);
 		stmt.setString(2, customerId);

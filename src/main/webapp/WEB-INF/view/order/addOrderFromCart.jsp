@@ -43,12 +43,15 @@
 					
 					if(usePoint < 0) { // 사용하려는 point가 음수 일경우
 						$('#orderPoint').text("<c:out value='${orderCustomer.point}'/>");
+						$('#usePoint').val(0);
 						alert('0 이상의 포인트를 입력해주세요');
+						
 						return;
 					}
 					
 					if(orderPoint < usePoint) { // 사용하려는 point가 보유 포인트 보다 클 경우
-						$('#orderPoint').text("<c:out value='${orderCustomer.point}'/>");
+						$('#orderPoint').text(0);
+						$('#usePoint').val("<c:out value='${orderCustomer.point}'/>");
 						alert('보유 포인트가 모자랍니다.');
 						return;
 					}
@@ -72,6 +75,8 @@
 					let orderPriceHiddenList = document.querySelectorAll('.orderPriceHidden');
 					let shareUsePointList = document.querySelectorAll('.shareUsePotint');
 					let remainderUsePointList = document.querySelectorAll('.remainderUsePoint');
+					let pointAfterList = document.querySelectorAll('.pointAfter');
+					let pointAfterDetailList = document.querySelectorAll('.pointAfterDetail');
 					
 					let listLength = orderPriceList.length;
 					
@@ -81,16 +86,21 @@
 					console.log(remainderUsePoint);
 					for(let i = 0; i<listLength; i++) {
 						
+						let finalOrderPrice = $(orderPriceHiddenList[i]).val();
 						let orderPrice = $(orderPriceHiddenList[i]).val();
 						
 						if(i == 0) {
 							orderPrice = orderPrice - shareUsePoint - remainderUsePoint;
 							$(orderPriceList[i]).val(orderPrice);
 							$(shareUsePointList[i]).val(shareUsePoint + remainderUsePoint);
+							$(pointAfterList[i]).text(orderPrice);
+							$(pointAfterDetailList[i]).text(finalOrderPrice + ' - ' + (shareUsePoint + remainderUsePoint) + ' = ' + orderPrice);
 						} else {
 							orderPrice = orderPrice - shareUsePoint;
 							$(orderPriceList[i]).val(orderPrice);
 							$(shareUsePointList[i]).val(shareUsePoint);
+							$(pointAfterList[i]).text(orderPrice);
+							$(pointAfterDetailList[i]).text(finalOrderPrice + ' - ' + shareUsePoint + ' = ' + orderPrice);
 						}
 					}
 					
@@ -175,8 +185,10 @@
 		 				<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
 			 			<td>${map.goodsName}</td>
 			 			<td>
-			 				<input type="text" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
+			 				<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
 			 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
+			 				<div><span class="pointAfter">${map.orderPrice}</span></div>
+			 				<div><span class="pointAfterDetail" style="color : blue">${map.orderPrice} - 0 = ${map.orderPrice}</span></div>
 			 			</td>
 			 			<td>${map.orderQuantity}</td>
 			 			<td>${map.goodsOption}</td>
@@ -187,7 +199,6 @@
 		 			<td colspan="1">잔여 포인트 <span id="orderPoint">${orderCustomer.point}</span></td>
 		 			<td colspan="2">
 		 				<input type="number" name="usePoint" id="usePoint" placeholder="사용할 포인트 입력"> P
-		 				<button type="button">적용</button>
 		 			</td>
 	 				<td colspan="2">총 주문금액: <span id="totalPrice">${totalPrice}</span>원</td> <!-- 자바스크립트로 수정 -->
 	 			</tr>
