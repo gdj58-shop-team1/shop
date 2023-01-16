@@ -111,7 +111,7 @@ public class OrderDao {
 				+ "	, g.goods_name goodsName"
 				+ "	, g.goods_price goodsPrice"			// 필요 없을 시 삭제
 				+ "	, o.order_quantity orderQuantity" 	// 필요 없을 시 삭제
-				+ "	, o.order_price orderPrice" 		// 필요 없을 시 삭제
+				+ "	, o.order_price orderPrice"
 				+ "	, o.customer_id customerId" 		// 필요 없을 시 삭제
 				+ "	, o.order_state orderState" 		// 필요 없을 시 삭제
 				+ "	, o.createdate createdate"
@@ -125,6 +125,7 @@ public class OrderDao {
 		if(rs.next()) {
 			order = new HashMap<String, Object>();
 			order.put("orderCode", rs.getInt("orderCode"));
+			order.put("orderPrice", rs.getInt("orderPrice"));
 			order.put("goodsName", rs.getString("goodsName"));
 			order.put("createdate", rs.getString("createdate"));
 		}
@@ -133,9 +134,6 @@ public class OrderDao {
 		stmt.close();
 		return order;
 	}
-	
-	// 회원 주문 취소
-	
 	
 	// 관리자
 	// 모든 주문목록 출력(select) : 모든 주문목록 출력

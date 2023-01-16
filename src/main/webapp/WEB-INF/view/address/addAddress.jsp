@@ -9,6 +9,11 @@
 		<script>
 			$(document).ready(function(){
 				$('#addAddressBtn').click(function(){
+					if($('#address').val() == ''){
+						alert('내용을 입력하세요.');
+						return;
+					}
+					
 					$('#addAddressForm').submit();
 				});
 			});

@@ -5,6 +5,19 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>addReview</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#reviewBtn').click(function(){
+					if($('#reviewMemo').val() == ''){
+						alert('내용을 입력하세요.');
+						return;
+					}
+					
+					$('#reviewForm').submit();
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<!-- 세션 정보별로 메뉴 분기 -->
@@ -17,29 +30,30 @@
 		
 		<!-- 본문 -->
 		<h1>ADD REVIEW</h1>
-		<form action="${pageContext.request.contextPath}/AddReview" method="post"> <!-- 자바스크립트로 유효성 검사 -->
+		<form action="${pageContext.request.contextPath}/AddReview" method="post" id="reviewForm">
 			<input type="hidden" name="orderCode" value="${order.orderCode}">
+			<input type="hidden" name="orderPrice" value="${order.orderPrice}">
 			<table>
 				<tr>
 					<th>주문번호</th>
 					<td>${order.orderCode}</td>
-				</tr>
-				<tr>
-					<th>주문상품</th>
-					<td>${order.goodsName}</td>
-				</tr>
-				<tr>
 					<th>주문일자</th>
 					<td>${order.createdate}</td>
 				</tr>
 				<tr>
+					<th>주문상품</th>
+					<td>${order.goodsName}</td>
+					<th>주문금액</th>
+					<td>${order.orderPrice}</td>
+				</tr>
+				<tr>
 					<th>리뷰내용</th>
-					<td>
-						<textarea name="reviewMemo"></textarea>
+					<td colspan="3">
+						<textarea name="reviewMemo" id="reviewMemo"></textarea>
 					</td>
 				</tr>
 			</table>
-			<button type="submit">리뷰작성</button> <!-- 자바스크립트 사용 시 type="button"으로 수정 -->
+			<button type="button" id="reviewBtn">리뷰작성</button>
 		</form>
 	</body>
 </html>
