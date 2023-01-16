@@ -12,13 +12,14 @@ public class EmpDao {
 	public int insertEmp(Connection conn, Emp emp) throws Exception {
 		int row = 0;
 		
-		String sql = "INSERT INTO emp(emp_id, emp_pw, emp_name)"
-				+ " VALUES(?, ?, ?)";
+		String sql = "INSERT INTO emp(emp_id, emp_pw, emp_name, auth_code)"
+				+ " VALUES(?, PASSWORD(?), ?, ?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
 		stmt.setString(2, emp.getEmpPw());
 		stmt.setString(3, emp.getEmpName());
+		stmt.setInt(4, 1);
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 회원가입 성공
 		
@@ -104,7 +105,7 @@ public class EmpDao {
 		
 		String sql = "DELETE"
 				+ " FROM emp"
-				+ " WHERE emp_id = ? AND emp_pw = ?";
+				+ " WHERE emp_id = ? AND emp_pw = PASSWORD(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
@@ -120,7 +121,7 @@ public class EmpDao {
 		
 		String sql = "SELECT emp_id, emp_name, auth_code, level, active"
 				+ " FROM emp"
-				+ " WHERE emp_id = ? AND emp_pw = ?";
+				+ " WHERE emp_id = ? AND emp_pw = PASSWORD(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
