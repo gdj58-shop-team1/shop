@@ -2,6 +2,7 @@ package controller.order;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.CartService;
 import service.CustomerAddressService;
 import service.CustomerService;
 import service.OrderService;
@@ -28,6 +30,7 @@ public class AddOrderFromCart extends HttpServlet {
 	private CustomerService customerService;
 	private CustomerAddressService customerAddressService;
 	private PointHistoryService pointHistoryService;
+	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -84,7 +87,7 @@ public class AddOrderFromCart extends HttpServlet {
 		String[] fileNameArr =  request.getParameterValues("fileName"); // 수정 X
 		String[] goodsCodeArr =  request.getParameterValues("goodsCode"); // 수정 X
 		String[] goodsNameArr =  request.getParameterValues("goodsName"); // 수정 X
-		String[] goodsPriceArr =  request.getParameterValues("goodsPrice"); // 가격 - 포인트 값 수정
+		String[] orderPriceArr =  request.getParameterValues("orderPrice"); // 가격 - 포인트 값 수정
 		String[] goodsOptionArr =  request.getParameterValues("goodsOption"); // 수정 X
 		String[] orderQuantityArr =  request.getParameterValues("orderQuantity"); // 수정 X
 		
@@ -102,35 +105,35 @@ public class AddOrderFromCart extends HttpServlet {
 			orders.setCustomerId(orderCustomer.getCustomerId());
 			orders.setAddressCode(addressCode);
 			orders.setOrderQuantity(Integer.parseInt(orderQuantityArr[i]));
-			orders.setOrderPrice(Integer.parseInt(goodsPriceArr[i]));
+			orders.setOrderPrice(Integer.parseInt(orderPriceArr[i]));
 			orders.setOrderState("주문완료");
 			
-			// 주문 서비스로 들어갈때 해야할 것
-			// 1) insert order
-			// 2) insert point(customer)
-			// 3) insert point_history
-			if(i == 0) {
-				
-			}
-			// order테이블에 insert
-			int addOrderRow = orderService.addOrderDirect(orders);
-			if(addOrderRow == 0) {
-				System.out.println("주문 실패");
-				response.sendRedirect(request.getContextPath()+"/GetOrderInfoFromCart");
-				return;
-			}
+			System.out.println("=============");
+			System.out.println(fileNameArr[i]);
+			System.out.println(goodsCodeArr[i]);
+			System.out.println(goodsNameArr[i]);
+			System.out.println(orderPriceArr[i]);
+			System.out.println(goodsOptionArr[i]);
+			System.out.println(orderQuantityArr[i]);
+			System.out.println(shareUsePoint);
+			System.out.println(remainderUsePoint);
+			System.out.println("=============");
 			
-			// point테이블에 point 사용내역 insert
-			PointHistory pointHistory = new PointHistory();
-			pointHistory.setOrderCode(Integer.parseInt(goodsCodeArr[i]));
-			pointHistory.setPoint(shareUsePoint);
-			pointHistory.setPointKind("사용");
+			// order테이블에 insert, customer point update, point_history insert
+			if(i == 0) {
+				int tempPoint = shareUsePoint + remainderUsePoint;
+				orderService.addOrderFromCart(orders, tempPoint);
+			} else {
+				orderService.addOrderFromCart(orders, shareUsePoint);
+			}
+
+			
 			// 다음 view로 보내기위해 ArrayListHashMap사용
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("fileName", fileNameArr[i]);
 			map.put("goodsCode", goodsCodeArr[i]);
 			map.put("goodsName", goodsNameArr[i]);
-			map.put("goodsPrice", goodsPriceArr[i]);
+			map.put("orderPrice", orderPriceArr[i]);
 			map.put("goodsOption", goodsOptionArr[i]);
 			map.put("orderQuantity", orderQuantityArr[i]);
 			map.put("shareUsePoint", shareUsePoint);
@@ -139,10 +142,24 @@ public class AddOrderFromCart extends HttpServlet {
 		}
 		
 		// 뷰로 넘기기
-		request.setAttribute("", orderList);
+		request.setAttribute("orderList", orderList);
 		request.setAttribute("orderCustomer", orderCustomer);
 		request.setAttribute("totalPrice", totalPrice);
-		request.setAttribute(newAddress, goodsOptionArr);
 		
+		// 장바구니 비우기
+		
+		// 1) 세션
+		session.removeAttribute("cartList");
+				
+		// 2) DB 
+		this.cartService = new CartService();
+		cartService.removeCartAll(loginCustomer);
+		
+		request.getRequestDispatcher("WEB-INF/view/order/orderCompleteFromCart.jsp").forward(request, response);
+		Enumeration<String> attributes = request.getSession().getAttributeNames();
+		while (attributes.hasMoreElements()) {
+		    String attribute = (String) attributes.nextElement();
+		    System.err.println(attribute+" : "+request.getSession().getAttribute(attribute));
+		}
 	}
 }

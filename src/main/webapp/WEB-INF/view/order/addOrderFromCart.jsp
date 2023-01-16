@@ -81,7 +81,7 @@
 					console.log(remainderUsePoint);
 					for(let i = 0; i<listLength; i++) {
 						
-						let orderPrice = $(orderPriceHiddeneList[i]).val();
+						let orderPrice = $(orderPriceHiddenList[i]).val();
 						
 						if(i == 0) {
 							orderPrice = orderPrice - shareUsePoint - remainderUsePoint;
@@ -93,6 +93,11 @@
 							$(shareUsePointList[i]).val(shareUsePoint);
 						}
 					}
+					
+					$('#usePoint').val(usePoint);
+					$('#shareUsePoint').val(shareUsePoint);
+					$('#remainderUsePoint').val(remainderUsePoint);
+					$('.totalPrice').val(totalPrice - usePoint);
 				});
 				
 			});
@@ -161,17 +166,16 @@
 		 			<th>상품옵션</th>
 	 			</tr>
 	 			<c:forEach var="map" items="${cartList}">
+	 				<input type="hidden" name="fileName" value="${map.fileName}">
 	 				<input type="hidden" name="goodsCode" value="${map.goodsCode}">
-	 				<input type="hidden" name="goodsName" value="${map.goodsName}">
-				 	<input type="hidden" name="orderPrice" value="${map.orderPrice}"> 	
+	 				<input type="hidden" name="goodsName" value="${map.goodsName}">	
 				 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
 				 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
-				 
 		 			<tr>
-		 				<td id="filename"><img src="${pageContext.request.contextPath}/upload/${map.fileName}" name="filename" width="100" height="100"></td>
-			 			<td id="goodsName">${map.goodsName}</td>
+		 				<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
+			 			<td>${map.goodsName}</td>
 			 			<td>
-			 				<input type="text" id="orderPrice" class="orderPrice" value="${map.orderPrice}" readonly="readonly">
+			 				<input type="text" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
 			 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
 			 			</td>
 			 			<td>${map.orderQuantity}</td>
@@ -189,9 +193,10 @@
 	 			</tr>
 		 	</table>
 		 	
-			<input type="hidden" name="shareUsePoint" value="0">
-		 	<input type="hidden" name="remainderUsePoint" value="0">
-		 	<input type="hidden" name="totalPrice" value="${totalPrice}">
+		 	<input type="hidden" name="usePoint" id="usePoint" value="0">
+			<input type="hidden" name="shareUsePoint" id="shareUsePoint" value="0">
+		 	<input type="hidden" name="remainderUsePoint" id="remainderUsePoint" value="0">
+		 	<input type="hidden" name="totalPrice" id="totalPrice" class="totalPrice" value="${totalPrice}">
 		 	
 			<button type="button" id="addOrderBtn">주문</button>
 		</form>
