@@ -50,10 +50,12 @@ public class EmpDao {
 		int row = 0;
 		
 		String sql = "UPDATE emp SET"
-				+ " emp_pw = ?"
+				+ " emp_pw = PASSWORD(?)"
 				+ " WHERE emp_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		System.out.println(newPw);
+		System.out.println(emp.getEmpId());
 		stmt.setString(1, newPw);
 		stmt.setString(2, emp.getEmpId());
 		
