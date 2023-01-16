@@ -43,6 +43,7 @@
 					<th>주문번호</th>
 					<th>주문상품</th>
 					<th>상품금액</th>
+					<th>상품옵션</th>
 					<th>주문수량</th>
 					<th>주문금액</th>
 					<th>주문상태</th>
@@ -56,6 +57,7 @@
 							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${o.goodsCode}">${o.goodsName}</a>
 						</td>
 						<td>${o.goodsPrice}</td>
+						<td>${o.goodsOption}</td>
 						<td>${o.orderQuantity}</td>
 						<td>${o.orderPrice}</td>
 						<c:if test="${o.orderState.equals('구매확정')}"> <!-- 주문상태가 구매확정이고 -->
