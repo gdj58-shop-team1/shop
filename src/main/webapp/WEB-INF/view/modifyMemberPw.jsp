@@ -55,24 +55,24 @@
 		// emp 유효성 검사
 		$('#empBtn').click(function() {
 				
-			$('#newEmpPw').focus();
+			$('#newPw').focus();
 			// newCustomerPw 미입력시
-			if($('#newEmpPw').val().length < 1) {				
+			if($('#newPw').val().length < 1) {				
 				alert('비밀번호를 입력해주세요');				
-				$('#newEmpPw').focus();				
+				$('#newPw').focus();				
 				return false;
 			}
 			// newEmpPw2 미입력시
-			if($('#newEmpPw2').val().length < 1) {				
+			if($('#newPw2').val().length < 1) {				
 				alert('비밀번호를 입력해주세요');				
-				$('#newEmpPw2').focus();				
+				$('#newPw2').focus();				
 				return false;
 			}
 			$('#empModifyPwForm').submit();
 		});	
 		
 		// emp 비밀번호 일치 검사
-		$('.empPw').focusout(function () {
+		$('.newEmpPw').focusout(function () {
 		    var newEmpPw = $("#newEmpPw").val();
 		    var newEmpPw2 = $("#newEmpPw2").val();
 		

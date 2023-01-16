@@ -48,7 +48,7 @@ public class EmpDao {
 	}
 	
 	// 3) emp 비밀번호 수정
-	public int updateEmpPw(Connection conn, Emp emp, String newPw) throws Exception {
+	public int updateEmpPw(Connection conn, Emp emp, String newEmpPw) throws Exception {
 		int row = 0;
 		
 		String sql = "UPDATE emp SET"
@@ -56,9 +56,8 @@ public class EmpDao {
 				+ " WHERE emp_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		System.out.println(newPw);
-		System.out.println(emp.getEmpId());
-		stmt.setString(1, newPw);
+		
+		stmt.setString(1, emp.getEmpPw());
 		stmt.setString(2, emp.getEmpId());
 		
 		row = stmt.executeUpdate(); // 1 반환 시, 비밀번호 변경 성공

@@ -53,7 +53,7 @@ public class CustomerDao {
 		int row = 0;
 		
 		String sql = "UPDATE customer SET"
-				+ " customer_pw = ?"
+				+ " customer_pw = PASSWORD(?)"
 				+ " WHERE customer_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);

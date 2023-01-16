@@ -65,7 +65,7 @@ public class ModifyMemberPw extends HttpServlet {
 					
 		} else if(session.getAttribute("loginMember") instanceof Emp) { // emp 로그인 시,
 			loginEmp = (Emp)session.getAttribute("loginMember");
-			String newEmpPw = request.getParameter("newPw");
+			String newEmpPw = request.getParameter("newEmpPw");
 			
 			loginEmp.setEmpPw(newEmpPw);
 			
