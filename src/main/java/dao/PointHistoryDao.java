@@ -39,6 +39,7 @@ public class PointHistoryDao {
 		return pointList;
 	}
 	
+	// ==================================================
 	// 회원 현재 포인트 조회
 	public int selectCustomerPoint(Connection conn, String customerId) throws Exception{
 		int totalPoint = 0;
@@ -60,13 +61,14 @@ public class PointHistoryDao {
 		stmt.close();
 		return totalPoint;
 	}
+	// =====================================================
 	
 	// 포인트 적립/사용(insert)
 	public int insertPoint(Connection conn, PointHistory paramPoint) throws Exception{
 		int row = 0;
 		PreparedStatement stmt = null;
 		
-		String sql = "INSERT INRO point_history (order_code, point_kind, point) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO point_history (order_code, point_kind, point) VALUES (?, ?, ?)";
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, paramPoint.getOrderCode());

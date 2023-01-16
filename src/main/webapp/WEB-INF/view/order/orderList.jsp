@@ -69,7 +69,15 @@
 								</td>
 							</c:if>
 						</c:if>
-						<c:if test="${!o.orderState.equals('결제') && !o.orderState.equals('구매확정')}"> <!-- 주문상태가 구매확정도 아니고, 결제도 아니면 -->
+						
+						<c:if test="${o.orderState.equals('주문완료')}"> <!-- 주문상태가 주문완료이면 -->
+							<td>
+								${o.orderState}
+								<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}">주문취소</a>
+							</td>
+						</c:if>
+						
+						<c:if test="${!o.orderState.equals('구매확정') && !o.orderState.equals('주문완료')}"> <!-- 주문상태가 구매확정도, 결제완료, 주문완료도 아니면 -->
 							<td>${o.orderState}</td>
 						</c:if>
 						<td>
