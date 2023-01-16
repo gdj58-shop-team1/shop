@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.OrderService;
+import vo.Customer;
 
 
 @WebServlet("/RemoveOrder")
@@ -24,18 +25,22 @@ public class RemoveOrder extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Login");
 			return;
 		}
+		// 세션의 로그인 정보 가져오기
+		Customer loginCustomer = (Customer) session.getAttribute("loginMember");
+		String customerId = loginCustomer.getCustomerId();
 		
 		// 파라메터 받기
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
+		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
+		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		int point = (goodsPrice * orderQuantity) - orderPrice;
 		String orderState = "주문취소";
 		
 		// 서비스 호출
 		this.orderService = new OrderService();
-		int row = orderService.modifyOrder(orderCode, orderState);
-		if(row == 0) {
-			System.out.println("주문상태 변경 실패");
-		}
-		System.out.println("주문상태 변경 성공");
+		orderService.modifyOrderCancel(customerId, orderCode, orderState, point);
+
 		response.sendRedirect(request.getContextPath()+"/OrderList");
 	}
 

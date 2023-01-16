@@ -73,7 +73,7 @@
 						<c:if test="${o.orderState.equals('주문완료')}"> <!-- 주문상태가 주문완료이면 -->
 							<td>
 								${o.orderState}
-								<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}">주문취소</a>
+								<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}&goodsPrice=${o.goodsPrice}&orderPrice=${o.orderPrice}">주문취소</a>
 							</td>
 						</c:if>
 						
