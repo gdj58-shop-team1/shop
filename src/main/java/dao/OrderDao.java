@@ -94,6 +94,7 @@ public class OrderDao {
 				+ ", g.goods_code goodsCode"
 				+ ", g.goods_name goodsName"
 				+ ", g.goods_price goodsPrice"
+				+ ", o.goods_option goodsOption"
 				+ ", o.order_quantity orderQuantity"
 				+ ", o.order_price orderPrice"
 				+ ", o.order_state orderState"
@@ -113,6 +114,7 @@ public class OrderDao {
 			map.put("orderCode", rs.getInt("orderCode"));
 			map.put("goodsCode", rs.getInt("goodsCode"));
 			map.put("goodsName", rs.getString("goodsName"));
+			map.put("goodsOption", rs.getString("goodsOption"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
 			map.put("orderQuantity", rs.getInt("orderQuantity"));
 			map.put("orderPrice", rs.getInt("orderPrice"));
@@ -140,7 +142,7 @@ public class OrderDao {
 				+ "	o.order_code orderCode"
 				+ "	, g.goods_code goodsCode"
 				+ "	, g.goods_name goodsName"
-				+ "	, g.goods_price goodsPrice"			// 필요 없을 시 삭제
+				+ "	, g.goods_price goodsPrice"
 				+ "	, o.order_quantity orderQuantity" 	// 필요 없을 시 삭제
 				+ "	, o.order_price orderPrice"
 				+ "	, o.customer_id customerId" 		// 필요 없을 시 삭제
@@ -157,6 +159,7 @@ public class OrderDao {
 			order = new HashMap<String, Object>();
 			order.put("orderCode", rs.getInt("orderCode"));
 			order.put("orderPrice", rs.getInt("orderPrice"));
+			order.put("goodsPrice", rs.getInt("goodsPrice"));
 			order.put("goodsName", rs.getString("goodsName"));
 			order.put("createdate", rs.getString("createdate"));
 		}

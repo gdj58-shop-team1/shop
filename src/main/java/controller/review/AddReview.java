@@ -76,7 +76,7 @@ public class AddReview extends HttpServlet {
 		Customer customer = (Customer)session.getAttribute("loginMember");
 		String customerId = customer.getCustomerId();
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
-		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
 		String reviewMemo = request.getParameter("reviewMemo");
 		
 		// 데이터 묶기
@@ -86,7 +86,7 @@ public class AddReview extends HttpServlet {
 		
 		// 서비스 호출
 		this.reviewService = new ReviewService();
-		int row = reviewService.addReview(paramReview, customerId, orderPrice);
+		int row = reviewService.addReview(paramReview, customerId, goodsPrice);
 		if(row == 0) {
 			System.out.println("리뷰 추가 실패");
 			response.sendRedirect(request.getContextPath()+"/AddReview?orderCode="+orderCode);

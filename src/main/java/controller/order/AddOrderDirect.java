@@ -113,7 +113,7 @@ public class AddOrderDirect extends HttpServlet {
 		// 뷰 호출
 		request.getRequestDispatcher("WEB-INF/view/order/orderComplete.jsp").forward(request, response);
 		session.removeAttribute("goodsName");
-		session.removeAttribute("goodsPrice");
+		session.removeAttribute("orderPrice");
 		session.removeAttribute("fileName");
 		session.removeAttribute("order");
 		session.removeAttribute("customer");

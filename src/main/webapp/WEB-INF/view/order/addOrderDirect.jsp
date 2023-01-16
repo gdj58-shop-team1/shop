@@ -11,10 +11,10 @@
 			$(document).ready(function(){
 				
 				var customerPoint = Number('<c:out value="${customer.point}"/>');
-				var goodsPrice = Number('<c:out value="${goodsPrice}"/>');
+				var orderPrice = Number('<c:out value="${orderPrice}"/>');
 				var optionCk = $('select option:selected').val(); // 선택된 옵션의 값
 				console.log(optionCk);
-				console.log(goodsPrice);
+				console.log(orderPrice);
 				
 				$('#addressCode').change(function(){ // 주소 선택 값이 바뀌면
 					optionCk = $('select option:selected').val(); // 선택된 옵션의 값을 가져오기
@@ -27,7 +27,7 @@
 				});
 				
 				// 포인트 적용 버튼이 눌리면
-				$('#applyPoint').click(function(){
+				$('#point').change(function(){
 					if(Number($('#point').val()) > customerPoint){
 						alert('보유 포인트가 모자랍니다.');
 						$('#point').val('');
@@ -39,8 +39,12 @@
 						return;
 					}
 					$('#currentPoint').text(customerPoint-Number($('#point').val())); // 현재 포인트 변경
-					$('#totalPrice').text(goodsPrice-Number($('#point').val())); // 총 금액 변경
-					$('#orderPrice').attr('value', goodsPrice-Number($('#point').val())); // 넘어갈 주문 금액 value 변경
+					$('#goodsPriceWO').text(orderPrice-Number($('#point').val()));
+					$('#totalPrice').text(orderPrice-Number($('#point').val())); // 총 금액 변경
+					$('#orderPrice').attr('value', orderPrice-Number($('#point').val())); // 넘어갈 주문 금액 value 변경
+					$('#changePriceMsg').text(orderPrice+' - '+Number($('#point').val())+' = '+ $('#orderPrice').val());
+					console.log('메시지');
+					
 				});
 				
 				$('#addOrderBtn').click(function(){
@@ -77,6 +81,7 @@
 		<form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm">
 			<input type="hidden" name="goodsCode" value="${goodsCode}">
 		 	<input type="hidden" name="orderPrice" id="orderPrice" value="${order.orderPrice}">
+		 	
 		 	<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
 		 	<table border="1" style="width:50%;"> <!-- 주문고객정보 -->
 	 			<tr>
@@ -134,7 +139,10 @@
 	 					<img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100">
 	 				</td>
 		 			<td>${goodsName}</td>
-		 			<td>${goodsPrice}</td>
+		 			<td>
+		 				<div><span id="goodsPriceWO">${orderPrice}</span></div>
+		 				<div><span id="changePriceMsg" style="color:blue;">${orderPrice} - 0 = ${orderPrice}</span></div>
+		 			</td>
 		 			<td>${order.orderQuantity}</td>
 		 			<td>${order.goodsOption}</td>
 		 		</tr>
@@ -142,7 +150,6 @@
 		 			<td colspan="1">사용할 포인트</td>
 		 			<td colspan="2">
 		 				<input type="number" name="point" id="point" max="${customer.point}" placeholder="사용할 포인트 입력">P
-		 				<button type="button" id="applyPoint">적용</button>
 		 			</td>
 	 				<td colspan="2">총 주문금액: <span id="totalPrice">${order.orderPrice}</span>원</td> <!-- 자바스크립트로 수정 -->
 	 			</tr>

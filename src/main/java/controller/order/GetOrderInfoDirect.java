@@ -43,7 +43,7 @@ public class GetOrderInfoDirect extends HttpServlet {
 		}
 		
 		// 파라메터 받기
-		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
+		// int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
 		String customerId = request.getParameter("customerId");
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
 		String goodsOption = request.getParameter("goodsOption");
@@ -73,7 +73,8 @@ public class GetOrderInfoDirect extends HttpServlet {
 		
 		// 파라메터(주문정보), 호출 데이터(사용자 정보) 세션에 저장
 		session.setAttribute("goodsName", goodsName);
-		session.setAttribute("goodsPrice", goodsPrice);
+		// session.setAttribute("goodsPrice", goodsPrice);
+		session.setAttribute("orderPrice", orderPrice);
 		session.setAttribute("fileName", fileName);
 		session.setAttribute("order", order); // Orders type
 		session.setAttribute("customer", customer); // Customer type
