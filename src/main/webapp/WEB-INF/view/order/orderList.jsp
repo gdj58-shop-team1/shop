@@ -18,8 +18,12 @@
 					console.log('idWithIndex '+idWithIndex);
 					console.log('idWithIndexForm '+idWithIndexForm);
 					
+					if($(idWithIndex).val() == '주문취소'){
+						$(idWithIndex).attr("disabled",true);
+					}
+					
 					$(idWithIndex).change(function() {
-							$(idWithIndexForm).submit();			
+						$(idWithIndexForm).submit();			
 					});
 					
 				});
@@ -119,6 +123,7 @@
 								<input type="hidden" name="goodsPrice" value="${o.goodsPrice}">
 								<input type="hidden" name="orderPrice" value="${o.orderPrice}">
 								<input type="hidden" name="orderQuantity" value="${o.orderQuantity}">
+								<input type="hidden" name="customerId" value="${o.customerId}">
 								
 								<select name="orderState" id="orderState${o.orderCode}">
 									<c:if test="${o.orderState.equals('주문완료')}">
