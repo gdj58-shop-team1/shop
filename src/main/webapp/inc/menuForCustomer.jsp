@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		<!-- Header desktop -->
-		<div class="container">
+		<div class="container" style="z-index: 1;position: relative;">
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 					
@@ -13,7 +13,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu label1" data-label1="hot">
-								<a href="index.html">Shop</a>
+								<a href="${pageContext.request.contextPath}/Home">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="${pageContext.request.contextPath}/Home">건강식품</a></li>
 									<li><a href="${pageContext.request.contextPath}/Home">육류</a></li>
