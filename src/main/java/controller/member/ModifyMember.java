@@ -50,7 +50,7 @@ public class ModifyMember extends HttpServlet {
 		}
 		
 		
-		request.getRequestDispatcher("/WEB-INF/view/modifyMember.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/modifyMember.jsp").forward(request, response);
 	}
 
 	

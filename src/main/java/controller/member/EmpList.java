@@ -1,4 +1,4 @@
-package controller;
+package controller.member;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class EmpList extends HttpServlet {
 				
 				
 		// view 호출
-		request.getRequestDispatcher("/WEB-INF/view/empList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/empList.jsp").forward(request, response);
 				
 		
 		

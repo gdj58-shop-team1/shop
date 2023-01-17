@@ -33,7 +33,7 @@ public class EmpSignin extends HttpServlet {
 			return;
 		}
 				
-		request.getRequestDispatcher("/WEB-INF/view/empSignin.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/empSignin.jsp").forward(request, response);
 	}
 
 	

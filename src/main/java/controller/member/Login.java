@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
 			return;
 		}
 				
-		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
 	}
 
 	
