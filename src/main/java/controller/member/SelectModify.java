@@ -27,7 +27,7 @@ public class SelectModify extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/view/selectModify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/selectModify.jsp").forward(request, response);
 	}
 
 }

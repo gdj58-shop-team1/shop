@@ -26,6 +26,6 @@ public class MyPage extends HttpServlet {
 		
 		
 		
-		request.getRequestDispatcher("/WEB-INF/view/myPage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/myPage.jsp").forward(request, response);
 	}
 }

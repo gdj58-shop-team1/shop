@@ -33,7 +33,7 @@ public class ModifyMemberPw extends HttpServlet {
 			return;
 		}
 				
-		request.getRequestDispatcher("/WEB-INF/view/modifyMemberPw.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/modifyMemberPw.jsp").forward(request, response);
 	}
 
 	

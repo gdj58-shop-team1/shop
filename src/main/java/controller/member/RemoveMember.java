@@ -30,7 +30,7 @@ public class RemoveMember extends HttpServlet {
 			return;
 		}
 				
-		request.getRequestDispatcher("/WEB-INF/view/removeMember.jsp").forward(request, response);
+		request.getRequestDispatcher("//WEB-INF/view/member/removeMember.jsp").forward(request, response);
 	}
 
 	

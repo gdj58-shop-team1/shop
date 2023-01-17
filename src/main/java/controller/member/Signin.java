@@ -32,7 +32,7 @@ public class Signin extends HttpServlet {
 			return;
 		}
 				
-		request.getRequestDispatcher("/WEB-INF/view/signin.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/signin.jsp").forward(request, response);
 	}
 
 	

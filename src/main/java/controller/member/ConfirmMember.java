@@ -1,4 +1,4 @@
-package controller;
+package controller.member;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -33,7 +33,7 @@ public class ConfirmMember extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/view/confirmMember.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/confirmMember.jsp").forward(request, response);
 	}
 
 	

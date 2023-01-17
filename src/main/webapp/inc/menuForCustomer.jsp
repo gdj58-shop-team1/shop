@@ -51,8 +51,4 @@
 					</div>
 				</nav>
 			</div>	
-			
-			<div>오늘의 접속자 : ${todaySiteCounter}</div>
-			<div>총 접속자 : ${totalSiteCounter}</div>
-	
 		</div>
