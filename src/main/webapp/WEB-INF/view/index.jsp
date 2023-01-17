@@ -38,18 +38,6 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-	
-	<!-- 세션 정보별로 메뉴 분기 -->
-	<c:if test="${loginMember == null}"> <!-- 비로그인 -->
-		<jsp:include page="/inc/menu.jsp"></jsp:include>	
-	</c:if>
-	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
-	</c:if>
-	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
-	</c:if>
-
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
@@ -70,7 +58,7 @@
 							</div>
 								
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="${pageContext.request.contextPath}/Home" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="${pageContext.request.contextPath}/Home" class="flex-c-m stext-101 cl0 size-101 bg3 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
