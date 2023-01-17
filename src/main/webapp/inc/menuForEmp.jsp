@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 		<!-- Header desktop -->
-		<div class="container">
+		<div class="container" style="z-index: 1;position: relative;">
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 					
@@ -38,7 +38,7 @@
 							</li>
 							
 							<li class="active-menu label1" data-label1="hot">
-								<a href="index.html">Shop</a>
+								<a href="${pageContext.request.contextPath}/Home">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="${pageContext.request.contextPath}/Home">건강식품</a></li>
 									<li><a href="${pageContext.request.contextPath}/Home">육류</a></li>
