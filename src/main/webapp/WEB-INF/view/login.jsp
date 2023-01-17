@@ -202,7 +202,7 @@
                 <svg
                   class="w-4 h-4 mr-2"
                   aria-hidden="true"
-                  viewBox="0 0 24 24" 
+                  viewBox="0 0 24 24"
                   fill="currentColor"
                 >
 		          
