@@ -32,7 +32,9 @@
 			<tr>
 				<th>NAME</th>
 				<td>${loginMember.customerName}</td>
-			</tr>	
+			</tr>
+			
+					
 		</table>
 		
 		<a href="${pageContext.request.contextPath}/OrderList">주문 목록</a>

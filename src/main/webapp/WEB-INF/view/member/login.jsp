@@ -127,11 +127,7 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<!-- form 노출 버튼 -->
-	<div>
-		<a type="button" href="" id="customerBtn">고객 로그인</a>
-		<a type="button" href="" id="empBtn">직원 로그인</a>
-	</div>
+
 	
 	
 	
@@ -196,14 +192,13 @@
               <hr class="my-8" />
 
               <button
-                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-dark text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
              	onclick = "location.href='https://github.com/gdj58-shop-team1/shop';"
               >
                 <svg
                   class="w-4 h-4 mr-2"
                   aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+                  viewBox="0 0 24 24" 
                 >
 		          
                   <path

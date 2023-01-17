@@ -43,13 +43,21 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./loginCss/assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
-    <script src="./loginCss/assets/js/init-alpine.js"></script>
+    <script src="${pageContext.request.contextPath}/loginCss/assets/js/init-alpine.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+		
+
+			
+	
+
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -64,15 +72,7 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<br>
-	
-	<!-- form 노출 버튼 -->
-	<div>
-		<a type="button" href="" id="customerBtn">고객 회원가입</a>
-		<a type="button" href="" id="empBtn">사원 회원가입</a>
-	</div>
-	
-	<br>
+
 	
   	<!-- 회원가입폼 -->
   	
@@ -92,7 +92,7 @@
           </div>
           <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div class="w-full">
-            <form action="${pageContext.request.contextPath}/EmpSignin" method="post">
+            <form action="${pageContext.request.contextPath}/EmpSignin" method="post" id ="empSigninForm">
               <h1
                 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200"
               >
@@ -142,7 +142,7 @@
               <a
                 class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"  
               >
-              	<button type = "EmpsigninBtn">
+              	<button type = "submit" id = "EmpsigninBtn">
               		회원가입
               	</button>
               </a>
@@ -151,7 +151,7 @@
               <hr class="my-8" />
 				
               <button
-                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-dark text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
               	onclick = "location.href='https://github.com/spongestyle/cashbook.git';"
               >
                 <svg

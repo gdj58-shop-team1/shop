@@ -52,32 +52,7 @@
 <script>
 	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
 		
-		// customerLogin 유효성 검사
-		$('#loginCustomerBtn').click(function() {
-				
-			$('#customerId').focus();
-			// customerId 미입력시
-			if($('#customerId').val().length < 1) {
-				
-				alert('아이디를 입력해주세요');
-				
-				$('#customerId').focus();
-				
-				return;
-			}
-			// customerPw 미입력시
-			if($('#customerPw').val().length < 1) {
-				
-				alert('비밀번호를 입력해주세요');
-				
-				$('#customerPw').focus();
-				
-				return;
-			}
-			$('#customerLoginForm').submit();
 			
-		});
-	
 		// empLogin 유효성 검사
 		$('#loginEmpBtn').click(function() {
 			
@@ -123,12 +98,7 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<!-- form 노출 버튼 -->
-	<div>
-		<a type="button" href="" id="customerBtn">고객 로그인</a>
-		<a type="button" href="" id="empBtn">직원 로그인</a>
-	</div>
-	
+
 	
 	
   
@@ -192,7 +162,7 @@
               <hr class="my-8" />
 
               <button
-                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-dark text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
              	onclick = "location.href='https://github.com/gdj58-shop-team1/shop';"
               >
                 <svg
