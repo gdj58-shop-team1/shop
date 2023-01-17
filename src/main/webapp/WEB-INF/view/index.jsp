@@ -38,6 +38,14 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
+	<header>
+		<!-- 빈공간 채우기용 -->
+		<div class="container-menu-desktop">
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container"></div>
+			</div>
+		</div>
+	</header>
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">

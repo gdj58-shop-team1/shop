@@ -49,10 +49,9 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 
-	<!-- Product -->
+	<!-- 본문 -->
 	<div class="bg0 m-t-23 p-b-140">
 		<div class="container">
-		
 			<!-- 상단 정렬, 검색 줄 -->
 			<div class="flex-w flex-sb-m p-b-52">
 				<!-- 정렬 -->
@@ -94,8 +93,11 @@
 						<div class="block2">
 							<!-- 상품 이미지 -->
 							<div class="block2-pic hov-img0">
-								<img src="${pageContext.request.contextPath}/upload/${g.fileName}">
+								<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${g.goodsCode}">
+									<img src="${pageContext.request.contextPath}/upload/${g.fileName}">
+								</a>
 							</div>
+							
 							<!-- 상품이름, 가격 -->
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
@@ -172,13 +174,8 @@
 						<span class="stext-101 cl6 p-r-15 p-l-15 p-tb-6">next</span>
 					</c:if>
 				</c:if>
-					</div>
-				</div>
 			</div>
-		
-	<!-- 페이징 (검색값 분기)-->
-	<div>
-		
+		</div>
 	</div>
 		
 <!--===============================================================================================-->	
