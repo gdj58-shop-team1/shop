@@ -53,15 +53,15 @@ public class CartList extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("sdsa");
 		HttpSession session = request.getSession();
-
 		String[] goodsCodeArr =  request.getParameterValues("goodsCode");
 		String[] orderQuantityArr =  request.getParameterValues("orderQuantity");
 		String[] goodsPriceArr =  request.getParameterValues("goodsPrice");
 		String[] goodsNameArr =  request.getParameterValues("goodsName");
 		String[] fileNameArr =  request.getParameterValues("fileName");
 		String[] goodsOptionArr =  request.getParameterValues("goodsOption");
-		
+		System.out.println(orderQuantityArr[0]);
 		if(session.getAttribute("loginMember") != null && session.getAttribute("loginMember") instanceof Customer) {
 			Customer loginCustomer = (Customer) session.getAttribute("loginMember");
 			
