@@ -429,5 +429,41 @@ public class GoodsDao {
 
 	}
 	
+	// 상품리스트 side menu
+	public ArrayList<HashMap<String, Object>> selectSideGoodsist(Connection conn, int beginRow, int endRow) throws Exception{
+		ArrayList<HashMap<String, Object>> sideGoodsList = new ArrayList<HashMap<String, Object>>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+					
+		String sql = "SELECT g.goods_code goodsCode"
+				+ ", g.goods_name goodsName"
+				+ ", g.goods_price goodsPrice"
+				+ ", img.filename fileName"
+				+ " FROM goods g INNER JOIN goods_img img"
+				+ "	ON g.goods_code = img.goods_code"
+				+ " ORDER BY goodsCode DESC"
+				+ " LIMIT ?, ?";
+		
+		
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, endRow);
+		rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("goodsCode",rs.getInt("goodsCode"));
+			map.put("goodsName",rs.getString("goodsName"));
+			map.put("goodsPrice",rs.getInt("goodsPrice"));
+			map.put("fileName",rs.getString("fileName"));
+			sideGoodsList.add(map);
+		}
+		
+		System.out.println("dao접근성공");
+		rs.close();
+		stmt.close();
+		return sideGoodsList;
+		
+	}
+	
 	
 }

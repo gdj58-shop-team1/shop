@@ -434,4 +434,29 @@ public class GoodsService {
 		
 	}
 	
+	// 상품리스트(home) - 검색, 정렬값X
+	public ArrayList<HashMap<String, Object>> getSideGoodsList(int currentPage, int rowPerPage){
+		ArrayList<HashMap<String, Object>> SideGoodsList = new ArrayList<HashMap<String, Object>>();
+		goodsDao = new GoodsDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("getSideGoodsList(GoodsService) db 접속");			
+			int beginRow = (currentPage-1)*rowPerPage;
+			int endRow = beginRow+rowPerPage;
+			SideGoodsList = goodsDao.selectSideGoodsist(conn, beginRow, endRow);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return SideGoodsList;
+	}
+	
 }
