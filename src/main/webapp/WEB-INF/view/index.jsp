@@ -40,7 +40,7 @@
 <body class="animsition">
 	<header>
 		<!-- 빈공간 채우기용 -->
-		<div class="container-menu-desktop">
+		<div class="container-menu-desktop" style="height:20px">
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container"></div>
 			</div>
@@ -76,6 +76,14 @@
 			</div>
 		</div>
 	</section>
+	<footer>
+		<!-- 빈공간 채우기용 -->
+		<div class="container-menu-desktop">
+			<div class="top-bar" style="height:20px">
+				<div class="content-topbar flex-sb-m h-full container"></div>
+			</div>
+		</div>
+	</footer>
 
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
