@@ -56,20 +56,21 @@
 			<div class="flex-w flex-sb-m p-b-52">
 				<!-- 정렬 -->
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<a href="${pageContext.request.contextPath}/Home?sort=g.goods_Name ASC" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">기본순</a>
+					<a href="${pageContext.request.contextPath}/Home?sort=g.goods_Name ASC&category=${category}&searchWord=${searchWord}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">기본순</a>
 					
-					<a href="${pageContext.request.contextPath}/Home?sort=g.createdate DESC" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">최근순</a>
+					<a href="${pageContext.request.contextPath}/Home?sort=g.createdate DESC&category=${category}&searchWord=${searchWord}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">최근순</a>
 					
-					<a href="${pageContext.request.contextPath}/Home?sort=g.hit DESC" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">인기순</a>
+					<a href="${pageContext.request.contextPath}/Home?sort=g.hit DESC&category=${category}&searchWord=${searchWord}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">인기순</a>
 					
-					<a href="${pageContext.request.contextPath}/Home?sort=g.goods_Price DESC" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">높은 가격순</a>
+					<a href="${pageContext.request.contextPath}/Home?sort=g.goods_Price DESC&category=${category}&searchWord=${searchWord}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">높은 가격순</a>
 					
-					<a href="${pageContext.request.contextPath}/Home?sort=g.goods_Price ASC" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">낮은 가격순</a>
+					<a href="${pageContext.request.contextPath}/Home?sort=g.goods_Price ASC&category=${category}&searchWord=${searchWord}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">낮은 가격순</a>
 				</div>
 
 				<!-- 검색 폼 -->
 				<div class="flex-w flex-c-m m-tb-10">
 					<form action="${pageContext.request.contextPath}/Home" method="get">
+						<input type="hidden" name="category" value="${category}">
 						<div class="stext-107 cl6 size-107 m-tb-4">
 							<div class="flex-w flex-sb-m p-b-52">
 								<c:if test="${searchWord == null}"> <!-- 세션에서 받은 검색값이 없으면 일반 input -->

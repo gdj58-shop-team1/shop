@@ -18,7 +18,7 @@ import vo.Customer;
 public class Home extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		/*
 			세션분기(비로그인, 로그인) :비로그인 -> loginController, 로그인 -> home.jsp 호출
 			페이지 정보 받기(현재 페이지)
@@ -42,6 +42,11 @@ public class Home extends HttpServlet {
 		String searchWord = request.getParameter("searchWord"); // 검색값
 		String sort = request.getParameter("sort"); // 정렬값
 		
+		String category = null;
+		if(request.getParameter("category") != null) {
+			category = request.getParameter("category");
+		}
+		
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -55,18 +60,51 @@ public class Home extends HttpServlet {
 		GoodsService goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		
-		// 검색값 따라 분기
-		if(searchWord != null) { // 검색값이 있으면
-			goodsList = goodsService.getGoodsList(currentPage, rowPerPage, searchWord);
-			cnt = goodsService.getGoodsCnt(searchWord);
-		} else if(sort != null) { // 정렬값이 있으면
-			goodsList = goodsService.getGoodsListSort(currentPage, rowPerPage, sort);
-			cnt = goodsService.getGoodsCnt();
-		} else { // 아무 값 없으면
-			goodsList = goodsService.getGoodsList(currentPage, rowPerPage);
-			cnt = goodsService.getGoodsCnt();
+		String where = "";
+		if(sort == null) {
+			sort = "";
+			if(searchWord == null) {
+				if(category == null || category.equals("")) {
+					where = "";
+					cnt = goodsService.getGoodsCnt(where);
+				} else {
+					System.out.println("카테고리 O , 검색값 X");
+					where = " WHERE goods_category = '" + category+"'";
+					cnt = goodsService.getGoodsCnt(where);
+				}
+			} else {
+				if(category == null || category.equals("")) {
+					where = " WHERE goods_name LIKE '%" + searchWord + "%'";
+					cnt = goodsService.getGoodsCnt(where);
+				} else {
+					where = " WHERE goods_name LIKE '%" + searchWord + "%' AND goods_category = '" + category + "'";
+					cnt = goodsService.getGoodsCnt(where);
+				}
+			}
+		} 
+		else {
+			sort = " ORDER BY " + sort;
+			if(searchWord == null) {
+				if(category == null || category.equals("")) {
+					where = "";
+					cnt = goodsService.getGoodsCnt(where);
+				} else {
+					where = " WHERE goods_category = '" + category +"'";
+					cnt = goodsService.getGoodsCnt(where);
+				}
+			} else {
+				if(category == null || category.equals("")) {
+					where = " WHERE goods_name LIKE '%" + searchWord + "%'";
+					cnt = goodsService.getGoodsCnt(where);
+				} else {
+					where = " WHERE goods_name LIKE '%" + searchWord + "%' AND goods_category = '" + category + "'";
+					cnt = goodsService.getGoodsCnt(where);
+				}
+			}
 		}
 		
+		goodsList = goodsService.getGoodsList(currentPage, rowPerPage, where, sort);			
+			
 		// 마지막 페이지 구하기
 		endPage = cnt/rowPerPage;
 		if(cnt%rowPerPage != 0) {
@@ -81,7 +119,7 @@ public class Home extends HttpServlet {
 		request.setAttribute("searchWord", searchWord);
 		request.setAttribute("sort", sort);
 		request.setAttribute("currentPage", currentPage);
-		
+		request.setAttribute("category", request.getParameter("category"));
 		// home.jsp 호출
  		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 		

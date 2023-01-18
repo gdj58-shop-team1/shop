@@ -15,11 +15,11 @@
 							<li class="active-menu label1" data-label1="hot">
 								<a href="${pageContext.request.contextPath}/Home">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="${pageContext.request.contextPath}/Home">건강식품</a></li>
-									<li><a href="${pageContext.request.contextPath}/Home">육류</a></li>
-									<li><a href="${pageContext.request.contextPath}/Home">육가공류</a></li>
-									<li><a href="${pageContext.request.contextPath}/Home">과일</a></li>
-									<li><a href="${pageContext.request.contextPath}/Home">기름</a></li>
+									<li><a href="${pageContext.request.contextPath}/Home?category=건강식품">건강식품</a></li>
+									<li><a href="${pageContext.request.contextPath}/Home?category=육류">육류</a></li>
+									<li><a href="${pageContext.request.contextPath}/Home?category=육가공류">육가공류</a></li>
+									<li><a href="${pageContext.request.contextPath}/Home?category=과일">과일</a></li>
+									<li><a href="${pageContext.request.contextPath}/Home?category=기름">기름</a></li>
 								</ul>
 							</li>
 

@@ -50,19 +50,65 @@
 			});
 		}
 		
-		let numberList = document.querySelectorAll('.orderQuantity');
-		let numberListLength = numberList.length;
+
+		let buttonMinusList = document.querySelectorAll('.btn-num-product-down');
+		let buttonPlusList = document.querySelectorAll('.btn-num-product-up');
+		let numProductList = document.querySelectorAll('.num-product');
+		let orderQuantityList = document.querySelectorAll('.orderQuantity');
+		let orderQuantityListLength = orderQuantityList.length;
 		
-		console.log(numberList);
-		for(let i = 0; i<numberListLength; i++) {
-			$(numberList[i]).change(function(){
-			    $("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
+		console.log(orderQuantityListLength);
+		for(let i = 0; i<orderQuantityListLength; i++) {
+			console.log($(numProductList[i]).val());
+			$(buttonMinusList[i]).click(function(){
+				let num = $(numProductList[i]).val();
+				console.log(num);
+				$(orderQuantityList[i]).val(num);
+				$('#cartListForm').attr("action", "${pageContext.request.contextPath}/CartList");
+			    $('#cartListForm').submit();
+			});
+			
+			$(buttonPlusList[i]).click(function(){
+				let num = $(numProductList[i]).val();
+				console.log(num);
+				$(orderQuantityList[i]).val(num);
+				$('#cartListForm').attr("action", "${pageContext.request.contextPath}/CartList");
+			  	$('#cartListForm').submit();   
+			});
+		}
+		
+		console.log(orderQuantityList);
+		for(let i = 0; i<orderQuantityListLength; i++) {
+			$(orderQuantityList[i]).change(function(){
+			    $('#cartListForm').attr("action", "${pageContext.request.contextPath}/CartList");
 			    $('#cartListForm').submit();   
 			});
 		}
 		
-		$('.orderBtn').click(function(){
-			$("#cartListForm").attr("action", "${pageContext.request.contextPath}/CartList");
+		let flag = '<c:out value="${empty cartList}"/>'
+		console.log(flag);
+		if(flag == true) {
+			$('#orderBtn').click(function(){		
+				alert('장바구니가 비어있습니다.');
+				return;
+			});
+			alert('장바구니가 비어있습니다.');
+			return;
+		}
+		$('#orderBtn').click(function(){		
+			$('#cartListForm').attr("action", "${pageContext.request.contextPath}/GetOrderInfoFromCart");
+			$('#cartListForm').submit();   
+		});
+		
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
 		});
 	});
 </script>
@@ -80,71 +126,120 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<br><br><br>
-	<div class="container">
-		<h1>장바구니</h1>
-		<form method="post" id = "cartListForm">
-			<table border="1">
-				<thead>
-					<tr>
-						<th>상품이미지</th>
-						<th>상품명</th>
-						<th>상품 옵션</th>
-						<th>수량</th>
-						<th>가격</th>
-						<th>삭제</th>
-					</tr>
-				</thead>
-				<c:forEach var="map" items="${cartList}">
-					<input type="hidden" id="GoodsCode" name="goodsCode" value="${map.goodsCode}">
-					<input type="hidden" id="goodsName" name="goodsName" value="${map.goodsName}">
-					<input type="hidden" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}">
-					<input type="hidden" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}">
-					<input type="hidden" id="fileName" name="fileName" value="${map.fileName}">
-					<tr>					
-						<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" width="100" height="100"></td>
+	<!-- Shoping Cart -->
+	<form class="bg0 p-t-75 p-b-85" id="cartListForm" action="${pageContext.request.contextPath}/GetOrderInfoFromCart" method="post">
+		<div class="container">
+			<div class="bread-crumb flex-w p-l-0 p-r-15 p-t-30 p-lr-0-lg">
+				<a href="${pageContext.request.contextPath}/Home" class="stext-109 cl8 hov-cl1 trans-04" style="font-size : 15pt;">
+					Home
+					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a>
 	
-						<td>${map.goodsName}</td>
-	
-						<td>
-							
-							<select name="goodsOption" id="goodsOption" class="goodsOption">
-								<c:if test="${map.goodsOption eq '일반포장'}">
-									<option value="일반포장" selected="selected">1) 일반포장(+0원)</option>
-									<option value="고급포장">2) 고급포장(+2,500원)</option>
-									<option value="보자기">3) 보자기(+5,900원)</option>
-								</c:if>
+				<span class="stext-109 cl4" style="font-size : 15pt;">
+					Shoping Cart
+				</span>
+				
+				<a class="btn btn-warning" href="${pageContext.request.contextPath}/RemoveCartAll" style="text-align:right">장바구니 비우기</a>
+			</div>
+			
+			<br><br>
+			
+			<div class="wrap-table-shopping-cart">
+				<c:if test="${empty cartList}">
+					<table class="table-shopping-cart" style="text-align : center; width:100%">
+						<tr class="table_head" style="text-align : center">
+							<th style="text-align : center; width:30%">Image</th>
+							<th style="text-align : center; width:15%">GoodsName</th>
+							<th style="text-align : center; width:20%">Option</th>
+							<th style="text-align : center; width:20%">Quantity</th>
+							<th style="text-align : center; width:15%">Total</th>
+						</tr>
+						<tr>
+							<td colspan="5" style="font-size:30pt">
+								<div>&nbsp;</div>
+								장바구니가 비어있습니다.
+								<div>&nbsp;</div>
+							</td>
+						</tr>
+					</table>
+				</c:if>
+					
+				<c:if test="${!(empty cartList)}">
+					<table class="table-shopping-cart" style="text-align : center; width:100%">
+						<tr class="table_head" style="text-align : center">
+							<th style="text-align : center; width:30%">Image</th>
+							<th style="text-align : center; width:15%">GoodsName</th>
+							<th style="text-align : center; width:20%">Option</th>
+							<th style="text-align : center; width:20%">Quantity</th>
+							<th style="text-align : center; width:15%">Total</th>
+						</tr>
+							<c:forEach var="map" items="${cartList}">
+								<input type="hidden" id="GoodsCode" name="goodsCode" value="${map.goodsCode}">
+								<input type="hidden" id="goodsName" name="goodsName" value="${map.goodsName}">
+								<input type="hidden" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}">
+								<input type="hidden" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}">
+								<input type="hidden" id="fileName" name="fileName" value="${map.fileName}">
+								<input class="orderQuantity" type="hidden" name="orderQuantity" value="${map.orderQuantity}" min="1">
 								
-								<c:if test="${map.goodsOption eq '고급포장'}">
-									<option value="일반포장">1) 일반포장(+0원)</option>
-									<option value="고급포장" selected="selected">2) 고급포장(+2,500원)</option>
-									<option value="보자기">3) 보자기(+5,900원)</option>
-								</c:if>
-								
-								<c:if test="${map.goodsOption eq '보자기'}">
-									<option value="일반포장">1) 일반포장(+0원)</option>
-									<option value="고급포장">2) 고급포장(+2,500원)</option>
-									<option value="보자기" selected="selected">3) 보자기(+5,900원)</option>
-								</c:if>
-							</select>
-						</td>
-	
-						<td>
-							<input type="number" name="orderQuantity" id="orderQuantity" class="orderQuantity" value="${map.orderQuantity}" min="1">
-						</td>
-	
-						<td>${map.orderPrice}</td>
-						<td><a href="${pageContext.request.contextPath}/RemoveCartOne?goodsCode=${map.goodsCode}&goodsOption=${map.goodsOption}">삭제</a></td>
-					</tr>
+								<tr class="table_row">
+									<td>
+										<img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" style="width:200px; height:200px">
+									</td>
+									<td>${map.goodsName}</td>
+									<td>
+										<select name="goodsOption" id="goodsOption" class="goodsOption">
+											<c:if test="${map.goodsOption eq '일반포장'}">
+												<option value="일반포장" selected="selected">1) 일반포장(+0원)</option>
+												<option value="고급포장">2) 고급포장(+2,500원)</option>
+												<option value="보자기">3) 보자기(+5,900원)</option>
+											</c:if>
+											
+											<c:if test="${map.goodsOption eq '고급포장'}">
+												<option value="일반포장">1) 일반포장(+0원)</option>
+												<option value="고급포장" selected="selected">2) 고급포장(+2,500원)</option>
+												<option value="보자기">3) 보자기(+5,900원)</option>
+											</c:if>
+											
+											<c:if test="${map.goodsOption eq '보자기'}">
+												<option value="일반포장">1) 일반포장(+0원)</option>
+												<option value="고급포장">2) 고급포장(+2,500원)</option>
+												<option value="보자기" selected="selected">3) 보자기(+5,900원)</option>
+											</c:if>
+										</select>
+									</td>
+									
+									<td>
+										<div style="text-align:center;">
+											<div class="wrap-num-product flex-w">
+												<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+													<i class="fs-16 zmdi zmdi-minus"></i>
+												</div>
+			
+												<input class="mtext-104 cl3 txt-center num-product" type="number" name="" value="${map.orderQuantity}" min="1">
+											
+			
+												<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+													<i class="fs-16 zmdi zmdi-plus"></i>
+												</div>
+											</div>
+										</div>
+									</td>
+									
+									<td>${map.orderPrice}</td>
+									
+								</tr>
+							</c:forEach>
+						</table>	
 						
-				</c:forEach>
-			</table>
-			<div><a href="${pageContext.request.contextPath}/RemoveCartAll">장바구니 비우기</a></div>
-			<div><a href="${pageContext.request.contextPath}/GetOrderInfoFromCart">주문하기</a></div>
-		</form>
-	</div>
-	
-	
+						<br>
+							
+						<div style="text-align:right; margin-right:20pt">
+							<a class="btn btn-success" href="${pageContext.request.contextPath}/GetOrderInfoFromCart">주문하기</a>
+						</div>
+					</c:if>
+			</div>
+		</div>
+	</form>
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

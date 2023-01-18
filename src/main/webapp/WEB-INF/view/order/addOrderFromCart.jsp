@@ -68,7 +68,7 @@
 				});
 				
 				$('#usePoint').change(function(){
-					"<c:out value='${orderCustomer.point}'/>";
+					alert('point change');
 					let orderPoint = "<c:out value='${orderCustomer.point}'/>";
 					let usePoint = Number($('#usePoint').val());
 					
@@ -138,7 +138,8 @@
 					$('#usePoint').val(usePoint);
 					$('#shareUsePoint').val(shareUsePoint);
 					$('#remainderUsePoint').val(remainderUsePoint);
-					$('.totalPrice').val(totalPrice - usePoint);
+					$('#totalPrice').val(totalPrice - usePoint);
+					
 				});
 				
 			});
@@ -154,95 +155,165 @@
 		<!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>
 
-		<h1>Add Order Direct</h1>
-		<form action="${pageContext.request.contextPath}/AddOrderFromCart" method="post" id="addOrderForm">
-		 	<!-- 자바스크립트로 수정 -->
-		 	<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
-		 	<table border="1" style="width:50%;"> <!-- 주문고객정보 -->
-	 			<tr>
-	 				<th colspan="4">주문회원 정보</th>
-	 			</tr>
-		 		<tr>
-		 			<td>이름</td>
-		 			<td>${orderCustomer.customerName}</td>
-		 			<td>전화번호</td>
-		 			<td>${orderCustomer.customerPhone}</td>
-		 		</tr>
-		 		<tr>
-		 			<td colspan="1">주소</td>
-		 			<td colspan="3">
-		 				<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
-			 				<select name="addressCode">
-			 					<option value="0">====주소 선택====</option>
-			 				</select>
-		 				</c:if>
-		 				<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
-			 				<select name="addressCode" id="addressCode">
-			 					<option value="0">====주소 선택====</option>
-			 					<c:forEach var="address" items="${addressList}">
-			 						<option value="${address.addressCode}">${address.address}</option>
-			 					</c:forEach>
-			 				</select>
-		 				</c:if>
-		 			</td>
-		 		</tr>
-		 		<tr>
-		 			<td colspan="1">
-	 					새 주소 추가
-	 				</td>
-	 				<td colspan="3">
-	 					<input type="text" name="newAddress" id="newAddress" placeholder="추가할 주소지 작성">
-	 				</td>
-		 		</tr>
-		 	</table>
-		 	<br>
-		 	<table border="1" style="width:50%;"> <!-- 주문상품정보 -->
-	 			<tr>
-	 				<th colspan="5">주문상품</th>
-	 			</tr>
-	 			<tr>
-	 				<th colspan="2">상품</th>
-		 			<th>상품금액</th>
-		 			<th>갯수</th>
-		 			<th>상품옵션</th>
-	 			</tr>
-	 			<c:forEach var="map" items="${cartList}">
-	 				<input type="hidden" name="fileName" value="${map.fileName}">
-	 				<input type="hidden" name="goodsCode" value="${map.goodsCode}">
-	 				<input type="hidden" name="goodsName" value="${map.goodsName}">	
-				 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
-				 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
+		
+		
+		<form class="bg0 p-t-75 p-b-85" action="${pageContext.request.contextPath}/AddOrderFromCart" method="post" id="addOrderForm">
+			<div class="container">
+				<table class="table-shopping-cart" style="width:100%;"> <!-- 주문고객정보 -->
 		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
-			 			<td>${map.goodsName}</td>
-			 			<td>
-			 				<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
-			 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
-			 				<div><span class="pointAfter">${map.orderPrice}</span></div>
-			 				<div><span class="pointAfterDetail" style="color : blue">${map.orderPrice} - 0 = ${map.orderPrice}</span></div>
-			 			</td>
-			 			<td>${map.orderQuantity}</td>
-			 			<td>${map.goodsOption}</td>
+		 				<th colspan="4">주문회원 정보</th>
+		 			</tr>
+			 		<tr>
+			 			<td>이름</td>
+			 			<td>${orderCustomer.customerName}</td>
+			 			<td>전화번호</td>
+			 			<td>${orderCustomer.customerPhone}</td>
 			 		</tr>
-	 			</c:forEach>
+			 		<tr>
+			 			<td colspan="1">주소</td>
+			 			<td colspan="3">
+			 				<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
+				 				<select name="addressCode">
+				 					<option value="0">====주소 선택====</option>
+				 				</select>
+			 				</c:if>
+			 				<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
+				 				<select name="addressCode" id="addressCode">
+				 					<option value="0">====주소 선택====</option>
+				 					<c:forEach var="address" items="${addressList}">
+				 						<option value="${address.addressCode}">${address.address}</option>
+				 					</c:forEach>
+				 				</select>
+			 				</c:if>
+			 			</td>
+			 		</tr>
+			 		<tr>
+			 			<td colspan="1">
+		 					새 주소 추가
+		 				</td>
+		 				<td colspan="3">
+		 					<input type="text" name="newAddress" id="newAddress" placeholder="추가할 주소지 작성">
+		 				</td>
+			 		</tr>
+			 	</table>
+			</div>
+			
+			<br>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+						<div class="m-l-25 m-r--38 m-lr-0-xl">
+							<div class="wrap-table-shopping-cart">
+								<table class="table-shopping-cart">
+									<tr class="table_head">
+										<th style="text-align : center; width:30%">Image</th>
+										<th style="text-align : center; width:15%">GoodsName</th>
+										<th style="text-align : center; width:20%">Option</th>
+										<th style="text-align : center; width:20%">Quantity</th>
+										<th style="text-align : center; width:15%">Total</th>
+									</tr>
+	
+									<c:forEach var="map" items="${cartList}">
+						 				<input type="hidden" name="fileName" value="${map.fileName}">
+						 				<input type="hidden" name="goodsCode" value="${map.goodsCode}">
+						 				<input type="hidden" name="goodsName" value="${map.goodsName}">	
+									 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
+									 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
+							 			<tr class=:table_row>
+							 				<td style="text-align"><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
+								 			<td style="text-align">${map.goodsName}</td>
+								 			<td style="text-align">${map.goodsOption}</td>
+								 			<td style="text-align">${map.orderQuantity}</td>
+								 			<td style="text-align">
+								 				<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
+								 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
+								 				<div><span class="pointAfter">${map.orderPrice}</span></div>
+								 				<div><span class="pointAfterDetail" style="color : blue">${map.orderPrice} - 0 = ${map.orderPrice}</span></div>
+								 			</td>
+								 		</tr>
+						 			</c:forEach>
+								</table>
+							 	
+							</div>
+						</div>
+					</div>
+	
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								Total Price
+							</h4>
+	
+							<div class="flex-w flex-t bor12 p-b-13">
+								<div class="size-450">
+									<span class="stext-110 cl2">
+										Before Total Price : 
+									</span>
+								</div>
+	
+								<div class="size-300">
+									<span class="mtext-110 cl2">
+										  &nbsp;&nbsp;&nbsp;&nbsp; ${totalPrice} ￦
+									</span>
+								</div>
+							</div>
+	
+							<div class="flex-w flex-t bor12 p-t-45 p-b-30">
+								<div class="size-208 w-full-ssm p-t-10">
+									<span class="stext-110 cl2">
+										Customer Point : 
+									</span>
+									
+									<br><br><br><br>
+									
+									<span class="stext-110 cl2">
+										UsePotint :  
+									</span>
 
-		 		<tr>
-		 			<td colspan="1">잔여 포인트 <span id="orderPoint">${orderCustomer.point}</span></td>
-		 			<td colspan="2">
-		 				<input type="number" name="usePoint" id="usePoint" placeholder="사용할 포인트 입력"> P
-		 			</td>
-	 				<td colspan="2">총 주문금액: <span id="totalPrice">${totalPrice}</span>원</td> <!-- 자바스크립트로 수정 -->
-	 			</tr>
-		 	</table>
-		 	
-		 	<input type="hidden" name="usePoint" id="usePoint" value="0">
+								</div>
+	
+								<div class="size-209">	
+									<div>
+										<div class="p-t-5 p-b-12 m-l-50" style="font-size:15pt">
+											<span id="orderPoint">${orderCustomer.point}</span>P
+										</div>
+										<br><br>
+										<div class="bor8 bg0">
+											 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number" name="usePoint" id="usePoint" placeholder="사용할 포인트 입력">
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="flex-w flex-t p-t-27 p-b-33">
+								<div class="size-208">
+									<span class="mtext-101 cl2">
+										Total : 
+									</span>
+								</div>
+	
+								<div class="size-209 p-t-1">
+									<span class="mtext-110 cl2" id="totalPrice">
+										${totalPrice}
+									</span>
+									￦
+								</div>
+							</div>
+	
+							<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="addOrderBtn">
+								주문하기
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<input type="hidden" name="usePoint" id="usePoint" value="0">
 			<input type="hidden" name="shareUsePoint" id="shareUsePoint" value="0">
 		 	<input type="hidden" name="remainderUsePoint" id="remainderUsePoint" value="0">
 		 	<input type="hidden" name="totalPrice" id="totalPrice" class="totalPrice" value="${totalPrice}">
-		 	
-			<button type="button" id="addOrderBtn">주문</button>
 		</form>
-		
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
