@@ -139,6 +139,7 @@
 					$('#shareUsePoint').val(shareUsePoint);
 					$('#remainderUsePoint').val(remainderUsePoint);
 					$('#totalPrice').val(totalPrice - usePoint);
+					$('#totalPriceSpan').text(totalPrice - usePoint);
 					
 				});
 				
@@ -158,20 +159,26 @@
 		
 		
 		<form class="bg0 p-t-75 p-b-85" action="${pageContext.request.contextPath}/AddOrderFromCart" method="post" id="addOrderForm">
-			<div class="container">
-				<table class="table-shopping-cart" style="width:100%;"> <!-- 주문고객정보 -->
-		 			<tr>
-		 				<th colspan="4">주문회원 정보</th>
-		 			</tr>
-			 		<tr>
-			 			<td>이름</td>
-			 			<td>${orderCustomer.customerName}</td>
-			 			<td>전화번호</td>
-			 			<td>${orderCustomer.customerPhone}</td>
-			 		</tr>
-			 		<tr>
-			 			<td colspan="1">주소</td>
-			 			<td colspan="3">
+			
+		<div class="container p-l-40 p-r-57" style="text-align:center">
+			<div class="wrap-table-shopping-cart">			
+				<table class="table-shopping-cart" style=" text-align:center">
+					<tr>
+						<th colspan="2" class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">주문자 정보</th>
+					</tr>
+					<tr>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">NAME</th>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${orderCustomer.customerName}</th>
+					</tr>
+					
+					<tr>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">PHONE</th>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${orderCustomer.customerPhone}</th>
+					</tr>
+					
+					<tr>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">ADDRESS</th>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">
 			 				<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
 				 				<select name="addressCode">
 				 					<option value="0">====주소 선택====</option>
@@ -185,135 +192,135 @@
 				 					</c:forEach>
 				 				</select>
 			 				</c:if>
-			 			</td>
-			 		</tr>
-			 		<tr>
-			 			<td colspan="1">
-		 					새 주소 추가
-		 				</td>
-		 				<td colspan="3">
-		 					<input type="text" name="newAddress" id="newAddress" placeholder="추가할 주소지 작성">
-		 				</td>
-			 		</tr>
-			 	</table>
+			 			</th>
+					</tr>
+					
+					<tr>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">NEW ADDRESS</th>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">
+		 					<input type="text" name="newAddress" id="newAddress" style="text-align : center; width:100%" placeholder="추가할 주소지 작성">
+		 				</th>
+					</tr>
+					
+				</table>	
 			</div>
+		</div>
+		<br><br>	
 			
-			<br>
-			
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-						<div class="m-l-25 m-r--38 m-lr-0-xl">
-							<div class="wrap-table-shopping-cart">
-								<table class="table-shopping-cart">
-									<tr class="table_head">
-										<th style="text-align : center; width:30%">Image</th>
-										<th style="text-align : center; width:15%">GoodsName</th>
-										<th style="text-align : center; width:20%">Option</th>
-										<th style="text-align : center; width:20%">Quantity</th>
-										<th style="text-align : center; width:15%">Total</th>
-									</tr>
-	
-									<c:forEach var="map" items="${cartList}">
-						 				<input type="hidden" name="fileName" value="${map.fileName}">
-						 				<input type="hidden" name="goodsCode" value="${map.goodsCode}">
-						 				<input type="hidden" name="goodsName" value="${map.goodsName}">	
-									 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
-									 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
-							 			<tr class=:table_row>
-							 				<td style="text-align"><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
-								 			<td style="text-align">${map.goodsName}</td>
-								 			<td style="text-align">${map.goodsOption}</td>
-								 			<td style="text-align">${map.orderQuantity}</td>
-								 			<td style="text-align">
-								 				<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
-								 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
-								 				<div><span class="pointAfter">${map.orderPrice}</span></div>
-								 				<div><span class="pointAfterDetail" style="color : blue">${map.orderPrice} - 0 = ${map.orderPrice}</span></div>
-								 			</td>
-								 		</tr>
-						 			</c:forEach>
-								</table>
-							 	
-							</div>
-						</div>
-					</div>
-	
-					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-							<h4 class="mtext-109 cl2 p-b-30">
-								Total Price
-							</h4>
-	
-							<div class="flex-w flex-t bor12 p-b-13">
-								<div class="size-450">
-									<span class="stext-110 cl2">
-										Before Total Price : 
-									</span>
-								</div>
-	
-								<div class="size-300">
-									<span class="mtext-110 cl2">
-										  &nbsp;&nbsp;&nbsp;&nbsp; ${totalPrice} ￦
-									</span>
-								</div>
-							</div>
-	
-							<div class="flex-w flex-t bor12 p-t-45 p-b-30">
-								<div class="size-208 w-full-ssm p-t-10">
-									<span class="stext-110 cl2">
-										Customer Point : 
-									</span>
-									
-									<br><br><br><br>
-									
-									<span class="stext-110 cl2">
-										UsePotint :  
-									</span>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart" style="text-align : center;">
+								<tr class="table_head">
+									<th style="text-align : center; width:15%">Image</th>
+									<th style="text-align : center; width:25%">GoodsName</th>
+									<th style="text-align : center; width:25%">Option</th>
+									<th style="text-align : center; width:10%">Quantity</th>
+									<th style="text-align : center; width:30%">Total</th>
+								</tr>
 
-								</div>
-	
-								<div class="size-209">	
-									<div>
-										<div class="p-t-5 p-b-12 m-l-50" style="font-size:15pt">
-											<span id="orderPoint">${orderCustomer.point}</span>P
-										</div>
-										<br><br>
-										<div class="bor8 bg0">
-											 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number" name="usePoint" id="usePoint" placeholder="사용할 포인트 입력">
-										</div>
-									</div>
-								</div>
-							</div>
-	
-							<div class="flex-w flex-t p-t-27 p-b-33">
-								<div class="size-208">
-									<span class="mtext-101 cl2">
-										Total : 
-									</span>
-								</div>
-	
-								<div class="size-209 p-t-1">
-									<span class="mtext-110 cl2" id="totalPrice">
-										${totalPrice}
-									</span>
-									￦
-								</div>
-							</div>
-	
-							<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="addOrderBtn">
-								주문하기
-							</button>
+								<c:forEach var="map" items="${cartList}">
+					 				<input type="hidden" name="fileName" value="${map.fileName}">
+					 				<input type="hidden" name="goodsCode" value="${map.goodsCode}">
+					 				<input type="hidden" name="goodsName" value="${map.goodsName}">	
+								 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
+								 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
+						 			<tr class=:table_row>
+						 				<td style="text-align"><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
+							 			<td style="text-align">${map.goodsName}</td>
+							 			<td style="text-align">${map.goodsOption}</td>
+							 			<td style="text-align">${map.orderQuantity}</td>
+							 			<td style="text-align">
+							 				<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
+							 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
+							 				<div><span class="pointAfter">${map.orderPrice}</span></div>
+							 				<div><span class="pointAfterDetail" style="color : blue">${map.orderPrice} - 0 = ${map.orderPrice}</span></div>
+							 			</td>
+							 		</tr>
+					 			</c:forEach>
+							</table>
+						 	
 						</div>
 					</div>
 				</div>
+
+				<div class="col-md-5">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Total Price
+						</h4>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-450">
+								<span class="stext-110 cl2">
+									Before Total Price : 
+								</span>
+							</div>
+
+							<div class="size-300">
+								<span class="mtext-110 cl2">
+									  &nbsp;&nbsp;&nbsp;&nbsp; ${totalPrice} ￦
+								</span>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t bor12 p-t-45 p-b-30">
+							<div class="size-208 w-full-ssm p-t-10">
+								<span class="stext-110 cl2">
+									Customer Point : 
+								</span>
+								
+								<br><br><br><br>
+								
+								<span class="stext-110 cl2">
+									UsePotint :  
+								</span>
+
+							</div>
+
+							<div class="size-209">	
+								<div>
+									<div class="p-t-5 p-b-12 m-l-50" style="font-size:15pt">
+										<span id="orderPoint">${orderCustomer.point}</span>P
+									</div>
+									<br><br>
+									<div class="bor8 bg0">
+										 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number" name="usePoint" id="usePoint" placeholder="사용할 포인트 입력">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total : 
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span class="mtext-110 cl2" id="totalPriceSpan">
+									${totalPrice}
+								</span>
+								￦
+							</div>
+						</div>
+
+						<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="addOrderBtn">
+							주문하기
+						</button>
+					</div>
+				</div>
 			</div>
+		</div>
 			
-			<input type="hidden" name="usePoint" id="usePoint" value="0">
-			<input type="hidden" name="shareUsePoint" id="shareUsePoint" value="0">
-		 	<input type="hidden" name="remainderUsePoint" id="remainderUsePoint" value="0">
-		 	<input type="hidden" name="totalPrice" id="totalPrice" class="totalPrice" value="${totalPrice}">
-		</form>
+		<input type="hidden" name="usePoint" id="usePoint" value="0">
+		<input type="hidden" name="shareUsePoint" id="shareUsePoint" value="0">
+	 	<input type="hidden" name="remainderUsePoint" id="remainderUsePoint" value="0">
+	 	<input type="hidden" name="totalPrice" id="totalPrice" class="totalPrice" value="${totalPrice}">
+	</form>
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
