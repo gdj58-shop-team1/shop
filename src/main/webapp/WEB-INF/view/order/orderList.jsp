@@ -128,15 +128,17 @@
 								
 								<c:if test="${o.orderState.equals('주문완료')}"> <!-- 주문상태가 주문완료이면 -->
 									<td class="align-middle">
-										${o.orderState}
-										<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}&goodsPrice=${o.goodsPrice}&orderPrice=${o.orderPrice}&orderQuantity=${o.orderQuantity}" class="cl6">주문취소</a>
+										${o.orderState}<br>
+										<a href="${pageContext.request.contextPath}/RemoveOrder?orderCode=${o.orderCode}&goodsPrice=${o.goodsPrice}&orderPrice=${o.orderPrice}&orderQuantity=${o.orderQuantity}" class="cl6 bor4 bg2 hov-btn1">
+										<span class="p-r-5 p-l-5">주문취소</span>
+										</a>
 									</td>
 								</c:if>
 								
 								<c:if test="${!o.orderState.equals('구매확정') && !o.orderState.equals('주문완료')}"> <!-- 주문상태가 구매확정도, 결제완료, 주문완료도 아니면 -->
 									
 									<c:if test="${o.orderState.equals('주문취소')}"> <!-- 주문상태가 주문취소이면 -->
-										<td style="color:pink;" class="align-middle">${o.orderState}</td>
+										<td style="color:pink;" class="align-middle"><del>${o.orderState}</del></td>
 									</c:if>
 									<c:if test="${!o.orderState.equals('주문취소')}"> <!-- 주문상태가 주문취소이면 -->
 										<td class="align-middle">${o.orderState}</td>
