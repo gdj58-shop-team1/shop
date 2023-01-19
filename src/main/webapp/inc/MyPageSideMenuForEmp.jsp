@@ -7,6 +7,11 @@
 
 		<ul>
 			<li class="bor18">
+				<a href="${pageContext.request.contextPath}/MyPage" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt"	>
+					사원정보
+				</a>
+			</li>
+			<li class="bor18">
 				<a href="${pageContext.request.contextPath}/ConfirmMember" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
 					정보변경
 				</a>
