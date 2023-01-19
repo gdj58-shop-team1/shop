@@ -62,47 +62,43 @@
 				</c:if>
 			</div>
 			
-			<!-- 리뷰작성 -->
+			<!-- 문의작성 -->
 			<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
 				<h3 class="mtext-109 cl2 p-b-10">Question</h3>
-				<form action="${pageContext.request.contextPath}/AddReview" method="post" id="reviewForm">
-					<input type="hidden" name="orderCode" value="${order.orderCode}">
-					<input type="hidden" name="goodsPrice" value="${order.goodsPrice}">
-					<table class="table stext-110 cl2">
+				<table class="table stext-110 cl2">
+					<tr>
+						<th class="text-center">주문상품</th>
+						<td>${question.goodsName}</td>
+						<th class="text-center">문의유형</th>
+						<td>${question.category}</td>
+					</tr>
+					<tr>
+						<th class="text-center">작성자</th>
+						<td>${question.customerId}</td>
+						<th class="text-center">작성일</th>
+						<td>${question.createdate}</td>
+					</tr>
+					<tr>
+						<th class="text-center">문의 제목</th>
+						<td colspan="3">${question.questionTitle}</td>
+					</tr>
+					<tr>
+						<th class="text-center align-middle">문의 내용</th>
+						<td colspan="3">
+							<textarea id="questionMemo" name="questionMemo" class="form-control" rows="10" readonly="readonly">${question.questionMemo}</textarea>
+						</td>
+					</tr>
+					
+					<c:if test="${loginMember.level == 0}">
 						<tr>
-							<th class="text-center">주문상품</th>
-							<td>${question.goodsName}</td>
-							<th class="text-center">문의유형</th>
-							<td>${question.category}</td>
-						</tr>
-						<tr>
-							<th class="text-center">작성자</th>
-							<td>${question.customerId}</td>
-							<th class="text-center">작성일</th>
-							<td>${question.createdate}</td>
-						</tr>
-						<tr>
-							<th class="text-center">문의 제목</th>
-							<td colspan="3">${question.questionTitle}</td>
-						</tr>
-						<tr>
-							<th class="text-center align-middle">문의 내용</th>
-							<td colspan="3">
-								<textarea id="questionMemo" name="questionMemo" class="form-control" rows="10" readonly="readonly">${question.questionMemo}</textarea>
+							<td colspan="4" class="text-right">
+								<a href="${pageContext.request.contextPath}/ModifyQuestion?questionCode=${question.questionCode}">
+									<button type="button" id="reviewBtn" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">문의 수정</button>
+								</a>
 							</td>
 						</tr>
-						
-						<c:if test="${loginMember.level == 0}">
-							<tr>
-								<td colspan="4" class="text-right">
-									<a href="${pageContext.request.contextPath}/ModifyQuestion?questionCode=${question.questionCode}">
-										<button type="button" id="reviewBtn" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">문의 수정</button>
-									</a>
-								</td>
-							</tr>
-						</c:if>
-					</table>
-				</form>
+					</c:if>
+				</table>
 				
 				<br><br>
 				
@@ -124,38 +120,32 @@
 				</c:if>
 				
 				<c:if test="${loginMember.level == 1}">
-					<table class="table stext-110 cl2">
-						<tr>
-							<th>내용</th>
-							<th>작성일</th>
-							<th>삭제</th>
-						</tr>
-						
-						<c:forEach var="l" items="${list}">
-							<tr>
-								<th>${l.commentMemo}</th>
-								<th>${l.createdate}</th>
-								<th>
-									<a href="${pageContext.request.contextPath}/RemoveQuestionComment?questionCode=${question.questionCode}&commentCode=${l.commentCode}">댓글 삭제</a>
-								</th>
-							</tr>
-						</c:forEach>
-					</table>
-					
-					<br>
-					
+					<h3 class="mtext-109 cl2 p-b-10">Comment</h3>
 					<form action="${pageContext.request.contextPath}/AddQuestionComment" method="post">
-						<input type="hidden" name="questionCode" value="${question.questionCode}">			
-						<table border="1">
-							<tr>
-								<th>내용</th>
-								<th>댓글 쓰기</th>
-							</tr>
+						<input type="hidden" name="questionCode" value="${question.questionCode}">
 						
+						<table class="table stext-110 cl2">
 							<tr>
-								<th><textarea name="commentMemo"></textarea></th>
-								<th><button type="submit">댓글 쓰기</button></th>
+								<th style="text-align:center; width:70%">내용</th>
+								<th style="text-align:center; width:20%">작성일</th>
+								<th style="text-align:center; width:10%">삭제</th>
 							</tr>
+							
+							<c:forEach var="l" items="${list}">
+								<tr>
+									<th style="text-align:center; width:70%">${l.commentMemo}</th>
+									<th style="text-align:center; width:20%">${l.createdate}</th>
+									<th style="text-align:center; width:10%">
+										<a href="${pageContext.request.contextPath}/RemoveQuestionComment?questionCode=${question.questionCode}&commentCode=${l.commentCode}">댓글 삭제</a>
+									</th>
+								</tr>
+							</c:forEach>
+							
+							<tr>
+								<th colspan="2"><textarea class="form-control" name="commentMemo" style="width:100%"></textarea></th>
+								<th><button type="submit" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">댓글 쓰기</button></th>
+							</tr>
+							
 						</table>
 					</form>
 				</c:if>
