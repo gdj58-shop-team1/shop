@@ -139,10 +139,17 @@
 					Shoping Cart
 				</span>
 				
-				<a class="btn btn-warning" href="${pageContext.request.contextPath}/RemoveCartAll" style="text-align:right">장바구니 비우기</a>
 			</div>
 			
-			<br><br>
+			<div class="p-t-20 p-b-20 p-r-40" style="text-align:right">
+				<a href="${pageContext.request.contextPath}/RemoveCartAll">
+					<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+					<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+					</svg>
+				</a>
+			</div>
+			
+			<br>
 			
 			<div class="wrap-table-shopping-cart">
 				<c:if test="${empty cartList}">
@@ -173,71 +180,74 @@
 							<th style="text-align : center; width:20%">Quantity</th>
 							<th style="text-align : center; width:15%">Total</th>
 						</tr>
-							<c:forEach var="map" items="${cartList}">
-								<input type="hidden" id="GoodsCode" name="goodsCode" value="${map.goodsCode}">
-								<input type="hidden" id="goodsName" name="goodsName" value="${map.goodsName}">
-								<input type="hidden" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}">
-								<input type="hidden" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}">
-								<input type="hidden" id="fileName" name="fileName" value="${map.fileName}">
-								<input class="orderQuantity" type="hidden" name="orderQuantity" value="${map.orderQuantity}" min="1">
+						<c:forEach var="map" items="${cartList}">
+							<input type="hidden" id="GoodsCode" name="goodsCode" value="${map.goodsCode}">
+							<input type="hidden" id="goodsName" name="goodsName" value="${map.goodsName}">
+							<input type="hidden" id="goodsOptionPrice" name="goodsOptionPrice" value="${map.goodsOptionPrice}">
+							<input type="hidden" id="goodsPrice" name="goodsPrice" value="${map.goodsPrice}">
+							<input type="hidden" id="fileName" name="fileName" value="${map.fileName}">
+							<input class="orderQuantity" type="hidden" name="orderQuantity" value="${map.orderQuantity}" min="1">
+							
+							<tr class="table_row">
+								<td>
+									<img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" style="width:200px; height:200px">
+								</td>
+								<td>${map.goodsName}</td>
+								<td>
+									<select name="goodsOption" id="goodsOption" class="goodsOption">
+										<c:if test="${map.goodsOption eq '일반포장'}">
+											<option value="일반포장" selected="selected">1) 일반포장(+0원)</option>
+											<option value="고급포장">2) 고급포장(+2,500원)</option>
+											<option value="보자기">3) 보자기(+5,900원)</option>
+										</c:if>
+										
+										<c:if test="${map.goodsOption eq '고급포장'}">
+											<option value="일반포장">1) 일반포장(+0원)</option>
+											<option value="고급포장" selected="selected">2) 고급포장(+2,500원)</option>
+											<option value="보자기">3) 보자기(+5,900원)</option>
+										</c:if>
+										
+										<c:if test="${map.goodsOption eq '보자기'}">
+											<option value="일반포장">1) 일반포장(+0원)</option>
+											<option value="고급포장">2) 고급포장(+2,500원)</option>
+											<option value="보자기" selected="selected">3) 보자기(+5,900원)</option>
+										</c:if>
+									</select>
+								</td>
 								
-								<tr class="table_row">
-									<td>
-										<img src="${pageContext.request.contextPath}/upload/${map.fileName}" id="fileName" name="fileName" style="width:200px; height:200px">
-									</td>
-									<td>${map.goodsName}</td>
-									<td>
-										<select name="goodsOption" id="goodsOption" class="goodsOption">
-											<c:if test="${map.goodsOption eq '일반포장'}">
-												<option value="일반포장" selected="selected">1) 일반포장(+0원)</option>
-												<option value="고급포장">2) 고급포장(+2,500원)</option>
-												<option value="보자기">3) 보자기(+5,900원)</option>
-											</c:if>
-											
-											<c:if test="${map.goodsOption eq '고급포장'}">
-												<option value="일반포장">1) 일반포장(+0원)</option>
-												<option value="고급포장" selected="selected">2) 고급포장(+2,500원)</option>
-												<option value="보자기">3) 보자기(+5,900원)</option>
-											</c:if>
-											
-											<c:if test="${map.goodsOption eq '보자기'}">
-												<option value="일반포장">1) 일반포장(+0원)</option>
-												<option value="고급포장">2) 고급포장(+2,500원)</option>
-												<option value="보자기" selected="selected">3) 보자기(+5,900원)</option>
-											</c:if>
-										</select>
-									</td>
-									
-									<td>
-										<div style="text-align:center;">
-											<div class="wrap-num-product flex-w">
-												<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-													<i class="fs-16 zmdi zmdi-minus"></i>
-												</div>
-			
-												<input class="mtext-104 cl3 txt-center num-product" type="number" name="" value="${map.orderQuantity}" min="1">
-											
-			
-												<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-													<i class="fs-16 zmdi zmdi-plus"></i>
-												</div>
+								<td>
+									<div style="text-align:center;">
+										<div class="wrap-num-product flex-w">
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+		
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="" value="${map.orderQuantity}" min="1">
+										
+		
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
 										</div>
-									</td>
-									
-									<td>${map.orderPrice}</td>
-									
-								</tr>
-							</c:forEach>
-						</table>	
-						
-						<br>
+									</div>
+								</td>
+								
+								<td>${map.orderPrice}</td>
+								
+							</tr>
 							
-						<div style="text-align:right; margin-right:20pt">
-							<a class="btn btn-success" href="${pageContext.request.contextPath}/GetOrderInfoFromCart">주문하기</a>
-						</div>
-					</c:if>
+						</c:forEach>
+					</table>							
+				</c:if>
 			</div>
+			
+			<c:if test="${!(empty cartList)}">
+				<div class="p-t-20 p-b-20 p-r-40" style="text-align:right">
+					<a href="${pageContext.request.contextPath}/GetOrderInfoFromCart">
+						<button class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">주문하기</button>
+					</a>
+				</div>
+			</c:if>
 		</div>
 	</form>
 <!--===============================================================================================-->	

@@ -71,7 +71,7 @@
 							<th class="text-center">No</th>
 							<th class="text-center">Product</th>
 							<th class="text-center">Category</th>
-							<th class="w-50 text-center">Title</th>
+							<th class="text-center">Title</th>
 							<th class="text-center">Date</th>
 						</tr>
 						
@@ -84,11 +84,7 @@
 								<td class="align-middle">${q.createdate}</td>
 							</tr>
 						</c:forEach>
-					</table>
-					
-					<br>
-					<div><a href="${pageContext.request.contextPath}/AddQuestion">문의 작성</a></div>
-						
+					</table>		
 				</c:if>
 				
 				<c:if test="${loginMember.level == 1}"> <!-- 관리자일 때 -->
@@ -97,7 +93,7 @@
 							<th class="text-center">No</th>
 							<th class="text-center">Product</th>
 							<th class="text-center">Category</th>
-							<th class="w-50 text-center">Title</th>
+							<th class="text-center">Title</th>
 							<th class="text-center">Customer</th>
 							<th class="text-center">Date</th>
 						</tr>
