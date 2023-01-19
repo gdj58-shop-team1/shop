@@ -37,6 +37,25 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 		<!--===============================================================================================-->
 		<title>addOrderDirect</title>
+		<style>
+			.font-th{
+			    font-family: Poppins-Bold;
+			    font-size: 13px;
+			    color: #555;
+			    text-transform: uppercase;
+			    line-height: 1.6;
+			    padding-top: 15px;
+			    padding-bottom: 15px;
+			    text-align: center;
+			}
+			
+			.font-td{
+				font-family: Poppins-Regular;
+			    color: #555;
+			    line-height: 1.6;
+			}
+			
+		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -125,13 +144,13 @@
 							$(orderPriceList[i]).val(orderPrice);
 							$(shareUsePointList[i]).val(shareUsePoint + remainderUsePoint);
 							$(pointAfterList[i]).text(orderPrice);
-							$(pointAfterDetailList[i]).text(finalOrderPrice + ' - ' + (shareUsePoint + remainderUsePoint) + ' = ' + orderPrice);
+							$(pointAfterDetailList[i]).text('(' + finalOrderPrice + ' - ' + (shareUsePoint + remainderUsePoint) + ' = ' + orderPrice + ')');
 						} else {
 							orderPrice = orderPrice - shareUsePoint;
 							$(orderPriceList[i]).val(orderPrice);
 							$(shareUsePointList[i]).val(shareUsePoint);
 							$(pointAfterList[i]).text(orderPrice);
-							$(pointAfterDetailList[i]).text(finalOrderPrice + ' - ' + shareUsePoint + ' = ' + orderPrice);
+							$(pointAfterDetailList[i]).text('(' + finalOrderPrice + ' - ' + shareUsePoint + ' = ' + orderPrice + ')');
 						}
 					}
 					
@@ -158,48 +177,47 @@
 
 		
 		
-		<form class="bg0 p-t-75 p-b-85" action="${pageContext.request.contextPath}/AddOrderFromCart" method="post" id="addOrderForm">
+		<form class="bg0 p-t-50 p-b-85" action="${pageContext.request.contextPath}/AddOrderFromCart" method="post" id="addOrderForm">
 			
 		<div class="container p-l-40 p-r-57" style="text-align:center">
 			<div class="wrap-table-shopping-cart">			
-				<table class="table-shopping-cart" style=" text-align:center">
+				<table class="table-shopping-cart">
 					<tr>
-						<th colspan="2" class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">주문자 정보</th>
+						<th colspan="4" class="font-th">CUSTOMER INFO</th>
 					</tr>
 					<tr>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">NAME</th>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${orderCustomer.customerName}</th>
-					</tr>
-					
-					<tr>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">PHONE</th>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${orderCustomer.customerPhone}</th>
+						<th class="font-th w-25">NAME</th>
+						<td class="font-td w-25">${orderCustomer.customerName}</td>
+						<th class="font-th w-25">PHONE</th>
+						<td class="font-td w-25">${orderCustomer.customerPhone}</td>
 					</tr>
 					
+
+					
 					<tr>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">ADDRESS</th>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">
+						<th colspan="1" class="font-th">ADDRESS</th>
+						<td colspan="3" class="font-td">
 			 				<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
-				 				<select name="addressCode">
-				 					<option value="0">====주소 선택====</option>
+				 				<select name="addressCode" class="form-control">
+				 					<option value="0">주소 선택</option>
 				 				</select>
 			 				</c:if>
 			 				<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
-				 				<select name="addressCode" id="addressCode">
-				 					<option value="0">====주소 선택====</option>
+				 				<select name="addressCode" id="addressCode" class="form-control w-50">
+				 					<option value="0">주소 선택</option>
 				 					<c:forEach var="address" items="${addressList}">
 				 						<option value="${address.addressCode}">${address.address}</option>
 				 					</c:forEach>
 				 				</select>
 			 				</c:if>
-			 			</th>
+			 			</td>
 					</tr>
 					
 					<tr>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">NEW ADDRESS</th>
-						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">
-		 					<input type="text" name="newAddress" id="newAddress" style="text-align : center; width:100%" placeholder="추가할 주소지 작성">
-		 				</th>
+						<th colspan="1" class="font-th">NEW ADDRESS</th>
+						<td colspan="3" class="font-td">
+		 					<input type="text" name="newAddress" id="newAddress" class="font-td form-control w-50" placeholder="추가할 주소지 작성">
+		 				</td>
 					</tr>
 					
 				</table>	
@@ -228,15 +246,15 @@
 								 	<input type="hidden" name="goodsOption" value="${map.goodsOption}">
 								 	<input type="hidden" name="orderQuantity" value="${map.orderQuantity}">
 						 			<tr class=:table_row>
-						 				<td style="text-align"><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
-							 			<td style="text-align">${map.goodsName}</td>
-							 			<td style="text-align">${map.goodsOption}</td>
-							 			<td style="text-align">${map.orderQuantity}</td>
-							 			<td style="text-align">
+						 				<td><img src="${pageContext.request.contextPath}/upload/${map.fileName}" width="100" height="100"></td>
+							 			<td>${map.goodsName}</td>
+							 			<td>${map.goodsOption}</td>
+							 			<td>${map.orderQuantity}</td>
+							 			<td>
 							 				<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${map.orderPrice}" readonly="readonly">
 							 				<input type="hidden" id="orderPriceHidden" class="orderPriceHidden" value="${map.orderPrice}" readonly="readonly">
-							 				<div><span class="pointAfter">${map.orderPrice}</span></div>
-							 				<div><span class="pointAfterDetail" style="color : blue">${map.orderPrice} - 0 = ${map.orderPrice}</span></div>
+							 				<div class="p-t-25"><span class="pointAfter">${map.orderPrice}</span></div>
+							 				<div><span class="pointAfterDetail" style="color: #6c7ae0; font-size:14px;">(${map.orderPrice} - 0 = ${map.orderPrice})</span></div>
 							 			</td>
 							 		</tr>
 					 			</c:forEach>
@@ -283,7 +301,7 @@
 							<div class="size-209">	
 								<div>
 									<div class="p-t-5 p-b-12 m-l-50" style="font-size:15pt">
-										<span id="orderPoint">${orderCustomer.point}</span>P
+										<span id="orderPoint" class="mtext-110 cl2">${orderCustomer.point}</span><span class="mtext-110 cl2">P</span>
 									</div>
 									<br><br>
 									<div class="bor8 bg0">
@@ -300,7 +318,7 @@
 								</span>
 							</div>
 
-							<div class="size-209 p-t-1">
+							<div class="size-209 p-t-1 mtext-110 cl2">
 								<span class="mtext-110 cl2" id="totalPriceSpan">
 									${totalPrice}
 								</span>

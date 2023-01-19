@@ -37,6 +37,25 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 		<!--===============================================================================================-->
 		<title>addOrderDirect</title>
+		<style>
+			.font-th{
+			    font-family: Poppins-Bold;
+			    font-size: 13px;
+			    color: #555;
+			    text-transform: uppercase;
+			    line-height: 1.6;
+			    padding-top: 15px;
+			    padding-bottom: 15px;
+			    text-align: center;
+			}
+			
+			.font-td{
+				font-family: Poppins-Regular;
+			    color: #555;
+			    line-height: 1.6;
+			}
+			
+		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
@@ -73,7 +92,7 @@
 					$('#goodsPriceWO').text(orderPrice-Number($('#point').val()));
 					$('#totalPrice').text(orderPrice-Number($('#point').val())); // 총 금액 변경
 					$('#orderPrice').attr('value', orderPrice-Number($('#point').val())); // 넘어갈 주문 금액 value 변경
-					$('#changePriceMsg').text(orderPrice+' - '+Number($('#point').val())+' = '+ $('#orderPrice').val());
+					$('#changePriceMsg').text('(' + orderPrice+' - '+Number($('#point').val())+' = '+ $('#orderPrice').val() + ')');
 					console.log('메시지');
 					
 				});
@@ -108,85 +127,149 @@
 		<!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>
 
-		<h1>Add Order Direct</h1>
-		<form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm">
+		<form action="${pageContext.request.contextPath}/AddOrderDirect" method="post" id="addOrderForm" class="bg0 p-t-50 p-b-85">
 			<input type="hidden" name="goodsCode" value="${goodsCode}">
-		 	<input type="hidden" name="orderPrice" id="orderPrice" value="${order.orderPrice}">
+			<input type="hidden" name="orderPrice" id="orderPrice" value="${order.orderPrice}">
+			<div class="container p-l-40 p-r-57" style="text-align:center">
+				<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
+				<div class="wrap-table-shopping-cart">
+				 	<table class="table-shopping-cart"> <!-- 주문고객정보 -->
+			 			<tr>
+			 				<th colspan="4" class="font-th">CUSTOMER INFO</th>
+			 			</tr>
+				 		<tr>
+				 			<th class="font-th w-25">NAME</th>
+				 			<td class="font-td w-25">${customer.customerName}</td>
+				 			<th class="font-th w-25">PHONE</th>
+				 			<td class="font-td w-25">${customer.customerPhone}</td>
+				 		</tr>
+				 		<tr>
+				 			<th colspan="1" class="font-th">ADDRESS</th>
+				 			<td colspan="3" class="font-td">
+				 				<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
+					 				<select name="addressCode" class="form-control w-50">
+					 					<option value="0">주소 선택</option>
+					 				</select>
+				 				</c:if>
+				 				<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
+					 				<select name="addressCode" id="addressCode" class="form-control w-50">
+					 					<option value="0">주소 선택</option>
+					 					<c:forEach var="address" items="${addressList}">
+					 						<option value="${address.addressCode}">${address.address}</option>
+					 					</c:forEach>
+					 				</select>
+				 				</c:if>
+				 			</td>
+				 		</tr>
+				 		<tr>
+				 			<th colspan="1" class="font-th">NEW ADDRESS</th>
+			 				<td colspan="3" class="font-td">
+			 					<input type="text" name="newAddress" id="newAddress" class="font-td form-control w-50" placeholder="추가할 주소지 작성">
+			 				</td>
+				 		</tr>
+				 	</table>
+		 		</div>
+		 	</div>
 		 	
-		 	<!-- 상품코드, (상품가격), 아이디, 옵션, 주소코드, 주문수량, 총가격 -->
-		 	<table border="1" style="width:50%;"> <!-- 주문고객정보 -->
-	 			<tr>
-	 				<th colspan="4">주문회원 정보</th>
-	 			</tr>
-		 		<tr>
-		 			<td>이름</td>
-		 			<td>${customer.customerName}</td>
-		 			<td>전화번호</td>
-		 			<td>${customer.customerPhone}</td>
-		 		</tr>
-		 		<tr>
-		 			<td colspan="1">주소</td>
-		 			<td colspan="3">
-		 				<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
-			 				<select name="addressCode">
-			 					<option value="0">====주소 선택====</option>
-			 				</select>
-		 				</c:if>
-		 				<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
-			 				<select name="addressCode" id="addressCode">
-			 					<option value="0">====주소 선택====</option>
-			 					<c:forEach var="address" items="${addressList}">
-			 						<option value="${address.addressCode}">${address.address}</option>
-			 					</c:forEach>
-			 				</select>
-		 				</c:if>
-		 			</td>
-		 		</tr>
-		 		<tr>
-		 			<td colspan="1">
-	 					새 주소 추가
-	 				</td>
-	 				<td colspan="3">
-	 					<input type="text" name="newAddress" id="newAddress" placeholder="추가할 주소지 작성">
-	 				</td>
-		 		</tr>
-		 		<tr>
-		 			<td colspan="4">사용가능 포인트: <span id="currentPoint">${customer.point}</span>P</td>
-		 		</tr>
-		 	</table>
-		 	<br>
-		 	<table border="1" style="width:50%;"> <!-- 주문상품정보 -->
-	 			<tr>
-	 				<th colspan="5">주문상품</th>
-	 			</tr>
-	 			<tr>
-	 				<th colspan="2">상품</th>
-		 			<th>상품금액</th>
-		 			<th>갯수</th>
-		 			<th>상품옵션</th>
-	 			</tr>
-	 			<tr>
-	 				<td>
-	 					<img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100">
-	 				</td>
-		 			<td>${goodsName}</td>
-		 			<td>
-		 				<div><span id="goodsPriceWO">${orderPrice}</span></div>
-		 				<div><span id="changePriceMsg" style="color:blue;">${orderPrice} - 0 = ${orderPrice}</span></div>
-		 			</td>
-		 			<td>${order.orderQuantity}</td>
-		 			<td>${order.goodsOption}</td>
-		 		</tr>
-		 		<tr>
-		 			<td colspan="1">사용할 포인트</td>
-		 			<td colspan="2">
-		 				<input type="number" name="point" id="point" max="${customer.point}" placeholder="사용할 포인트 입력">P
-		 			</td>
-	 				<td colspan="2">총 주문금액: <span id="totalPrice">${order.orderPrice}</span>원</td> <!-- 자바스크립트로 수정 -->
-	 			</tr>
-		 	</table>
+		 	<br><br>
+		 	
+		 	<div class="container"> <!-- 주문상품, 포인트 -->
+				<div class="row">
+				
+					<div class="col-md-7"> <!-- 주문상품 -->
+						<div class="m-l-25 m-r--38 m-lr-0-xl">
+							<div class="wrap-table-shopping-cart">
+								<table class="table-shopping-cart" style="text-align : center;">
+									<tr class="table_head">
+										<th style="text-align : center; width:15%">Image</th>
+										<th style="text-align : center; width:25%">GoodsName</th>
+										<th style="text-align : center; width:25%">Option</th>
+										<th style="text-align : center; width:10%">Quantity</th>
+										<th style="text-align : center; width:30%">Total</th>
+									</tr>
+						 			<tr>
+						 				<td><img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100"></td>
+							 			<td>${goodsName}</td>
+							 			<td>${order.goodsOption}</td>
+							 			<td>${order.orderQuantity}</td>
+							 			<td>
+							 				<div class="p-t-25"><span id="goodsPriceWO">${orderPrice}</span></div>
+							 				<div><span id="changePriceMsg" style="color: #6c7ae0; font-size:14px;">(${orderPrice} - 0 = ${orderPrice})</span></div>
+							 			</td>
+							 		</tr>
+							 	</table>
+							</div>
+						</div>
+					</div> <!-- 주문상품 끝 -->
 
-			<button type="button" id="addOrderBtn">주문</button>
+					<div class="col-md-5"> <!-- 포인트 적용 -->
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								Total Price
+							</h4>
+	
+							<div class="flex-w flex-t bor12 p-b-13">
+								<div class="size-450">
+									<span class="stext-110 cl2">
+										Before Total Price : 
+									</span>
+								</div>
+	
+								<div class="size-300">
+									<span class="mtext-110 cl2">
+										  &nbsp;&nbsp;&nbsp;&nbsp; ${order.orderPrice} ￦
+									</span>
+								</div>
+							</div>
+	
+							<div class="flex-w flex-t bor12 p-t-45 p-b-30">
+								<!-- 포인트 정보 -->
+								<div class="size-208 w-full-ssm p-t-10">
+									<!-- 사용가능 포인트 -->
+									<span class="stext-110 cl2">
+										Customer Point : 
+									</span>
+									
+									<br><br><br><br>
+									<!-- 사용한 포인트 -->
+									<span class="stext-110 cl2">
+										UsePotint :  
+									</span>
+								</div>
+								
+								<!-- 사용 포인트 입력 -->
+								<div class="size-209">	
+									<div>
+										<div class="p-t-5 p-b-12 m-l-50" style="font-size:15pt">
+											<span id="currentPoint" class="mtext-110 cl2">${customer.point}</span><span class="mtext-110 cl2">P</span>
+										</div>
+										<br><br>
+										<div class="bor8 bg0">
+											 <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number" name="point" id="point" placeholder="사용할 포인트 입력">
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 총 금액 -->
+							<div class="flex-w flex-t p-t-27 p-b-33">
+								<div class="size-208">
+									<span class="mtext-101 cl2">
+										Total : 
+									</span>
+								</div>
+								<div class="size-209 p-t-1 mtext-110 cl2">
+									<span class="mtext-110 cl2" id="totalPrice">
+										${order.orderPrice}
+									</span>
+									￦
+								</div>
+							</div>
+							<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="addOrderBtn">주문</button>
+						</div>
+					</div> <!-- 포인트 적용 끝 -->
+				</div> <!-- row 끝 -->
+			</div>
 		</form>
 		
 <!--===============================================================================================-->	
