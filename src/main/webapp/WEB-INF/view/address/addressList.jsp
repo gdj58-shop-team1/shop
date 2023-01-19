@@ -43,34 +43,65 @@
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>
 		
 		<!-- 본문 -->
-		<h1>ADDRESS LIST</h1>
-		<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
-			<table>
-				<tr>
-					<th>등록된 주소가 없습니다.</th>
-				</tr>
-			</table>
-		</c:if>
-		<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
-			<table>
-				<tr>
-					<th>주소지</th>
-					<th>생성일</th>
-					<th>수정/삭제</th>
-				</tr>
-				<c:forEach var="address" items="${addressList}">
-					<tr>
-						<td>${address.address}</td>
-						<td>${address.createdate}</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/ModifyAddress?addressCode=${address.addressCode}">수정</a>
-							<a href="${pageContext.request.contextPath}/RemoveAddress?addressCode=${address.addressCode}">삭제</a>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</c:if>
-		<a href="${pageContext.request.contextPath}/AddAddress">주소 추가</a>
+		<div class="container">
+			<div class="row">
+				<!-- 사이드 메뉴 -->
+				<div class="col-md-3 col-lg-3 p-b-80">
+					<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+						<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+					</c:if>
+					
+					<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+						<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+					</c:if>
+				</div>
+				
+				<!-- 주소 목록 -->
+				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10">Address</h3>
+					
+					<c:if test="${fn:length(addressList) == 0}"> <!-- 리스트에 데이터가 없으면 -->
+						<table class="table text-center stext-110 cl2">
+							<tr>
+								<th>등록된 주소가 없습니다.</th>
+							</tr>
+						</table>
+					</c:if>
+					<c:if test="${fn:length(addressList) > 0}"> <!-- 리스트에 데이터가 있으면 -->
+						<table class="table stext-110 cl2">
+							<tr>
+								<th class="text-center w-75">Address</th>
+								<th class="text-center">Edit</th>
+							</tr>
+							<c:forEach var="address" items="${addressList}">
+								<tr>
+									<td class="align-middle">${address.address}</td>
+									<td class="text-center align-middle">
+										<a href="${pageContext.request.contextPath}/ModifyAddress?addressCode=${address.addressCode}" class="cl6 p-l-5 p-r-5">
+											<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+											<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+											</svg>
+										</a>
+										<a href="${pageContext.request.contextPath}/RemoveAddress?addressCode=${address.addressCode}" class="cl6 p-l-5 p-r-5">
+											<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+											<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+											</svg>
+										</a>
+									</td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="2" class="text-right">
+									<button type="button" onclick="location.href='${pageContext.request.contextPath}/AddAddress'" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">
+										주소 추가
+									</button>
+								</td>
+							</tr>
+						</table>
+					</c:if>
+				</div>
+			</div>
+		</div>
 	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>

@@ -40,6 +40,9 @@ public class ReviewList extends HttpServlet {
 			System.out.println("회원로그인");
 			loginCustomer = (Customer)session.getAttribute("loginMember");
 			String customerId = loginCustomer.getCustomerId();
+			if(request.getParameter("customerId") != null) {
+				customerId = request.getParameter("customerId");
+			}
 			
 			reviewList = reviewService.getReviewByCustomerId(customerId); // 회원아이디로 조회 메서드
 			

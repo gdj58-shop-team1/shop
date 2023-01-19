@@ -40,6 +40,9 @@ public class AddressList extends HttpServlet {
 		// 세션에 저장된 회원 아이디 호출
 		Customer customer = (Customer)session.getAttribute("loginMember");
 		String customerId = customer.getCustomerId();
+		if(request.getParameter("customerId") != null) {
+			customerId = request.getParameter("customerId");
+		}
 		
 		// 서비스 호출
 		this.customerAddressService = new CustomerAddressService();
