@@ -150,31 +150,7 @@
 							</ul>
 						</div>
 						
-						<div class="p-t-35">
-							<h4 class="mtext-112 cl2 p-b-33">
-								Featured Products
-							</h4>
-							
-							<ul>
-								<c:forEach var="sg" items="${sideGoodsList}">
-								<li class="flex-w flex-t p-b-35">
-									<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${sg.goodsCode}" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-										<img src="${pageContext.request.contextPath}/upload/${sg.fileName}" width="90px" height="110px" >
-									</a>
-
-									<div class="size-215 flex-col-t p-t-8">
-										<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${sg.goodsCode}" class="stext-116 cl8 hov-cl1 trans-04">
-											${sg.goodsName}
-										</a>
-
-										<span class="stext-116 cl6 p-t-20">
-											<td>${sg.goodsPrice}원</td>
-										</span>
-									</div>
-								</li>
-								</c:forEach>
-							</ul>
-						</div>	
+						
 					</div>
 				</div>
 				
@@ -186,17 +162,27 @@
 						
 						<tr class="table_head">
 							<th class="column-1">상품명</th>
-						
-							<td class="column-4"><input type="text" name="goodsName" id = "goodsName" placeholder="Goods name"></td>
+							<td class="column-4">
+								<div class="bor13 of-hidden pos-relative col-lg-6" >
+								<input class="stext-103 cl2 plh3 size-105 p-l-10 p-r-25 "  
+									type="text" name="goodsName" id = "goodsName" placeholder="Goods name">
+								</div>
+							</td>
 						</tr>
 						<tr class="table_head">
 							<th class="column-1">판매가격</th>
-							<td class="column-4"><input type="number" name="goodsPrice" id = "goodsPrice"></td>
+							<td >
+								<div class="bor13 of-hidden pos-relative col-lg-6" >
+									<input class="stext-103 cl2 plh3 size-105 p-l-10 p-r-25 "
+										type="text" name="goodsPrice" id = "goodsPrice"  placeholder="Goods price"onkeyup="inputNumberFormat(this)"/>
+								</div>
+							</td>
 						</tr>
 						<tr class="table_head">
 							<th class="column-1">솔드아웃</th>
-							<td class="column-3">
-								<input type="radio" name="soldout" id = "soldout" value="Y">판매중 <input type="radio" name="soldout" id = "soldout" value="N">★솔드아웃★
+							<td >
+								<input 
+								 type="radio" name="soldout" id = "soldout" value="Y">판매중 <input type="radio" name="soldout" id = "soldout" value="N">sold out
 							</td>
 						</tr>
 						<tr class="table_head">
@@ -217,14 +203,14 @@
 							<th class="column-1">사진등록</th>
 							<td class="column-2">
 								<div>
-									<label for = "image">Image:
-										<div  id="image_preview">
-			                        	 	<img  src="${pageContext.request.contextPath}/images/img-upload.png" style = "width=150px; height=150px; object-fit:cover;" >
-			                       
-			                     		</div>
-									
-									</label>
-									<input type="file" name="goodsImg" id="image" accept="image/jpeg, image/png">
+									<div  id="image_preview" >
+										<label for = "image">
+			                        	 	<img  src="${pageContext.request.contextPath}/images/img-upload.png"  width="150px" height="150px"  >
+			      
+			                       			<input type="file" name="goodsImg" id="image" accept="image/jpeg, image/png"  width="150px" height="150px">		
+				                     	</label>
+			                     	</div>
+							
 								</div>
 								
 							
@@ -236,7 +222,11 @@
 							<td class="column-2"><input type="text" name="empId" id = "empId" value="${loginMember.empId}" readonly="readonly"></td>
 						</tr>
 					</table>
-					<button type="submit">상품등록</button>
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" style="float:right">
+					<button 
+						class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+						type="submit">상품등록</button>
+					</div>
 				</form>
 				
 					
@@ -387,5 +377,28 @@
 				  
 				
 	</script>
+<!--===============================================================================================-->	
+	
+	<!--  
+	<script>
+		 function inputNumberFormat(obj) {
+		     obj.value = comma(uncomma(obj.value));
+		 }
+	
+		 function comma(str) {
+		     str = String(str);
+		     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+		 }
+	
+		 function uncomma(str) {
+		     str = String(str);
+		     return str.replace(/[^\d]+/g, '');
+		 }
+	
+	
+	
+	
+	</script>
+	-->
 </body>
 </html>

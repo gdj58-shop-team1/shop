@@ -57,12 +57,37 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<br><br>
+	
+	<!-- 상단배너 -->
+
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-04.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			<!-- text -->
+		</h2>
+	</section>
+	
+	<!-- 페이지위치 -->
+	
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="${pageContext.request.contextPath}/Home" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				My page
+			</span>
+		</div>
+	</div>
 	
 
-	<div class="container" style="height: 80%;">
+	<div class="container" >
+	
+		<!-- side menu -->
+	
 		<div class="row">
-			<div class="col-md-3 col-lg-3 p-b-80">
+			<div class="col-md-3 col-lg-3 p-b-80 ">
 				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
 				</c:if>
@@ -72,44 +97,46 @@
 				</c:if>
 			</div>
 			
-			<div class="col-md-9 col-lg-3 p-b-80">
+			<div class="col-md-9 col-lg-3 p-b-80 p-t-40">
 				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 					<h1>회원</h1>
-					<table>
-						<tr>
-							<th>ID</th>
-							<td>${loginMember.customerId}</td>
+					<table class="table-shopping-cart">
+						<tr class="table_head">
+							<th class="column-1">ID</th>
+							<td class="column-1">${loginMember.customerId}</td>
 						</tr>
 						
 						<tr>
-							<th>NAME</th>
-							<td>${loginMember.customerName}</td>
+							<t class="column-1"h>NAME</th>
+							<td class="column-1">${loginMember.customerName}</td>
 						</tr>	
 					</table>
 					
-					<div style="text-align:center">
-						<i class="zmdi zmdi-account-circle" style="font-size:100pt"></i>
-					</div>
 				</c:if>
+			
+			<div class="col-lg-10 col-lg-3 m-lr-auto p-t-40">
 				
-				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-					<h1>사원 (레벨 : ${loginMember.authCode})</h1>
-					<table>
-						<tr>
-							<th>ID</th>
-							<td>${loginMember.empId}</td>
-						</tr>
-						
-						<tr>
-							<th>NAME</th>
-							<td>${loginMember.empName}</td>
-						</tr>	
-					</table>
 					
-					<div style="text-align:center">
-						<i class="zmdi zmdi-account-circle" style="font-size:100pt"></i>
+						<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+							
+								<table class="table-shopping-cart">
+									<tr class="table_head">
+										<th class="column-1">ID</th>
+										<td class="column-1">${loginMember.empId}</td>
+									</tr>
+									
+									<tr class="table_row">
+										<th class="column-1">NAME</th>
+										<td class="column-1">${loginMember.empName}</td>
+									</tr>	
+									<tr class="table_row">
+										<th class="column-1">LEVEL</th>
+										<td class="column-1">${loginMember.authCode}</td>
+									</tr>
+								</table>
+						</c:if>
 					</div>
-				</c:if>
+			
 			</div>
 		</div>	
 	</div>
