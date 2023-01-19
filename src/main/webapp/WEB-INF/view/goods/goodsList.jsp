@@ -71,6 +71,27 @@
 				<!-- text -->
 			</h2>
 		</section>	
+		
+		<!-- 페이지위치 -->
+		
+		<div class="container">
+			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+				<a href="${pageContext.request.contextPath}/Home" class="stext-109 cl8 hov-cl1 trans-04">
+					Home
+					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a>
+	
+				<a href="${pageContext.request.contextPath}/" class="stext-109 cl8 hov-cl1 trans-04">
+					Admin
+					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a>
+				<span class="stext-109 cl4">
+					Goods list
+				</span>
+	
+				
+			</div>
+		</div>
 
 		
 		<div class="container" >
@@ -125,6 +146,9 @@
 							</ul>
 						</div>
 						
+						
+						<!-- side 추천상품 -->
+						
 						<div class="p-t-35">
 							<h4 class="mtext-112 cl2 p-b-33">
 								Featured Products
@@ -147,18 +171,22 @@
 										</span>
 									</div>
 								</li>
-
-								
 								</c:forEach>
 							</ul>
-							
 						</div>
+						
+						
 							
 					</div>
-					
-	
 				</div>
 				<!-- table -->
+				
+				
+				
+				
+				
+				
+				
 				
 				<div class="col-lg-10 col-lg-3 m-lr-auto p-t-40">
 					
@@ -250,25 +278,34 @@
 					
 					
 					<!--  페이지 -->
-					<div>
-						<c:if test="${currentPage > 1}">
-							<span><a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage-1}">이전</a></span>
-						</c:if>
-						<c:if test="${currentPage == 1}">
-							<span>이전</span>
-						</c:if>
-						
-						<span>${currentPage}</span>
-										
-						<c:if test="${currentPage < endPage}">
-							<span><a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage+1}">다음</a></span>
-						</c:if>
-						<c:if test="${currentPage == endPage}">
-							<span>다음</span>
-						</c:if>
+					<div class="flex-w flex-sb-m p-t-18">
+						<span class="flex-w flex-m stext-200 cl2 p-r-30 m-tb-10">
+							<c:if test="${currentPage > 1}">
+								<span class="cl4">
+									<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage-1}">이전</a>
+								</span>
+							</c:if>
+							<c:if test="${currentPage == 1}">
+								<span class="cl8">이전</span>
+							</c:if>
+								<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+									${currentPage}
+								</a>
+							<c:if test="${currentPage < endPage}">
+								<span><a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage+1}">다음</a></span>
+							</c:if>
+							<c:if test="${currentPage == endPage}">
+								<span class="cl8">다음</span>
+							</c:if>
+						</span>
+						<a href ="${pageContext.request.contextPath}/AddGoods" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+							Add goods
+							<i class="fa fa-long-arrow-right m-l-9"></i>
+						</a>
 					</div>
 				</div>
 			</div>
+			
 			
 			
 
