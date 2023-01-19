@@ -88,8 +88,6 @@
 				<span class="stext-109 cl4">
 					Goods list
 				</span>
-	
-				
 			</div>
 		</div>
 
@@ -109,14 +107,14 @@
 		
 							<ul>
 								<li class="bor18">									
-									<a href="${pageContext.request.contextPath}/OrderList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										주문목록
+									<a href="${pageContext.request.contextPath}/GoodsList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
+										상품관리
 									</a>
 								</li>
 		
 								<li class="bor18">
 									<a href="${pageContext.request.contextPath}/ReviewList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										리뷰목록
+										리뷰관리
 									</a>
 								</li>
 		
@@ -127,22 +125,18 @@
 								</li>
 		
 								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/ConfirmMember" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										정보변경
+									<a href="${pageContext.request.contextPath}/OrderList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
+										주문관리
 									</a>
 								</li>
 		
 								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/AddressList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										배송지변경
+									<a href="${pageContext.request.contextPath}/NoticeList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
+										공지사항
 									</a>
 								</li>
 								
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/RemoveMember" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt"	>
-										회원탈퇴
-									</a>
-								</li>
+							
 							</ul>
 						</div>
 						
@@ -181,20 +175,12 @@
 				</div>
 				<!-- table -->
 				
-				
-				
-				
-				
-				
-				
-				
+			
 				<div class="col-lg-10 col-lg-3 m-lr-auto p-t-40">
 					
 					<table class="table-shopping-cart">
 						<thead>
-							<tr class="table_head">
-								
-								
+							<tr class="table_head">								
 								<th class="column-1">GoodsName</th> <!-- 왼쪽정렬 -->
 								<th class="column-1">GoodsName</th>
 								<th class="column-1">Price</th>
