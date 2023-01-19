@@ -18,7 +18,7 @@ public class GoodsService {
 	private GoodsImgDao goodsImgDao;
 	
 	// 상품리스트(home) - 검색, 정렬값X
-	public ArrayList<HashMap<String, Object>> getGoodsList(int currentPage, int rowPerPage, String whrere, String sort){
+	public ArrayList<HashMap<String, Object>> getGoodsList(int currentPage, int rowPerPage, String whrere, String order){
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		goodsDao = new GoodsDao();
 		Connection conn = null;
@@ -29,7 +29,7 @@ public class GoodsService {
 			System.out.println("getGoodsList(GoodsService) 검색, 정렬값X db 접속");			
 			int beginRow = (currentPage-1)*rowPerPage;
 			int endRow = beginRow+rowPerPage;
-			goodsList = goodsDao.selectGoodsListTest(conn, beginRow, endRow, whrere, sort);
+			goodsList = goodsDao.selectGoodsListTest(conn, beginRow, endRow, whrere, order);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

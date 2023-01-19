@@ -39,84 +39,129 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>상품명</th>
-				<th>문의유형</th>
-				<th>제목</th>
-				<th>내용</th>
-				<th>작성자</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr>
-				<td>${question.goodsName}</td>
-				<!-- select 로 구현예정 -->
-				<td>${question.category}</td>
-				<td>${question.questionTitle}</td>
-				<td><textarea id="questionMemo" name="questionMemo" readonly="readonly">${question.questionMemo}</textarea></td>
-				<td>${question.customerId}</td>
-			</tr>
-		</tbody>
-	</table>
-			
-	<c:if test="${loginMember.level == 0}">
-		<a type="button" href="${pageContext.request.contextPath}/ModifyQuestion?questionCode=${question.questionCode}">수정</a>
-		
-		<h3>댓글</h3>
-		<table border="1">
-			<tr>
-				<th>내용</th>
-				<th>작성일</th>
-			</tr>
-		
-			<c:forEach var="l" items="${list}">
-				<tr>
-					<th>${l.commentMemo}</th>
-					<th>${l.createdate}</th>
-				</tr>
-			</c:forEach>
-		</table>		
+
+	<!-- 세션 정보별로 메뉴 분기 -->
+	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+	</c:if>
+	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<c:if test="${loginMember.level == 1}">
-		<h3>댓글</h3>
-		<table border="1">
-			<tr>
-				<th>내용</th>
-				<th>작성일</th>
-				<th>삭제</th>
-			</tr>
-
-			<c:forEach var="l" items="${list}">
-				<tr>
-					<th>${l.commentMemo}</th>
-					<th>${l.createdate}</th>
-					<th>
-						<a href="${pageContext.request.contextPath}/RemoveQuestionComment?questionCode=${question.questionCode}&commentCode=${l.commentCode}">댓글 삭제</a>
-					</th>
-				</tr>
-			</c:forEach>
-		</table>
-		
-		<br><br>
-		<form action="${pageContext.request.contextPath}/AddQuestionComment" method="post">
-			<input type="hidden" name="questionCode" value="${question.questionCode}">			
-			<table border="1">
-				<tr>
-					<th>내용</th>
-					<th>댓글 쓰기</th>
-				</tr>
+	<!-- 본문 -->
+	<div class="container">
+		<div class="row">
+			<!-- 사이드 메뉴 -->
+			<div class="col-md-3 col-lg-3 p-b-80">
+				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+				</c:if>
+			</div>
 			
-				<tr>
-					<th><textarea name="commentMemo"></textarea></th>
-					<th><button type="submit">댓글 쓰기</button></th>
-				</tr>
-			</table>
-		</form>
-	</c:if>
+			<!-- 리뷰작성 -->
+			<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
+				<h3 class="mtext-109 cl2 p-b-10">Question</h3>
+				<form action="${pageContext.request.contextPath}/AddReview" method="post" id="reviewForm">
+					<input type="hidden" name="orderCode" value="${order.orderCode}">
+					<input type="hidden" name="goodsPrice" value="${order.goodsPrice}">
+					<table class="table stext-110 cl2">
+						<tr>
+							<th class="text-center">주문상품</th>
+							<td>${question.goodsName}</td>
+							<th class="text-center">문의유형</th>
+							<td>${question.category}</td>
+						</tr>
+						<tr>
+							<th class="text-center">작성자</th>
+							<td>${question.customerId}</td>
+							<th class="text-center">작성일</th>
+							<td>${question.createdate}</td>
+						</tr>
+						<tr>
+							<th class="text-center">문의 제목</th>
+							<td colspan="3">${question.questionTitle}</td>
+						</tr>
+						<tr>
+							<th class="text-center align-middle">문의 내용</th>
+							<td colspan="3">
+								<textarea id="questionMemo" name="questionMemo" class="form-control" rows="10" readonly="readonly">${question.questionMemo}</textarea>
+							</td>
+						</tr>
+						
+						<c:if test="${loginMember.level == 0}">
+							<tr>
+								<td colspan="4" class="text-right">
+									<a href="${pageContext.request.contextPath}/ModifyQuestion?questionCode=${question.questionCode}">
+										<button type="button" id="reviewBtn" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">문의 수정</button>
+									</a>
+								</td>
+							</tr>
+						</c:if>
+					</table>
+				</form>
+				
+				<br><br>
+				
+				<c:if test="${loginMember.level == 0}">
+					<h3 class="mtext-109 cl2 p-b-10">Comment</h3>
+					<table class="table stext-110 cl2">
+						<tr>
+							<th>내용</th>
+							<th>작성일</th>
+						</tr>
+						
+						<c:forEach var="l" items="${list}">
+							<tr>
+								<th style="width:80%">${l.commentMemo}</th>
+								<th style="width:20%">${l.createdate}</th>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1}">
+					<table class="table stext-110 cl2">
+						<tr>
+							<th>내용</th>
+							<th>작성일</th>
+							<th>삭제</th>
+						</tr>
+						
+						<c:forEach var="l" items="${list}">
+							<tr>
+								<th>${l.commentMemo}</th>
+								<th>${l.createdate}</th>
+								<th>
+									<a href="${pageContext.request.contextPath}/RemoveQuestionComment?questionCode=${question.questionCode}&commentCode=${l.commentCode}">댓글 삭제</a>
+								</th>
+							</tr>
+						</c:forEach>
+					</table>
+					
+					<br>
+					
+					<form action="${pageContext.request.contextPath}/AddQuestionComment" method="post">
+						<input type="hidden" name="questionCode" value="${question.questionCode}">			
+						<table border="1">
+							<tr>
+								<th>내용</th>
+								<th>댓글 쓰기</th>
+							</tr>
+						
+							<tr>
+								<th><textarea name="commentMemo"></textarea></th>
+								<th><button type="submit">댓글 쓰기</button></th>
+							</tr>
+						</table>
+					</form>
+				</c:if>
+			</div>
+		</div>
+	</div>
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

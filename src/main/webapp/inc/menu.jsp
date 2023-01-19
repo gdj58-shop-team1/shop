@@ -5,7 +5,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="${pageContext.request.contextPath}/Home" class="logo">
+					<a href="${pageContext.request.contextPath}/Index" class="logo">
 						<img src="./images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
