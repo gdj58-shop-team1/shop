@@ -51,11 +51,61 @@
     <script src="${pageContext.request.contextPath}/loginCss/assets/js/init-alpine.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-
-		
-
-			
+$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
 	
+	$('#EmpsigninBtn').click(function() {
+			
+		$('#empName').focus();
+		// empName 미입력시
+		if($('#empName').val().length < 1) {
+			
+			alert('이름을 입력해주세요');
+			
+			$('#empName').focus();
+			
+			return false;
+		}
+		// empId 미입력시
+		if($('#empId').val().length < 1) {
+			
+			alert('아이디를 입력해주세요');
+			
+			$('#empId').focus();
+			
+			return false;
+		}
+		// empPw 미입력시
+		if($('#empPw').val().length < 1) {
+			
+			alert('비밀번호를 입력해주세요');
+			
+			$('#empPw').focus();
+			
+			return false;
+		}
+		// empPwCheck 미입력시
+		if($('#empPwCheck').val().length < 1) {
+			
+			alert('비밀번호를 입력해주세요');
+			
+			$('#empPwCheck').focus();
+			
+			return false;
+		}
+		
+		let customerPw = $('#empPw').val();
+		let customerPwCheck = $('#empPwCheck').val();
+		
+		if(customerPw == customerPwCheck) {
+			$('#empSigninForm').submit();
+		} else {
+			alert('두 비밀번호가 일치하지 않습니다');
+			return;
+		}
+		
+		
+	});
+});
 
 </script>
 <title>Insert title here</title>
