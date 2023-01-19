@@ -46,6 +46,12 @@
 			var goodsPrice = Number('<c:out value="${goodsMap.get('goodsPrice')}"/>');
 			$('#orderQuantity').attr('value', 1);
 			$('#orderPrice').attr('value', goodsPrice);
+			$('#orderPriceText').text(goodsPrice);
+			
+			// totalPrice 숫자 콤마
+			var orderPriceText = $('#orderPriceText').text();
+			var orderPriceText2 = orderPriceText.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#orderPriceText').text(orderPriceText2);
 			
 			// 상품이 품절이면 버튼 비활성화
 			var soldout = '<c:out value="${goodsMap.get('soldout')}"/>';
@@ -60,7 +66,12 @@
 			// plusBtn 클릭시
 			$('#plusBtn').click(function(){
 				$('#orderQuantity').attr('value', Number($('#orderQuantity').val()));
-				$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));				
+				$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+				$('#orderPriceText').text(goodsPrice*Number($('#orderQuantity').val()));
+				
+				var orderPriceText = $('#orderPriceText').text();
+				var orderPriceText2 = orderPriceText.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#orderPriceText').text(orderPriceText2);
 			});
 			
 			// minusBtn 클릭시
@@ -70,6 +81,11 @@
 				} else {
 					$('#orderQuantity').attr('value', Number($('#orderQuantity').val()));
 					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+					$('#orderPriceText').text(goodsPrice*Number($('#orderQuantity').val()));
+					
+					var orderPriceText = $('#orderPriceText').text();
+					var orderPriceText2 = orderPriceText.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#orderPriceText').text(orderPriceText2);
 				}
 			});
 			
@@ -80,14 +96,31 @@
 				if($('#goodsOrderOption').val() == '고급포장'){
 					goodsPrice = goodsPrice+2500;
 					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+					$('#orderPriceText').text(goodsPrice*Number($('#orderQuantity').val()));
+					
+					var orderPriceText = $('#orderPriceText').text();
+					var orderPriceText2 = orderPriceText.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#orderPriceText').text(orderPriceText2);
 				} else if ($('#goodsOrderOption').val() == '보자기'){
 					goodsPrice = goodsPrice+5900;
 					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+					$('#orderPriceText').text(goodsPrice*Number($('#orderQuantity').val()));
+					
+					var orderPriceText = $('#orderPriceText').text();
+					var orderPriceText2 = orderPriceText.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#orderPriceText').text(orderPriceText2);
 				} else if($('#goodsOrderOption').val() == '일반포장'){
 					goodsPrice = goodsPrice;
 					$('#orderPrice').attr('value', goodsPrice*Number($('#orderQuantity').val()));
+					$('#orderPriceText').text(goodsPrice*Number($('#orderQuantity').val()));
+					
+					var orderPriceText = $('#orderPriceText').text();
+					var orderPriceText2 = orderPriceText.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#orderPriceText').text(orderPriceText2);
 				}
 			});
+			
+			
 
 			$('#orderBtn').click(function(){
 				$("#orderForm").attr("action", "${pageContext.request.contextPath}/GetOrderInfoDirect");
@@ -165,7 +198,7 @@
 							<input type="hidden" name="goodsPrice" value="${goodsMap.get('goodsPrice')}">
 							<input type="hidden" name="fileName" value="${goodsMap.get('fileName')}">
 							<input type="hidden" name="customerId" value="${customerId}">
-							<input type="hidden" name="orderPrice" id="orderPrice" readonly="readonly">
+							<input type="hidden" name="orderPrice" id="orderPrice">
 							
 							<div class="p-t-33">
 								<!-- 상품 옵션 -->
@@ -210,8 +243,7 @@
 								<div class="stext-101 size-203 flex-c-m respon6">
 									Total Price
 								</div>
-								<div class="stext-101 size-204 respon6-next">
-									<input type="text" name="orderPrice" id="orderPrice" readonly="readonly">
+								<div class="stext-101 size-204 respon6-next" id="orderPriceText">
 									<!-- 총 주문 금액 -->
 								</div>
 							</div>

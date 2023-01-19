@@ -51,12 +51,18 @@
 		<div class="row">
 			<!-- 사이드 메뉴 -->
 			<div class="col-md-3 col-lg-3 p-b-80">
-				사이드 메뉴
+				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+				</c:if>
 			</div>
 			
 			<!-- 리뷰목록 -->
 			<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
-				<h3 class="mtext-109 cl2 p-b-10">Reviews</h3>
+				<h3 class="mtext-109 cl2 p-b-10">Review</h3>
 				
 				<c:if test="${loginMember.level == 0}"> <!-- 회원일 때 -->
 					<table class="table text-center stext-110 cl2">
@@ -69,13 +75,13 @@
 						</tr>
 						<c:forEach var="r" items="${reviewList}">
 							<tr>
-								<td>${r.orderCode}</td>
-								<td>
+								<td class="align-middle">${r.orderCode}</td>
+								<td class="align-middle">
 									<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${r.goodsCode}" class="cl6">${r.goodsName}</a>
 								</td>
-								<td class="text-left">${r.reviewMemo}</td>
-								<td>${r.createdate}</td>
-								<td>
+								<td class="text-left align-middle">${r.reviewMemo}</td>
+								<td class="align-middle">${r.createdate}</td>
+								<td class="align-middle">
 									<a href="${pageContext.request.contextPath}/ModifyReview?orderCode=${r.orderCode}" class="cl6">
 										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
 										<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
@@ -96,12 +102,12 @@
 						</tr>
 						<c:forEach var="r" items="${reviewList}">
 							<tr>
-								<td>${r.orderCode}</td>
-								<td>
+								<td class="align-middle">${r.orderCode}</td>
+								<td class="align-middle">
 									<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${r.goodsCode}" class="cl6">${r.goodsName}</a>
 								</td>
-								<td class="text-left">${r.reviewMemo}</td>
-								<td>${r.createdate}</td>
+								<td class="text-left align-middle">${r.reviewMemo}</td>
+								<td class="align-middle">${r.createdate}</td>
 							</tr>
 						</c:forEach>
 					</table>

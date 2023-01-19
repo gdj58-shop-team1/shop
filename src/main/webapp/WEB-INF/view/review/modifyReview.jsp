@@ -64,12 +64,18 @@
 		<div class="row">
 			<!-- 사이드 메뉴 -->
 			<div class="col-md-3 col-lg-3 p-b-80">
-				사이드 메뉴
+				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+				</c:if>
 			</div>
 			
 			<!-- 리뷰목록 -->
 			<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
-				<h3 class="mtext-109 cl2 p-b-10">Review Edit</h3>
+				<h3 class="mtext-109 cl2 p-b-10">Review</h3>
 				<form action="${pageContext.request.contextPath}/ModifyReview" method="post" id="reviewForm">
 					<input type="hidden" name="orderCode" value="${review.orderCode}">
 					<table class="table stext-110 cl2">
@@ -88,7 +94,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" class="text-right">
+							<td class="text-left align-middle">
+								<a href="${pageContext.request.contextPath}/ReviewList?${loginMember.customerId}" class="cl6">Back</a>
+							</td>
+							<td class="text-right">
 								<button type="button" id="reviewBtn" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">리뷰수정</button>
 							</td>
 						</tr>
