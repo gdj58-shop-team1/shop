@@ -85,7 +85,6 @@
 				Confirm member
 			</span>
 
-			
 		</div>
 	</div>		
 	
@@ -105,47 +104,62 @@
 				</c:if>
 			</div>
 			
-			<div class="col-md-9 col-lg-3 p-b-80 p-t-44">
-				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-					<h1>회원</h1>
-					<table class="table-shopping-cart">
-						<tr>
-							<th>ID</th>
-							<td>${loginMember.customerId}</td>
-						</tr>
+		
+			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
+					<h3 class="mtext-109 cl2 p-b-10" >정보수정</h3>
+					<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id="customerConfirmForm">
+						<table class="table text-center stext-110 cl2">
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle">${loginMember.customerId}</td>
+							</tr>
+							
+							<tr>
+								<th class="text-center">PW</th>
+								<td class="align-middle"><input type="password" id="customerPw" name="customerPw" ></td>
+							</tr>	
+						</table>
+						<button type="submit" id="customerBtn">회원수정</button>
 						
-						<tr>
-							<th>PW</th>
-							<td><input type="password" id="customerPw" name="customerPw" ></td>
-						</tr>	
-					</table>
-					<button type="submit" id="customerBtn">회원수정</button>
-					
-					<div style="text-align:center">
-						<i class="zmdi zmdi-account-circle" style="font-size:100pt"></i>
-					</div>
-				</c:if>
+						<div style="text-align:center">
+							<i class="zmdi zmdi-account-circle" style="font-size:100pt"></i>
+						</div>
+					</form>
+				</div>
+			</c:if>
 				
-				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-					<h1>사원 정보 변경</h1>
-					<h1>사원 (레벨 : ${loginMember.authCode})</h1>
-					<table>
-						<tr>
-							<th>ID</th>
-							<td><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
-						</tr>
+			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+				
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
+					<h3 class="mtext-109 cl2 p-b-10" >비밀번호를 입력해주세요</h3>
+					<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id = "empConfirmForm">
+						<table class="table text-center stext-110 cl2">
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
+							</tr>
+							
+							<tr>
+								<th class="text-center">PW</th>
+								<td class="align-middle"><input type="password" id="empPw" name="empPw" placeholder="password"></td>
+							</tr>	
+						</table>
 						
-						<tr>
-							<th>PW</th>
-							<td><input type="password" id="empPw" name="empPw" ></td>
-						</tr>	
-					</table>
-						<button type="submit" id="empBtn">회원수정</button>
-					
-				</c:if>
-			</div>
-		</div>	
-	</div>
+						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<button 
+								class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								type="submit" id="empBtn">확인
+							</button>
+							
+						</div>
+					</form>
+				</div>
+
+			</c:if>
+		</div>
+	</div>	
+	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

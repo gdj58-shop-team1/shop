@@ -65,7 +65,6 @@
 			<!-- text -->
 		</h2>
 	</section>
-	
 	<!-- 페이지위치 -->
 	
 	<div class="container">
@@ -102,7 +101,6 @@
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
 					<h3 class="mtext-109 cl2 p-b-10" >My page</h3>
-					
 						
 						<table class="table text-center stext-110 cl2">
 							<tr>
@@ -116,8 +114,7 @@
 							</tr>	
 							
 						</table>
-						
-					
+				
 				</div>
 			</c:if>
 			
@@ -125,7 +122,7 @@
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 				<div class="col-md-6 col-lg-7 p-b-80 p-t-70">
 					<div class=" p-t-45">
-						<span class="stext-110 cl2  ">
+						<span class="stext-110 cl2">
 							My page
 						</span>
 					</div>
@@ -144,10 +141,8 @@
 								<td class="align-middle">${loginMember.authCode}</td>
 							</tr>
 						</table>
-					</div>
-				</c:if>
-				
-			
+				</div>
+			</c:if>	
 		</div>
 	</div>	
 			

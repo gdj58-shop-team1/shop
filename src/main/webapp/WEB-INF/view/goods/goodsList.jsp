@@ -39,13 +39,6 @@
 <!--===============================================================================================-->
 
 
-   
-
-    
-   
-   
-   
-
 
 <meta charset="EUC-KR">
 <title>Insert title here</title>
@@ -95,7 +88,7 @@
 		<div class="container" >
 		
 			<!-- side menu -->
-			
+
 			<div class="row">
 				
 				<div class="col-md-3 col-lg-2 p-b-80">
@@ -167,17 +160,12 @@
 								</li>
 								</c:forEach>
 							</ul>
-						</div>
-						
-						
-							
+						</div>		
 					</div>
 				</div>
 				<!-- table -->
-				
-			
+
 				<div class="col-lg-10 col-lg-3 m-lr-auto p-t-40">
-					
 					<table class="table-shopping-cart">
 						<thead>
 							<tr class="table_head">								
@@ -186,7 +174,6 @@
 								<th class="column-1">Price</th>
 								<th class="column-1">category</th>
 								<th class="column-1">soldout</th>
-								
 								<th class="column-1">Admin</th>
 								<th class="column-5">action</th>
 							</tr>
@@ -256,12 +243,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-				
-					
-					
 
-					
-					
 					
 					<!--  페이지 -->
 					<div class="flex-w flex-sb-m p-t-18">
