@@ -35,13 +35,13 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 
 <!-- bootStrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <title>My Page</title>
 </head>
 
@@ -85,8 +85,10 @@
 	<div class="container" >
 	
 		<!-- side menu -->
-	
 		<div class="row">
+		
+		
+			<!-- 사이드메뉴 -->
 			<div class="col-md-3 col-lg-3 p-b-80 ">
 				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
@@ -97,50 +99,60 @@
 				</c:if>
 			</div>
 			
-			<div class="col-md-9 col-lg-3 p-b-80 p-t-40">
-				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-					<h1>회원</h1>
-					<table class="table-shopping-cart">
-						<tr class="table_head">
-							<th class="column-1">ID</th>
-							<td class="column-1">${loginMember.customerId}</td>
-						</tr>
+			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
+					<h3 class="mtext-109 cl2 p-b-10" >My page</h3>
+					
 						
-						<tr>
-							<t class="column-1"h>NAME</th>
-							<td class="column-1">${loginMember.customerName}</td>
-						</tr>	
-					</table>
-					
-				</c:if>
-			
-			<div class="col-lg-10 col-lg-3 m-lr-auto p-t-40">
-				
-					
-						<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+						<table class="table text-center stext-110 cl2">
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle">${loginMember.customerId}</td>
+							</tr>
 							
-								<table class="table-shopping-cart">
-									<tr class="table_head">
-										<th class="column-1">ID</th>
-										<td class="column-1">${loginMember.empId}</td>
-									</tr>
-									
-									<tr class="table_row">
-										<th class="column-1">NAME</th>
-										<td class="column-1">${loginMember.empName}</td>
-									</tr>	
-									<tr class="table_row">
-										<th class="column-1">LEVEL</th>
-										<td class="column-1">${loginMember.authCode}</td>
-									</tr>
-								</table>
-						</c:if>
-					</div>
+							<tr>
+								<th class="text-center">NAME</th>
+								<td class="align-middle">${loginMember.customerName}</td>
+							</tr>	
+							
+						</table>
+						
+					
+				</div>
+			</c:if>
 			
-			</div>
-		</div>	
-	</div>
-<!--===============================================================================================-->	
+			
+			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+				<div class="col-md-6 col-lg-7 p-b-80 p-t-70">
+					<div class=" p-t-45">
+						<span class="stext-110 cl2  ">
+							My page
+						</span>
+					</div>
+						<table class="table text-center stext-110 cl2 ">
+							<tr class="">
+								<th class="text-center">ID</th>
+								<td class="align-middle">${loginMember.empId}</td>
+							</tr>
+							
+							<tr class="">
+								<th class="text-center">NAME</th>
+								<td class="align-middle">${loginMember.empName}</td>
+							</tr>
+							<tr class="">
+								<th class="text-center">LEVEL</th>
+								<td class="align-middle">${loginMember.authCode}</td>
+							</tr>
+						</table>
+					</div>
+				</c:if>
+				
+			
+		</div>
+	</div>	
+			
+					
+<!--===============================================================================================-->		
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/vendor/animsition/js/animsition.min.js"></script>
