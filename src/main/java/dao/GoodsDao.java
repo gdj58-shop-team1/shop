@@ -375,5 +375,25 @@ public class GoodsDao {
 		
 	}
 	
+	// 전체상품 cnt
+	public int selectGoodsListCnt(Connection conn) throws Exception{
+		int cnt = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		// System.out.println("selectGoodsListCnt(GoodsDao) 진입");
+		
+		String sql = "SELECT COUNT(*) cnt FROM goods";
+		
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			cnt = rs.getInt("cnt");
+		}
+		
+		rs.close();
+		stmt.close();
+		return cnt;
+	}
+	
 	
 }

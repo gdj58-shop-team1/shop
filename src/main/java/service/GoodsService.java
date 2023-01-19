@@ -385,5 +385,27 @@ public class GoodsService {
 		}
 		return SideGoodsList;
 	}
+	// 총 상품 갯수 - 검색값X
+	public int getGoodsCnt() {
+		int cnt = 0;
+		goodsDao = new GoodsDao();
+		Connection conn = null;
+		DBUtil dbUtil = new DBUtil();
+		
+		try {
+			conn = dbUtil.getConnection();
+			System.out.println("getGoodsCnt(GoodsService) db 접속");
+			cnt = goodsDao.selectGoodsListCnt(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return cnt;
+	}
 	
 }
