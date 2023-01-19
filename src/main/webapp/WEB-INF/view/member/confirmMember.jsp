@@ -77,7 +77,7 @@
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 
-			<a href="${pageContext.request.contextPath}/" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="${pageContext.request.contextPath}/MyPage" class="stext-109 cl8 hov-cl1 trans-04">
 				My page
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -90,7 +90,7 @@
 	</div>		
 	
 
-	<div class="container" style="height: 80%;">
+	<div class="container" >
 	
 		<!-- side menu -->
 		
@@ -105,10 +105,10 @@
 				</c:if>
 			</div>
 			
-			<div class="col-md-9 col-lg-3 p-b-80">
+			<div class="col-md-9 col-lg-3 p-b-80 p-t-44">
 				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 					<h1>회원</h1>
-					<table>
+					<table class="table-shopping-cart">
 						<tr>
 							<th>ID</th>
 							<td>${loginMember.customerId}</td>
