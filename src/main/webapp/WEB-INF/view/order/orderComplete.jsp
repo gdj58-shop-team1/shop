@@ -36,6 +36,24 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 		<!--===============================================================================================-->
 		<title>orderComplete</title>
+		<style>
+			.font-th{
+			    font-family: Poppins-Bold;
+			    font-size: 13px;
+			    color: #555;
+			    text-transform: uppercase;
+			    line-height: 1.6;
+			    padding-top: 15px;
+			    padding-bottom: 15px;
+			    text-align: center;
+			}
+			
+			.font-td{
+				font-family: Poppins-Regular;
+			    color: #555;
+			    line-height: 1.6;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- 
@@ -49,43 +67,75 @@
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>
 		
 		<!-- 본문 -->
-		<h1>주문완료 페이지</h1>
-		<table border="1" style="width:50%;">
-			<tr>
-				<th colspan="5">
-					주문이 완료되었습니다.<br>
-					국민 000000-00-000000(예금주: 구디)<br>
-					위 계좌로 입금완료 시 주문발송 처리됩니다.<br>
-				</th>
-			</tr>
- 			<tr>
- 				<th colspan="5">주문정보</th>
- 			</tr>
- 			<tr> <!-- 주문자 정보 -->
- 				<th>주문자 이름</th>
-	 			<td>${customerId}</td>
-	 			<th>배송지</th>
-	 			<td colspan="2">${address}</td>
- 			</tr>
- 			<tr> <!-- 주문상품정보 -->
- 				<th colspan="2">상품</th>
-	 			<th>상품금액</th>
-	 			<th>갯수</th>
-	 			<th>상품옵션</th>
- 			</tr>
- 			<tr> <!-- c:forEach 사용 -->
- 				<td>
- 					<img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100">
- 				</td>
-	 			<td>${goodsName}</td>
-	 			<td>${order.orderPrice}원</td>
-	 			<td>${order.orderQuantity}</td>
-	 			<td>${order.goodsOption}</td>
-	 		</tr> <!-- c:forEach 사용 -->
-	 		<tr>
- 				<td colspan="5" id="totalPrice">총 주문금액: ${order.orderPrice}원</td>
- 			</tr>
-	 	</table>
+		<div class="container p-t-50">
+			<div class="wrap-table-shopping-cart" style="border-color: white;">			
+				<table class="table-shopping-cart" style="text-align:center;">
+					<tr style="border-color: white;">
+						<td colspan="5" class="font-td p-t-20">
+							주문이 완료되었습니다.<br>
+							국민 000000-00-000000 (예금주: 구디)<br>
+							위 계좌로 입금완료 시 주문발송 처리됩니다.<br>
+						</td>
+					</tr>
+		 		</table>
+		 	</div>
+		</div>
+		
+		<br>
+		
+		<div class="container">
+			<div class="wrap-table-shopping-cart">			
+				<table class="table-shopping-cart" style=" text-align:center">
+		 			<tr>
+		 				<th colspan="5" class="mtext-109 cl2 text-center p-t-15 p-b-15">CUSTOMER INFO</th>
+		 			</tr>
+		 			<tr> <!-- 주문자 정보 -->
+		 				<th class="font-th">CUSTOMER ID</th>
+			 			<td>${customer.customerId}</td>
+			 		</tr>
+			 		<tr>
+			 			<th class="font-th">PHONE</th>
+						<td class="font-td">${customer.customerPhone}</td>
+					</tr>
+			 		<tr>
+			 			<th class="font-th">SHIPPING ADDRESS</th>
+			 			<td colspan="2">${address}</td>
+		 			</tr>
+		 		</table>
+		 	</div>
+		</div>
+		
+		<br><br>
+		
+		<div class="container">
+			<div class="wrap-table-shopping-cart">			
+				<table class="table-shopping-cart" style=" text-align:center">
+					<tr>
+		 				<th colspan="5" class="mtext-109 cl2 text-center p-t-15 p-b-15">ORDER INFO</th>
+		 			</tr>
+		 			<tr> <!-- 주문상품정보 -->
+		 				<th class="font-th">IMAGE</th>
+			 			<th class="font-th">PRODUCT</th>
+			 			<th class="font-th">OPTION</th>
+			 			<th class="font-th">QUANTITY</th>
+			 			<th class="font-th">PRICE</th>
+		 			</tr>
+		 			<tr>
+		 				<td>
+		 					<img src="${pageContext.request.contextPath}/upload/${fileName}" width="100" height="100">
+		 				</td>
+			 			<td class="font-td">${goodsName}</td>
+			 			<td class="font-td">${order.goodsOption}</td>
+			 			<td class="font-td">${order.orderQuantity}</td>
+			 			<td class="font-td">${order.orderPrice}</td>
+			 		</tr>
+			 		
+			 		<tr>
+		 				<th colspan="5" id="totalPrice" class="mtext-109 cl2 text-center p-t-15 p-b-15">총 주문금액: ${order.orderPrice}원</th>
+		 			</tr>
+			 	</table>
+			</div>
+		</div>
 	 	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>

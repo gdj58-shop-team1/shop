@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.OrderService;
+import vo.Customer;
 import vo.CustomerAddress;
 import vo.Emp;
 import vo.Orders;
@@ -45,6 +46,7 @@ public class AddOrderDirect extends HttpServlet {
 		
 		// 파라메터 넘겨 받기
 		Orders paramOrder = (Orders)session.getAttribute("order"); // 세션에서 주문정보 받아오기
+		System.out.println("parmaOrder : "+paramOrder);
 		String customerId = paramOrder.getCustomerId();
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
