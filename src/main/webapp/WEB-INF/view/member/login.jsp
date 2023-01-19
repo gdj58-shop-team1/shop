@@ -175,20 +175,16 @@
 	                />
 	              </label>
 	
-	           <a
-                class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-              	<button type = "submit" id="loginCustomerBtn">
+	           <button type = "submit" id="loginCustomerBtn" class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
               		login
               	</button>
-              </a>
 				</form>
-				<a
-                class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-              	<button type = "button" 
+				
+				<button type = "button" class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               	  onclick = "location.href ='${pageContext.request.contextPath}/EmpLogin';">
               		사원으로 로그인하러가기
               	</button>
-              </a>	
+	
               <hr class="my-8" />
 
               <button

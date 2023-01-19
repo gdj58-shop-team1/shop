@@ -13,7 +13,7 @@ import vo.Goods;
 public class GoodsDao {
 	
 	// 상품리스트 
-	public ArrayList<HashMap<String, Object>> selectGoodsListTest(Connection conn, int beginRow, int endRow, String where, String sort) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectGoodsListTest(Connection conn, int beginRow, int endRow, String where, String order) throws Exception{
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -27,11 +27,9 @@ public class GoodsDao {
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ "	ON g.goods_code = img.goods_code"
 				+ where
-				+ sort
+				+ order
 				+ " LIMIT ?, ?";
 		
-		System.out.println(where + "!!");
-		System.out.println(sort + "!!");
 		stmt = conn.prepareStatement(sql);		
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, endRow);

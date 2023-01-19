@@ -39,62 +39,83 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${loginMember.level == 0}">
-		<table>
-			<thead>
-				<tr>
-					<th>주문번호</th>
-					<th>상품명</th>
-					<th>문의유형</th>
-					<th>제목</th>
-					<th>작성일</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<c:forEach var="q" items="${questionList}">
-					<tr>
-						<td>${q.orderCode}</td>
-						<td>${q.goodsName}</td>
-						<td>${q.category}</td>
-						<td><a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a></td>
-						<td>${q.createdate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+	<!-- 세션 정보별로 메뉴 분기 -->
+	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
+	</c:if>
+	<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<c:if test="${loginMember.level == 1}">
-			<table>
-				<thead>
-					<tr>
-						<th>주문번호</th>
-						<th>상품명</th>
-						<th>문의유형</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
+	<!-- 본문 -->
+	<div class="container">
+		<div class="row">
+			<!-- 사이드 메뉴 -->
+			<div class="col-md-3 col-lg-3 p-b-80">
+				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+				</c:if>
 				
-				<tbody>
-					<c:forEach var="q" items="${questionList}">	
+				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+				</c:if>
+			</div>
+			
+			<!-- 리뷰목록 -->
+			<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
+				<h3 class="mtext-109 cl2 p-b-10">Question</h3>
+				
+				<c:if test="${loginMember.level == 0}"> <!-- 회원일 때 -->
+					<table class="table text-center stext-110 cl2">
 						<tr>
-							<td>${q.orderCode}</td>
-							<td>${q.goodsName}</td>
-							<td>${q.category}</td>
-							<td><a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a></td>
-							<td>${q.customerId}</td>
-							<td>${q.createdate}</td>
+							<th class="text-center">No</th>
+							<th class="text-center">Product</th>
+							<th class="text-center">Category</th>
+							<th class="w-50 text-center">Title</th>
+							<th class="text-center">Date</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-	</c:if>
-	<br>
-	<div>
-		<a href="${pageContext.request.contextPath}/AddQuestion">문의 작성</a>
+						
+						<c:forEach var="q" items="${questionList}">
+							<tr>
+								<td class="align-middle">${q.orderCode}</td>
+								<td class="align-middle">${q.goodsName}</td>
+								<td class="align-middle">${q.category}</td>
+								<td class="align-middle"><a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a></td>
+								<td class="align-middle">${q.createdate}</td>
+							</tr>
+						</c:forEach>
+					</table>
+					
+					<br>
+					<div><a href="${pageContext.request.contextPath}/AddQuestion">문의 작성</a></div>
+						
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1}"> <!-- 관리자일 때 -->
+					<table class="table text-center stext-110 cl2">
+						<tr>
+							<th class="text-center">No</th>
+							<th class="text-center">Product</th>
+							<th class="text-center">Category</th>
+							<th class="w-50 text-center">Title</th>
+							<th class="text-center">Customer</th>
+							<th class="text-center">Date</th>
+						</tr>
+						
+						<c:forEach var="q" items="${questionList}">	
+							<tr>
+								<td class="align-middle">${q.orderCode}</td>
+								<td class="align-middle">${q.goodsName}</td>
+								<td class="align-middle">${q.category}</td>
+								<td class="align-middle"><a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a></td>
+								<td class="align-middle">${q.customerId}</td>
+								<td class="align-middle">${q.createdate}</td>
+							</tr>
+						</c:forEach>	
+					</table>
+				</c:if>
+			</div>	
+		</div>
 	</div>
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>

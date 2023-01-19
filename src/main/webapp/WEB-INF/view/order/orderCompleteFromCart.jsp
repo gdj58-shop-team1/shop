@@ -48,48 +48,72 @@
 		<!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>
 		
+		<br><br>
+		
 		<!-- 본문 -->
-		<h1>주문완료 페이지</h1>
-		<table border="1" style="width:50%;">
-			<tr>
-				<th colspan="5">
-					주문이 완료되었습니다.<br>
-					국민 000000-00-000000(예금주: 구디)<br>
-					위 계좌로 입금완료 시 주문발송 처리됩니다.<br>
-				</th>
-			</tr>
- 			<tr>
- 				<th colspan="5">주문정보</th>
- 			</tr>
- 			<tr> <!-- 주문자 정보 -->
- 				<th>주문자 이름</th>
-	 			<td>${orderCustomer.customerName}</td>
-	 			<th>배송지</th>
-	 			<td colspan="2">${address}</td>
- 			</tr>
- 			<tr> <!-- 주문상품정보 -->
- 				<th colspan="2">상품</th>
-	 			<th>상품금액</th>
-	 			<th>갯수</th>
-	 			<th>상품옵션</th>
- 			</tr>
- 			
- 			<c:forEach var="o" items="${orderList}">
- 				<tr>
-	 				<td>
-	 					<img src="${pageContext.request.contextPath}/upload/${o.fileName}" width="100" height="100">
-	 				</td>
-		 			<td>${o.goodsName}</td>
-		 			<td>${o.orderPrice}</td>
-		 			<td>${o.orderQuantity}</td>
-		 			<td>${o.goodsOption}</td>
-		 		</tr>
- 			</c:forEach>
- 			
-	 		<tr>
- 				<td colspan="5" id="totalPrice">총 주문금액: ${totalPrice}원</td>
- 			</tr>
-	 	</table>
+		<div class="container p-l-40 p-r-57" style="text-align:center">
+			<div class="wrap-table-shopping-cart">			
+				<table class="table-shopping-cart" style=" text-align:center">
+					
+					<tr>
+						<th colspan="5" class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">
+							주문이 완료되었습니다.<br>
+							국민 000000-00-000000(예금주: 구디)<br>
+							위 계좌로 입금완료 시 주문발송 처리됩니다.<br>
+						</th>
+					</tr>
+					<tr>
+		 				<th colspan="5" class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">주문정보</th>
+		 			</tr>
+		 			<tr> <!-- 주문자 정보 -->
+		 				<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">주문자 이름</th>
+			 			<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${orderCustomer.customerName}</th>
+		 			</tr>
+		 			
+		 			<tr>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">PHONE</th>
+						<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${orderCustomer.customerPhone}</th>
+					</tr>
+					
+		 			<tr> <!-- 주문상품정보 -->
+		 				<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">배송지</th>
+			 			<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">${address}</th>
+		 			</tr>				
+				</table>	
+			</div>
+		</div>
+		
+		<br><br>
+		
+		<div class="container">
+			<div class="wrap-table-shopping-cart">
+				<table class="table-shopping-cart" style="text-align : center; width:100%">
+		 			<tr> <!-- 주문상품정보 -->
+		 				<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">Image</th>
+			 			<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">GoodsName</th>
+			 			<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">Option</th>
+			 			<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">Quantity</th>
+			 			<th class="p-t-10 p-b-10" style="text-align : center; font-size:15pt;">Price</th>
+		 			</tr>
+		 			
+		 			<c:forEach var="o" items="${orderList}">
+		 				<tr>
+			 				<td>
+			 					<img src="${pageContext.request.contextPath}/upload/${o.fileName}" width="100" height="100">
+			 				</td>
+				 			<td>${o.goodsName}</td>
+				 			<td>${o.goodsOption}</td>
+				 			<td>${o.orderQuantity}</td>
+				 			<td>${o.orderPrice}</td>
+				 		</tr>
+		 			</c:forEach>
+		 			
+			 		<tr>
+		 				<td colspan="5" id="totalPrice">총 주문금액: ${totalPrice}원</td>
+		 			</tr>
+			 	</table>
+			</div>
+		</div>
 	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>

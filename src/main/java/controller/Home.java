@@ -39,11 +39,18 @@ public class Home extends HttpServlet {
 		int cnt = 0; // 총 상품 갯수
 		int endPage = 0; // 마지막 페이지
 		
-		String searchWord = request.getParameter("searchWord"); // 검색값
-		String sort = request.getParameter("sort"); // 정렬값
+		String searchWord = null; 
+		if(request.getParameter("searchWord") != null) { // 검색값
+			searchWord = request.getParameter("searchWord");
+		}
+		
+		String sort = null;
+		if(request.getParameter("sort") != null) { // 정렬값
+			sort = request.getParameter("sort");
+		}
 		
 		String category = null;
-		if(request.getParameter("category") != null) {
+		if(request.getParameter("category") != null) { // 카테고리
 			category = request.getParameter("category");
 		}
 		
@@ -61,9 +68,11 @@ public class Home extends HttpServlet {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		
 		String where = "";
-		if(sort == null) {
+		String order = "";
+		
+		if(sort == null || sort.equals("")) {
 			sort = "";
-			if(searchWord == null) {
+			if(searchWord == null || searchWord.equals("")) {
 				if(category == null || category.equals("")) {
 					where = "";
 					cnt = goodsService.getGoodsCnt(where);
@@ -83,8 +92,8 @@ public class Home extends HttpServlet {
 			}
 		}
 		else {
-			sort = " ORDER BY " + sort;
-			if(searchWord == null) {
+			order = " ORDER BY " + sort;
+			if(searchWord == null || searchWord.equals("")) {
 				if(category == null || category.equals("")) {
 					where = "";
 					cnt = goodsService.getGoodsCnt(where);
@@ -103,7 +112,7 @@ public class Home extends HttpServlet {
 			}
 		}
 		
-		goodsList = goodsService.getGoodsList(currentPage, rowPerPage, where, sort);			
+		goodsList = goodsService.getGoodsList(currentPage, rowPerPage, where, order);			
 			
 		// 마지막 페이지 구하기
 		endPage = cnt/rowPerPage;
