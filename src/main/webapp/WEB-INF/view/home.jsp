@@ -141,7 +141,7 @@
 				<!-- 검색값 있으면 -->
 				<c:if test="${searchWord != null && !searchWord.equals('')}">
 					<c:if test="${currentPage > 1}">
-						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&searchWord=${searchWord}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">prev</a></span>
+						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&category=${category}&searchWord=${searchWord}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">prev</a></span>
 					</c:if>
 					<c:if test="${currentPage == 1}">
 						<span class="stext-101 cl6 p-r-15 p-l-15 p-tb-6">prev</span>
@@ -150,7 +150,7 @@
 					<span class="stext-101 cl6 p-r-15 p-l-15 p-tb-6">${currentPage}</span>
 									
 					<c:if test="${currentPage < endPage}">
-						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&searchWord=${searchWord}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">next</a></span>
+						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&category=${category}&searchWord=${searchWord}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">next</a></span>
 					</c:if>
 					<c:if test="${currentPage == endPage}">
 						<span class="stext-101 cl6 p-r-15 p-l-15 p-tb-6">next</span>
@@ -160,7 +160,7 @@
 				<!-- 정렬값 있으면 -->
 				<c:if test="${sort != null}">
 					<c:if test="${currentPage > 1}">
-						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">prev</a></span>
+						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage-1}&category=${category}&searchWord=${searchWord}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">prev</a></span>
 					</c:if>
 					<c:if test="${currentPage == 1}">
 						<span class="stext-101 cl6 p-r-15 p-l-15 p-tb-6">prev</span>
@@ -169,7 +169,7 @@
 					<span class="stext-101 cl5 p-r-15 p-l-15 p-tb-6">${currentPage}</span>
 									
 					<c:if test="${currentPage < endPage}">
-						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">next</a></span>
+						<span><a href="${pageContext.request.contextPath}/Home?currentPage=${currentPage+1}&category=${category}&searchWord=${searchWord}&sort=${sort}" class="stext-101 cl5 p-r-15 p-l-15 p-tb-6 hov-btn1">next</a></span>
 					</c:if>
 					<c:if test="${currentPage == endPage}">
 						<span class="stext-101 cl6 p-r-15 p-l-15 p-tb-6">next</span>

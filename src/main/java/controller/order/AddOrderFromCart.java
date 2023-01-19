@@ -83,6 +83,9 @@ public class AddOrderFromCart extends HttpServlet {
 			addressCode = customerAddressService.getAddressCode(orderCustomer.getCustomerId());
 		}
 		
+		// 주소
+		String address = customerAddressService.getAddressByAddressCode(addressCode);
+		
 		// 상품에 관한 배열 request.getParameter
 		String[] fileNameArr =  request.getParameterValues("fileName"); // 수정 X
 		String[] goodsCodeArr =  request.getParameterValues("goodsCode"); // 수정 X
@@ -145,6 +148,7 @@ public class AddOrderFromCart extends HttpServlet {
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("orderCustomer", orderCustomer);
 		request.setAttribute("totalPrice", totalPrice);
+		request.setAttribute("address", address);
 		
 		// 장바구니 비우기
 		

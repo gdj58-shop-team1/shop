@@ -81,7 +81,7 @@ public class Home extends HttpServlet {
 					cnt = goodsService.getGoodsCnt(where);
 				}
 			}
-		} 
+		}
 		else {
 			sort = " ORDER BY " + sort;
 			if(searchWord == null) {
@@ -120,6 +120,7 @@ public class Home extends HttpServlet {
 		request.setAttribute("sort", sort);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("category", request.getParameter("category"));
+		
 		// home.jsp 호출
  		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 		
