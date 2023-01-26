@@ -227,7 +227,9 @@ $(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되�
         </div>
       </div>
     </div>
-	
+    
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
 
 
 
