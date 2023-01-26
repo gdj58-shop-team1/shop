@@ -339,6 +339,10 @@
 	 	<input type="hidden" name="remainderUsePoint" id="remainderUsePoint" value="0">
 	 	<input type="hidden" name="totalPrice" id="totalPrice" class="totalPrice" value="${totalPrice}">
 	</form>
+	
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
+	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

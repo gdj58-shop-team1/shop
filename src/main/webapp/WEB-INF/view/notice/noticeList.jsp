@@ -53,7 +53,7 @@
 	<div class="container">
 		<div class="row">
 			<!-- 공지목록 -->
-			<div class="col-md-10 col-lg-10 p-b-80 p-t-55 mx-auto">
+			<div class="col-md-10 col-lg-10 p-b-190 p-t-55 mx-auto">
 				<h3 class="mtext-109 cl2 p-b-10">Notice</h3>
 				<table class="table text-center stext-110 cl2">
 					<tr>
@@ -87,6 +87,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
 	
 <!--===============================================================================================-->	
 <script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>

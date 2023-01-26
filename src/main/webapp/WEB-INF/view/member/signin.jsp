@@ -249,7 +249,8 @@
       </div>
     </div>
 	
-		
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
 		
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
