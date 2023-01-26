@@ -12,19 +12,19 @@
 
 				<ul>
 					<li class="p-b-10">
-						<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+						<a href="https://github.com/xoghksl96" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 							Teahwan
 						</a>
 					</li>
 
 					<li class="p-b-10">
-						<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+						<a href="https://github.com/spongestyle" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 							Sohyun
 						</a>
 					</li>
 
 					<li class="p-b-10">
-						<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+						<a href="https://github.com/GaeulLee" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 							Gaeul
 						</a>
 					</li>
@@ -39,7 +39,8 @@
 				</h4>
 
 				<p class="stext-107 cl7 size-201">
-					Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+					2023-01-04 ~ 2023-01-26<br>
+					프로젝트 설명 ~~~~~~~
 				</p>
 			</div>
 
@@ -57,15 +58,11 @@
 				</h4>
 				
 				<div class="stext-107 cl7 size-201">
-					Current : 
-				</div>
-				
-				<div class="stext-107 cl7 size-201">
-					Today : 
+					Today: ${todaySiteCounter}명
 				</div>
 
 				<div class="stext-107 cl7 size-201">
-					Total : 
+					Total: ${totalSiteCounter}명
 				</div>
 				
 			</div>
