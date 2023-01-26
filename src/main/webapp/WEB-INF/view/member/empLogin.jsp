@@ -132,6 +132,7 @@
 	                  placeholder="id"
 	                  name = "empId"
 	                  id="empId"
+	                  value="admin"
 	                />
 	              </label>
 	              <label class="block mt-4 text-sm">
@@ -142,6 +143,7 @@
 	                  type="password"
 	                  name = "empPw"
 	                  id="empPw"
+	                  value="1234"
 	                />
 	              </label>
 	

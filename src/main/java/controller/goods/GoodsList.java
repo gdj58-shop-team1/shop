@@ -60,7 +60,7 @@ public class GoodsList extends HttpServlet {
 		
 		
 		goodsList = goodsService.getGoodsListAdmin(loginEmp, currentPage, rowPerPage);
-		//cnt = goodsService.getGoodsCnt();
+		cnt = goodsService.getGoodsCnt();
 		
 		sideGoodsList = goodsService.getSideGoodsList(1, 3); //side
 		

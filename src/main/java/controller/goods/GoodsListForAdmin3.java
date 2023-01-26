@@ -43,7 +43,7 @@ public class GoodsListForAdmin3 extends HttpServlet {
 			
 			
 		// 페이지
-		int rowPerPage = 10; // 한 페이지 당 보여질 상품 목록 수
+		int rowPerPage = 5; // 한 페이지 당 보여질 상품 목록 수
 		int cnt = 0; // 총 상품 갯수
 		int endPage = 0; // 마지막 페이지
 		
@@ -55,11 +55,14 @@ public class GoodsListForAdmin3 extends HttpServlet {
 		// service 호출
 		goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
-		GoodsService goodsService = new GoodsService();
+		
+		ArrayList<HashMap<String, Object>> sideGoodsList = new ArrayList<HashMap<String, Object>>();//side
 		
 
-		
 		goodsList = goodsService.getGoodsListForAdmin3(currentPage, rowPerPage);
+		cnt = goodsService.getGoodsCnt();
+		//side
+		sideGoodsList = goodsService.getSideGoodsList(1, 3); 
 	
 		// 마지막 페이지구하기
 		cnt = goodsService.getGoodsCnt();
@@ -70,6 +73,7 @@ public class GoodsListForAdmin3 extends HttpServlet {
 		
 		// 세션 저장
 		request.setAttribute("goodsList", goodsList);
+		request.setAttribute("sideGoodsList", sideGoodsList);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);	
 

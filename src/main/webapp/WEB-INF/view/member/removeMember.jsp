@@ -111,20 +111,22 @@
 					<form action="${pageContext.request.contextPath}/RemoveMember" method="post" id="removeCustomer">
 						<table class="table text-center stext-110 cl2">
 							<tr>
-								<th class="text-center">ID</th>
-								<td class="align-middle">${loginMember.customerId}</td>
-							</tr>
-							<tr>
 								<th class="text-center">NAME</th>
 								<td class="align-middle">
 									<input type ="text" id ="customerName" name="customerName" readonly="readonly" value="${loginMember.customerName}">
 								</td>
 							</tr>
-							
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle">
+									<input type="text" id="customerId" name="customerId">
+								</td>
+							</tr>
+
 							<tr>
 								<th class="text-center">PASSWORD</th>
 								<td class="align-middle">
-									<input type="password" id="customerPw" name="customerPw" value="${loginMember.customerPw}">
+									<input type="password" id="customerPw" name="customerPw" >
 								</td>
 							</tr>	
 						</table>
@@ -134,9 +136,7 @@
 								
 								type="submit" id="customerBtn">회원탈퇴
 							</button>
-							
-						</div>
-						
+						</div>	
 					</form>
 				</div>
 			</c:if>
@@ -148,20 +148,22 @@
 					<form action="${pageContext.request.contextPath}/RemoveMember" method="post" id = "removeEmp">
 						<table class="table text-center stext-110 cl2">
 							<tr>
-								<th class="text-center">ID</th>
-								<td class="align-middle"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
-							</tr>
-							<tr>
 								<th class="text-center">NAME</th>
 								<td class="align-middle">
-									<input type ="text" id ="empName" name="empName" readonly="readonly"   value="${loginMember.empName}">
+									<input type ="text" id ="empName" name="empName" readonly="readonly"  value="${loginMember.empName}">
 								</td>
 							</tr>
-							
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle">
+									<input type="text" id="empId" name="empId" >
+								</td>
+							</tr>
+		
 							<tr>
 								<th class="text-center">PASSWORD</th>
 								<td class="align-middle">
-									<input type="password" id="empPw" name="empPw" value="${loginMember.empPw}" >
+									<input type="password" id="empPw" name="empPw"  >
 								</td>
 							</tr>	
 						</table>
