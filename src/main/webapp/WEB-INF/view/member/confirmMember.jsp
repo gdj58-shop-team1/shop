@@ -106,8 +106,8 @@
 			
 		
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
-					<h3 class="mtext-109 cl2 p-b-10" >정보수정</h3>
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+					<h3 class="mtext-109 cl2 p-b-10" >비밀번호를 입력해주세요</h3>
 					<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id="customerConfirmForm">
 						<table class="table text-center stext-110 cl2">
 							<tr>
@@ -117,21 +117,25 @@
 							
 							<tr>
 								<th class="text-center">PW</th>
-								<td class="align-middle"><input type="password" id="customerPw" name="customerPw" ></td>
+								<td class="align-middle"><input type="password" id="customerPw" name="customerPw" placeholder="password"></td>
 							</tr>	
 						</table>
-						<button type="submit" id="customerBtn">회원수정</button>
-						
-						<div style="text-align:center">
-							<i class="zmdi zmdi-account-circle" style="font-size:100pt"></i>
+						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<button 
+								class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								
+								type="submit" id="customerBtn">확인
+							</button>
+							
 						</div>
+						
 					</form>
 				</div>
 			</c:if>
 				
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 				
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
 					<h3 class="mtext-109 cl2 p-b-10" >비밀번호를 입력해주세요</h3>
 					<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id = "empConfirmForm">
 						<table class="table text-center stext-110 cl2">
@@ -149,6 +153,7 @@
 						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
 							<button 
 								class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								
 								type="submit" id="empBtn">확인
 							</button>
 							
