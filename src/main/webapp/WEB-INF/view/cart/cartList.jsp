@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/linearicons-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animsition/css/animsition.min.css">
@@ -243,13 +243,18 @@
 			
 			<c:if test="${!(empty cartList)}">
 				<div class="p-t-20 p-b-20 p-r-40" style="text-align:right">
-					<a href="${pageContext.request.contextPath}/GetOrderInfoFromCart">
-						<button class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">주문하기</button>
+					<a href="${pageContext.request.contextPath}/GetOrderInfoFromCart" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">
+						ㅁㄴㅇㅁㄴㅇㅁㄴ
+						<button class="stext-101 cl6 size-101 bg2 bor1 hov-btn1" onclick = "location.href = '${pageContext.request.contextPath}/GetOrderInfoFromCart' ">주문하기</button>
 					</a>
 				</div>
 			</c:if>
 		</div>
 	</form>
+	
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
+	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

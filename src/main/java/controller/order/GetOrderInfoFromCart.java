@@ -25,6 +25,7 @@ public class GetOrderInfoFromCart extends HttpServlet {
 	private CustomerService customerService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("카트 -> 주문페이지 이동");
 		// 세션 유효성 확인(관리자는 주문 페이지로 넘어가지 못하게 할지?)
 		HttpSession session = request.getSession();
 		System.out.println("장바구니 -> 주문하기");
@@ -60,6 +61,7 @@ public class GetOrderInfoFromCart extends HttpServlet {
 		request.setAttribute("orderCustomer", orderCustomer);
 		
 		// 주문 페이지로
+		System.out.println("카트 -> 주문페이지 이동");
 		request.getRequestDispatcher("/WEB-INF/view/order/addOrderFromCart.jsp").forward(request, response);
 	}
 

@@ -76,6 +76,8 @@
 				Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
+<<<<<<< HEAD
+=======
 
 			<a href="${pageContext.request.contextPath}/MyPage" class="stext-109 cl8 hov-cl1 trans-04">
 				My page
@@ -85,6 +87,174 @@
 				Select modify
 			</span>
 
+		</div>
+	</div>		
+	
+
+	<div class="container" >
+	
+		<!-- side menu -->
+		
+		<div class="row">
+			<div class="col-md-3 col-lg-3 p-b-80">
+				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+				</c:if>
+			</div>
+			
+		
+			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+					<h3 class="mtext-109 cl2 p-b-10" >정보수정</h3>
+						<table class="table text-center stext-110 cl2">
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle"><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
+							</tr>
+							<tr>
+								<th class="text-center">이름</th>
+								<td class="align-middle"><input type="text" id="customerName" name="customerName" readonly="readonly" value="${loginMember.customerName}"></td>
+							</tr>	
+						</table>
+					
+						
+						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<button 
+								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
+								id =" modifyMemberBtn"
+								type= "button" >정보수정
+							</button>
+							
+						</div>
+						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<button 
+								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
+								id =" modifyMemberPwBtn"
+								type= "button" >비밀번호수정
+							</button>
+							
+						</div>
+						
+				</div>
+			</c:if>
+				
+			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
+				
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+					<h3 class="mtext-109 cl2 p-b-10" >정보수정</h3>
+						<table class="table text-center stext-110 cl2">
+							<tr>
+								<th class="text-center">ID</th>
+								<td class="align-middle"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
+							</tr>
+							<tr>
+								<th class="text-center">이름</th>
+								<td class="align-middle"><input type="text" id="empName" name="empName" readonly="readonly" value="${loginMember.empName}"></td>
+							</tr>	
+						</table>
+						
+						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<button 
+								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
+								id =" modifyMemberBtn"
+								type= "button" >정보수정
+							</button>
+							
+						</div>
+						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<button 
+								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
+								id =" modifyMemberPwBtn"
+								type= "button" >비밀번호수정
+							</button>
+							
+						</div>
+					
+				</div>
+
+			</c:if>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
+	
+<!--===============================================================================================-->	
+	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/bootstrap/js/popper.js"></script>
+	<script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/daterangepicker/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/slick/slick.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/parallax100/parallax100.js"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/isotope/isotope.pkgd.min.js"></script>
+<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2').on('click', function(e){
+			e.preventDefault();
+		});
+>>>>>>> refs/heads/master
+
+<<<<<<< HEAD
+			<a href="${pageContext.request.contextPath}/MyPage" class="stext-109 cl8 hov-cl1 trans-04">
+				My page
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+			<span class="stext-109 cl4">
+				Select modify
+			</span>
+=======
+		$('.js-addwish-b2').each(function(){
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+>>>>>>> refs/heads/master
+
+<<<<<<< HEAD
 		</div>
 	</div>		
 	
@@ -238,6 +408,8 @@
 			$(this).on('click', function(){
 				swal(nameProduct, "is added to wishlist !", "success");
 
+=======
+>>>>>>> refs/heads/master
 				$(this).addClass('js-addedwish-b2');
 				$(this).off('click');
 			});

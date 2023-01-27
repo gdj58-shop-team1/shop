@@ -57,7 +57,7 @@
 		$('#signinBtn').click(function() {
 				
 			$('#customerName').focus();
-			// customerNams 미입력시
+			// customerName 미입력시
 			if($('#customerName').val().length < 1) {
 				
 				alert('이름을 입력해주세요');
@@ -66,6 +66,17 @@
 				
 				return false;
 			}
+			
+			// customerPhone 미입력시
+			if($('#customerPhone').val().length < 1) {
+				
+				alert('핸드폰 번호를 입력해주세요');
+				
+				$('#customerPhone').focus();
+				
+				return false;
+			}
+			
 			// customerId 미입력시
 			if($('#customerId').val().length < 1) {
 				
@@ -157,6 +168,16 @@
                   id="customerName"
                   placeholder="name"
                 />
+               </label>
+               <label class="block text-sm">
+                <span class="text-gray-700 dark:text-gray-400">핸드폰</span>
+                <input
+                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                  name = "customerPhone"
+                  id="customerPhone"
+                  placeholder="phone"
+                />
+               </label>
                <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">아이디</span>
                 <input
@@ -164,8 +185,7 @@
                   placeholder="id"
                   name = "customerId"
                   id="customerId"
-                />
-              </label>  
+                />  
               </label>
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">비밀번호</span>
@@ -229,7 +249,8 @@
       </div>
     </div>
 	
-		
+	<!-- footer -->
+	<jsp:include page="/inc/footer.jsp"></jsp:include>
 		
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
