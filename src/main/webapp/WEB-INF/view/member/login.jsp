@@ -162,6 +162,8 @@
 	                  placeholder="id"
 	                  name = "customerId"
 	                  id="customerId"
+	                  value="goodee"
+	                  
 	                />
 	              </label>
 	              <label class="block mt-4 text-sm">
@@ -172,6 +174,7 @@
 	                  type="password"
 	                  name = "customerPw"
 	                  id="customerPw"
+	                  value="1234"
 	                />
 	              </label>
 	

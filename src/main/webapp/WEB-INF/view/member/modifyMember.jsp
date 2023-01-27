@@ -73,9 +73,19 @@
 				Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
+<<<<<<< HEAD
+			<a href="${pageContext.request.contextPath}/MyPage" class="stext-109 cl8 hov-cl1 trans-04">
+				My page
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Modify Member
+=======
 
 			<span class="stext-109 cl4">
 				My page
+>>>>>>> refs/heads/master
 			</span>
 		</div>
 	</div>
@@ -179,9 +189,13 @@
 			</c:if>	
 		</div>
 	</div>	
+<<<<<<< HEAD
+			
+=======
 	
 	<!-- footer -->
 	<jsp:include page="/inc/footer.jsp"></jsp:include>
+>>>>>>> refs/heads/master
 					
 <!--===============================================================================================-->		
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>
