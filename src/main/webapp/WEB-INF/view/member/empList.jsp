@@ -233,51 +233,7 @@
 									
 									<td class="column-1">${e.createdate}</td>
 							
-									<td class="column-1">
-										<div class="flex items-center space-x-3 text-sm">
-											
-											<!--수정  -->
-											<button
-											class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-											aria-label="Edit"
-											onclick = "location.href='${pageContext.request.contextPath}/ModifyGoods?goodsCode=${g.goodsCode}&fileName=${g.fileName}'"
-											>
-												<svg
-												class="w-5 h-5"
-												aria-hidden="true"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-												>
-													<path
-													d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-													></path>
-												</svg>
-											</button>
-											<!-- 삭제버튼 -->
-											<button
-												class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-												aria-label="Delete"
-												
-												onclick = "location.href='${pageContext.request.contextPath}/DeleteGoods?goodsCode=${g.goodsCode}&fileName=${g.fileName}'"
-												>
-												<svg
-												class="w-5 h-5"
-												aria-hidden="true"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-												>
-													<path
-													fill-rule="evenodd"
-													d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-													clip-rule="evenodd"
-													></path>
-												</svg>
-											</button>
-										</div>		
-																			
-										
-										
-									</td>
+									
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -289,7 +245,7 @@
 						<span class="flex-w flex-m stext-200 cl2 p-r-30 m-tb-10">
 							<c:if test="${currentPage > 1}">
 								<span class="cl4">
-									<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage-1}">이전</a>
+									<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage-1}">이전</a>
 								</span>
 							</c:if>
 							<c:if test="${currentPage == 1}">
@@ -299,16 +255,13 @@
 									${currentPage}
 								</a>
 							<c:if test="${currentPage < endPage}">
-								<span><a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage+1}">다음</a></span>
+								<span><a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage+1}">다음</a></span>
 							</c:if>
 							<c:if test="${currentPage == endPage}">
 								<span class="cl8">다음</span>
 							</c:if>
 						</span>
-						<a href ="${pageContext.request.contextPath}/AddGoods" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-							Add goods
-							<i class="fa fa-long-arrow-right m-l-9"></i>
-						</a>
+						
 					</div>
 				</div>
 			</div>
@@ -423,5 +376,70 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	
+<!--===============================================================================================-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<c:forEach var="e" items="${empList}">
+	<script>
+		// form을 2개로 나눴을 때 
+		$(document).ready(function() {
+			
+			const empCode = '<c:out value="${e.empCode}"/>';
+			const empCodeWithActive = '#active' + empCode;
+			const empCodewithForm = '#empListForAdminForm' + empCode;
+			
+			
+			console.log('empCode '+empCode);
+			console.log('empCodeWithActive '+empCodeWithActive);
+			console.log('empCodewithForm'+empCodewithForm);
+			
+			$(empCodeWithActive).change(function() {
+					$(empCodewithForm).submit();			
+			});
+			
+		});
+		
+		$(document).ready(function() {
+			
+			const empCode = '<c:out value="${e.empCode}"/>';
+			const empCodeWithAuthCode = '#authCode' + empCode;
+			const empCodewithForm2 = '#empListForAdminForm2' + empCode;
+			
+			console.log('empCode '+empCode);
+			console.log('empCodeWithAuthCode '+empCodeWithAuthCode);
+			console.log('empCodewithForm2'+empCodewithForm2);
+			
+			$(empCodeWithAuthCode).change(function() {
+					$(empCodewithForm2).submit();			
+			});
+			
+		});
+		
+		
+		// form을 1개로 합쳤을 때
+		/*
+		$(document).ready(function() {
+			
+			const empCode = '<c:out value="${e.empCode}"/>';
+			
+			const empCodeWithActive = '#active' + empCode;
+			const empCodeWithAuthCode = '#authCode' + empCode;
+			
+			const empCodewithForm = '#empListForAdminForm' + empCode;
+			
+			
+			$(empCodeWithActive).change(function() {
+					$(empCodewithForm).submit();			
+			});
+			
+			$(empCodeWithAuthCode).change(function() {
+					$(empCodewithForm).submit();			
+			});
+			
+		});
+		*/
+	</script>
+</c:forEach>	
+	
 </body>
 </html>
