@@ -87,7 +87,6 @@
 				});
 				
 				$('#usePoint').change(function(){
-					alert('point change');
 					let orderPoint = "<c:out value='${orderCustomer.point}'/>";
 					let usePoint = Number($('#usePoint').val());
 					

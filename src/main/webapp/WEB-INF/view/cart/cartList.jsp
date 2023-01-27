@@ -177,8 +177,9 @@
 							<th style="text-align : center; width:30%">Image</th>
 							<th style="text-align : center; width:15%">GoodsName</th>
 							<th style="text-align : center; width:20%">Option</th>
-							<th style="text-align : center; width:20%">Quantity</th>
-							<th style="text-align : center; width:15%">Total</th>
+							<th style="text-align : center; width:15%">Quantity</th>
+							<th style="text-align : center; width:10%">Total</th>
+							<th style="text-align : center; width:10%">Delete</th>
 						</tr>
 						<c:forEach var="map" items="${cartList}">
 							<input type="hidden" id="GoodsCode" name="goodsCode" value="${map.goodsCode}">
@@ -233,7 +234,7 @@
 								</td>
 								
 								<td>${map.orderPrice}</td>
-								
+								<td><a href="${pageContext.request.contextPath}/RemoveCartOne?goodsCode=${map.goodsCode}&goodsOption=${map.goodsOption}">삭제</a></td>
 							</tr>
 							
 						</c:forEach>
@@ -243,10 +244,7 @@
 			
 			<c:if test="${!(empty cartList)}">
 				<div class="p-t-20 p-b-20 p-r-40" style="text-align:right">
-					<a href="${pageContext.request.contextPath}/GetOrderInfoFromCart" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1">
-						ㅁㄴㅇㅁㄴㅇㅁㄴ
-						<button class="stext-101 cl6 size-101 bg2 bor1 hov-btn1" onclick = "location.href = '${pageContext.request.contextPath}/GetOrderInfoFromCart' ">주문하기</button>
-					</a>
+					<button type="button" class="stext-101 cl6 size-101 bg2 bor1 hov-btn1" onclick="location.href='${pageContext.request.contextPath}/GetOrderInfoFromCart'">주문하기</button>
 				</div>
 			</c:if>
 		</div>
