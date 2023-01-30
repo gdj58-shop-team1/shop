@@ -8,7 +8,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="${pageContext.request.contextPath}/Index" class="logo">
-						<img src="./images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="./images/icons/logo-test.png" alt="IMG-LOGO" width=133px height=17px>
 					</a>
 
 					<!-- Menu desktop -->

@@ -35,12 +35,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
-
-
 <!-- bootStrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <title>My Page</title>
 </head>
@@ -57,16 +52,15 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	
-	<!-- 상단배너 -->
 
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-04.jpg');">
+	<!-- 상단배너 -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-05.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
 			<!-- text -->
 		</h2>
 	</section>
-	<!-- 페이지위치 -->
 	
+	<!-- 페이지위치 -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
 			<a href="${pageContext.request.contextPath}/Home" class="stext-109 cl8 hov-cl1 trans-04">
@@ -145,7 +139,6 @@
 			</c:if>	
 		</div>
 	</div>
-	
 	<!-- footer -->
 	<jsp:include page="/inc/footer.jsp"></jsp:include>
 			
