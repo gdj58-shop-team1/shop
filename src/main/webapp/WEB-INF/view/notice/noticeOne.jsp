@@ -92,7 +92,7 @@
 						<!-- 그 외의 조건들 -->
 						<c:if test="${notice.empId != loginMember.empId}">
 							<tr>
-								<td class="text-left align-middle">
+								<td colspan="4" class="text-left align-middle">
 									<a href="${pageContext.request.contextPath}/NoticeList" class="cl6">Back</a>
 								</td>
 							</tr>
@@ -100,7 +100,7 @@
 					</c:if>
 					<c:if test="${loginMember.level == 0}"> 
 						<tr>
-							<td class="text-left align-middle">
+							<td colspan="4" class="text-left align-middle">
 								<a href="${pageContext.request.contextPath}/NoticeList" class="cl6">Back</a>
 							</td>
 						</tr>

@@ -93,7 +93,7 @@
 					<table class="table text-center stext-110 cl2">
 						<tr>
 							<th class="text-center">No</th>
-							<th class="text-center">Product</th>
+							<th class="text-center w-25">Product</th>
 							<th class="text-center">Price</th>
 							<th class="text-center">Option</th>
 							<th class="text-center">Quantity</th>
@@ -162,7 +162,7 @@
 					<table class="table text-center stext-110 cl2">
 						<tr>
 							<th class="text-center">No</th>
-							<th class="text-center">Product</th>
+							<th class="text-center w-25">Product</th>
 							<th class="text-center">Price</th>
 							<th class="text-center">Quantity</th>
 							<th class="text-center">Total</th>
