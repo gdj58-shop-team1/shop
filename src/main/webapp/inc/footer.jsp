@@ -40,7 +40,9 @@
 
 				<p class="stext-107 cl7 size-201">
 					2023-01-04 ~ 2023-01-26<br>
-					프로젝트 설명 ~~~~~~~
+					<a href="https://github.com/gdj58-shop-team1/shop" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
+						TO PROJECT GITHUB
+					</a>
 				</p>
 			</div>
 

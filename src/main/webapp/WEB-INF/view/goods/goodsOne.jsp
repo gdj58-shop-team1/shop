@@ -250,13 +250,24 @@
 							
 							<!-- 주문 버튼 -->
 							<div class="flex-c-m flex-w w-full p-tb-40">
-								<button type="button" id="orderBtn" class="flex-c-m stext-101 cl6 size-101 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-									바로 구매
-								</button>
-								<span class="flex-c-m stext-70 size-70 p-lr-15"></span><!-- 빈 공간용 -->
-								<button type="button" id="cartBtn" class="flex-c-m stext-101 cl6 size-101 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-									장바구니 담기
-								</button>
+								<c:if test="${loginMember.level == 1}">
+									<button type="button" id="orderBtn" class="flex-c-m stext-101 cl6 size-101 bg2 bor1 hov-btn1 p-lr-15 trans-04" disabled>
+										바로 구매
+									</button>
+									<span class="flex-c-m stext-70 size-70 p-lr-15"></span><!-- 빈 공간용 -->
+									<button type="button" id="cartBtn" class="flex-c-m stext-101 cl6 size-101 bg2 bor1 hov-btn1 p-lr-15 trans-04" disabled>
+										장바구니 담기
+									</button>
+								</c:if>
+								<c:if test="${loginMember.level == 0 || loginMember == null}">
+									<button type="button" id="orderBtn" class="flex-c-m stext-101 cl6 size-101 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+										바로 구매
+									</button>
+									<span class="flex-c-m stext-70 size-70 p-lr-15"></span><!-- 빈 공간용 -->
+									<button type="button" id="cartBtn" class="flex-c-m stext-101 cl6 size-101 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+										장바구니 담기
+									</button>
+								</c:if>
 							</div>
 						</div>
 					</form>
