@@ -13,7 +13,7 @@ import vo.Goods;
 public class GoodsDao {
 	
 	// 상품리스트 
-	public ArrayList<HashMap<String, Object>> selectGoodsListTest(Connection conn, int beginRow, int endRow, String where, String order) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectGoodsListTest(Connection conn, int beginRow, int rowPerPage, String where, String order) throws Exception{
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class GoodsDao {
 		
 		stmt = conn.prepareStatement(sql);		
 		stmt.setInt(1, beginRow);
-		stmt.setInt(2, endRow);
+		stmt.setInt(2, rowPerPage);
 		rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -145,7 +145,7 @@ public class GoodsDao {
 	}
 	
 	// admin) 상품 리스트 (정렬)
-	public ArrayList<HashMap<String, Object>> selectGoodsListAdmin(Connection conn, Emp emp, int beginRow, int endRow) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectGoodsListAdmin(Connection conn, Emp emp, int beginRow, int rowPerPage) throws Exception{
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -168,7 +168,7 @@ public class GoodsDao {
 		stmt = conn.prepareStatement(sql);	
 		stmt.setString(1, emp.getEmpId());
 		stmt.setInt(2, beginRow);
-		stmt.setInt(3, endRow);
+		stmt.setInt(3, rowPerPage);
 		rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -269,7 +269,7 @@ public class GoodsDao {
 	}
 	
 	// owner 관리자 레벨 3 ) 상품리스트 
-	public ArrayList<HashMap<String, Object>> selectGoodsListForAdmin3(Connection conn,  int beginRow, int endRow) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectGoodsListForAdmin3(Connection conn,  int beginRow, int rowPerPage) throws Exception{
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -290,7 +290,7 @@ public class GoodsDao {
 		
 		stmt = conn.prepareStatement(sql);	
 		stmt.setInt(1, beginRow);
-		stmt.setInt(2, endRow);
+		stmt.setInt(2, rowPerPage);
 		
 		System.out.println("관리자레벨 3 상품리스트Dao");
 		
@@ -338,7 +338,7 @@ public class GoodsDao {
 	}
 	
 	// 상품리스트 side menu
-	public ArrayList<HashMap<String, Object>> selectSideGoodsist(Connection conn, int beginRow, int endRow) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectSideGoodsist(Connection conn, int beginRow, int rowPerPage) throws Exception{
 		ArrayList<HashMap<String, Object>> sideGoodsList = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -355,7 +355,7 @@ public class GoodsDao {
 		
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
-		stmt.setInt(2, endRow);
+		stmt.setInt(2, rowPerPage);
 		rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();

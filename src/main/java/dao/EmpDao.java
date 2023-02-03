@@ -53,7 +53,7 @@ public class EmpDao {
 		
 		String sql = "UPDATE emp SET"
 				+ " emp_pw = PASSWORD(?)"
-				+ " WHERE emp_id = ?";
+				+ " WHERE emp_id = PASSWORD(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
@@ -113,6 +113,8 @@ public class EmpDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
 		stmt.setString(2, emp.getEmpPw());
+		
+		row = stmt.executeUpdate(); // 1 반환 시, emp 삭제성공
 		
 		stmt.close();
 		return row;

@@ -64,7 +64,6 @@ public class GoodsList extends HttpServlet {
 		
 		sideGoodsList = goodsService.getSideGoodsList(1, 3); //side
 		
-		
 		// 마지막 페이지구하기
 		endPage = cnt/rowPerPage;
 		if(cnt%rowPerPage != 0) {

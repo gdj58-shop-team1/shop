@@ -33,10 +33,26 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		let level = "<c:out value='${loginMember.level}'/>";
+		let active = "<c:out value='${loginMember.active}'/>";
+		
+		console.log(level);
+		console.log(active);
+		
+		if(level == 1 && active === 'N') {
+			alert("비활성화된 관리자입니다. 승인까지 기다려주세요.");
+			let logout = "<c:out value='${pageContext.request.contextPath}/Logout'/>";
+			location.replace(logout);
+		}
+	});
+</script>
 <body>
 	<!-- 세션 정보별로 메뉴 분기 -->
 	<c:if test="${loginMember == null}"> <!-- 비로그인 -->

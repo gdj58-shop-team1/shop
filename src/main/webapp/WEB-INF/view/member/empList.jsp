@@ -89,83 +89,25 @@
 			<!-- side menu -->
 
 			<div class="row">
-				
 				<div class="col-md-3 col-lg-2 p-b-80">
-					<div class="side-menu">
-						<div class="p-t-55">
-							<h4 class="mtext-112 cl2 p-b-9">
-								Categories
-							</h4>
-		
-							<ul>
-								<li class="bor18">									
-									<a href="${pageContext.request.contextPath}/GoodsList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										상품관리
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/ReviewList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										리뷰관리
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/QuestionList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										문의사항
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/OrderList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										주문관리
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/NoticeList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										공지사항
-									</a>
-								</li>
-								
-							
-							</ul>
-						</div>
-						
-						
-						<!-- side 추천상품 -->
-						
-						<div class="p-t-35">
-							<h4 class="mtext-112 cl2 p-b-33">
-								Featured Products
-							</h4>
-							
-							<ul>
-								<c:forEach var="sg" items="${sideGoodsList}">
-								<li class="flex-w flex-t p-b-35">
-									<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${sg.goodsCode}" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-										<img src="${pageContext.request.contextPath}/upload/${sg.fileName}" width="90px" height="110px" >
-									</a>
-
-									<div class="size-215 flex-col-t p-t-8">
-										<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${sg.goodsCode}" class="stext-116 cl8 hov-cl1 trans-04">
-											${sg.goodsName}
-										</a>
-
-										<span class="stext-116 cl6 p-t-20">
-											<td>${sg.goodsPrice}원</td>
-										</span>
-									</div>
-								</li>
-								</c:forEach>
-							</ul>
-						</div>		
-					</div>
+					<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+						<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+					</c:if>
+					
+					<c:if test="${loginMember.level == 1 && loginMember.authCode != 3}"> <!-- 로그인(사원) -->
+						<jsp:include page="/inc/AdminSideMenuForEmp.jsp"></jsp:include>	
+					</c:if>
+					
+					<c:if test="${loginMember.level == 1 && loginMember.authCode == 3}"> <!-- 로그인(사원) -->
+						<jsp:include page="/inc/AdminSideMenuForEmp3.jsp"></jsp:include>	
+					</c:if>
 				</div>
 				<!-- table -->
 
-				<div class="col-lg-10 col-lg-3 m-lr-auto p-t-40">
-					<table class="table-shopping-cart">
+				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10">Employee</h3>
+					
+					<table class="table-shopping-cart stext-110 cl2">
 						<thead>
 							<tr class="table_head">								
 								<th class="column-1">NO</th> <!-- 왼쪽정렬 -->
@@ -237,8 +179,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
-					
+										
 					<!--  페이지 -->
 					<div class="flex-w flex-sb-m p-t-18">
 						<span class="flex-w flex-m stext-200 cl2 p-r-30 m-tb-10">
@@ -264,10 +205,6 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			
-
 		</div>
 		
 		<!-- footer -->
