@@ -53,12 +53,12 @@
 	
 	
 	<!-- 상단배너 -->
-
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-04.jpg');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-06.jpg');" >
 		<h2 class="ltext-105 cl0 txt-center">
 			<!-- text -->
 		</h2>
 	</section>
+	
 	<!-- 페이지위치 -->
 	
 	<div class="container">
@@ -67,7 +67,7 @@
 				Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
-<<<<<<< HEAD
+
 			<a href="${pageContext.request.contextPath}/MyPage" class="stext-109 cl8 hov-cl1 trans-04">
 				My page
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
@@ -75,11 +75,6 @@
 
 			<span class="stext-109 cl4">
 				Modify Member
-=======
-
-			<span class="stext-109 cl4">
-				My page
->>>>>>> refs/heads/master
 			</span>
 		</div>
 	</div>
