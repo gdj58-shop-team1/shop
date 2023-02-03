@@ -64,7 +64,8 @@ public class RemoveMember extends HttpServlet {
 			String empPw = request.getParameter("empPw");
 			
 			loginEmp.setEmpPw(empPw);
-
+			System.out.println(loginEmp.getEmpId());
+			System.out.println(loginEmp.getEmpId());
 			this.empService = new EmpService();
 			row = empService.removeEmp(loginEmp);
 			

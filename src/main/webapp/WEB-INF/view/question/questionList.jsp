@@ -77,8 +77,12 @@
 					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
 				</c:if>
 				
-				<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-					<jsp:include page="/inc/MyPageSideMenuForEmp.jsp"></jsp:include>	
+				<c:if test="${loginMember.level == 1 && loginMember.authCode != 3}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/AdminSideMenuForEmp.jsp"></jsp:include>	
+				</c:if>
+				
+				<c:if test="${loginMember.level == 1 && loginMember.authCode == 3}"> <!-- 로그인(사원) -->
+					<jsp:include page="/inc/AdminSideMenuForEmp3.jsp"></jsp:include>	
 				</c:if>
 			</div>
 			

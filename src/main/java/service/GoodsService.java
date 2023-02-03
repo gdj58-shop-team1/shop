@@ -28,8 +28,7 @@ public class GoodsService {
 			conn = dbUtil.getConnection();
 			System.out.println("getGoodsList(GoodsService) 검색, 정렬값X db 접속");			
 			int beginRow = (currentPage-1)*rowPerPage;
-			int endRow = beginRow+rowPerPage;
-			goodsList = goodsDao.selectGoodsListTest(conn, beginRow, endRow, whrere, order);
+			goodsList = goodsDao.selectGoodsListTest(conn, beginRow, rowPerPage, whrere, order);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -166,8 +165,7 @@ public class GoodsService {
 			conn.setAutoCommit(false);
 			
 			int beginRow = (currentPage-1)*rowPerPage;
-			int endRow = beginRow+rowPerPage;
-			goodsList = goodsDao.selectGoodsListAdmin(conn, emp, beginRow, endRow);
+			goodsList = goodsDao.selectGoodsListAdmin(conn, emp, beginRow, rowPerPage);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -305,8 +303,7 @@ public class GoodsService {
 			conn.setAutoCommit(false);
 			
 			int beginRow = (currentPage-1)*rowPerPage;
-			int endRow = beginRow+rowPerPage;
-			goodsList = goodsDao.selectGoodsListForAdmin3(conn, beginRow, endRow);
+			goodsList = goodsDao.selectGoodsListForAdmin3(conn, beginRow, rowPerPage);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -372,8 +369,7 @@ public class GoodsService {
 			conn = dbUtil.getConnection();
 			System.out.println("getSideGoodsList(GoodsService) db 접속");			
 			int beginRow = (currentPage-1)*rowPerPage;
-			int endRow = beginRow+rowPerPage;
-			SideGoodsList = goodsDao.selectSideGoodsist(conn, beginRow, endRow);
+			SideGoodsList = goodsDao.selectSideGoodsist(conn, beginRow, rowPerPage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

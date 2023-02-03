@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.GoodsService;
 import service.OrderService;
 import vo.Customer;
 import vo.Emp;
@@ -18,7 +19,8 @@ import vo.Emp;
 @WebServlet("/OrderList")
 public class OrderList extends HttpServlet {
 	private OrderService orderService;
-
+	private GoodsService goodsService;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Customer loginCustomer = new Customer();
@@ -76,6 +78,12 @@ public class OrderList extends HttpServlet {
 			
 			request.setAttribute("orderList", orderList);
 		}
+		
+		// 사이드 메뉴에 상품이 보이기 위함
+		this.goodsService = new GoodsService();
+		ArrayList<HashMap<String, Object>> sideGoodsList = new ArrayList<HashMap<String, Object>>();//side
+		sideGoodsList = goodsService.getSideGoodsList(1, 3); //side
+		request.setAttribute("sideGoodsList", sideGoodsList);
 		
 		// 뷰 호출
 		request.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp").forward(request, response);
