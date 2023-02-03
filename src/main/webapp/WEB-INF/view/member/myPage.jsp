@@ -42,9 +42,7 @@
 
 <body>
 	<!-- 세션 정보별로 메뉴 분기 -->
-	<c:if test="${loginMember == null}"> <!-- 비로그인 -->
-		<jsp:include page="/inc/menu.jsp"></jsp:include>	
-	</c:if>
+
 	<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 		<jsp:include page="/inc/menuForCustomer.jsp"></jsp:include>	
 	</c:if>
@@ -76,12 +74,9 @@
 	
 
 	<div class="container" >
-	
-		<!-- side menu -->
 		<div class="row">
 		
-		
-			<!-- 사이드메뉴 -->
+		<!-- side menu -->
 			<div class="col-md-3 col-lg-3 p-b-80 ">
 				<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
 					<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
@@ -93,7 +88,7 @@
 			</div>
 			
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-60">
+				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >My page</h3>
 						
 						<table class="table text-center stext-110 cl2">
@@ -114,23 +109,20 @@
 			
 			
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-				<div class="col-md-6 col-lg-7 p-b-80 p-t-70">
-					<div class=" p-t-45">
-						<span class="stext-110 cl2">
-							My page
-						</span>
-					</div>
+				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10" >My page</h3>
+					
 						<table class="table text-center stext-110 cl2 ">
-							<tr class="">
+							<tr class="table_row">
 								<th class="text-center">ID</th>
 								<td class="align-middle">${loginMember.empId}</td>
 							</tr>
 							
-							<tr class="">
+							<tr class="table_row">
 								<th class="text-center">NAME</th>
 								<td class="align-middle">${loginMember.empName}</td>
 							</tr>
-							<tr class="">
+							<tr class="table_row">
 								<th class="text-center">LEVEL</th>
 								<td class="align-middle">${loginMember.authCode}</td>
 							</tr>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="side-menu">
+
 	<div class="p-t-55">
-		<h4 class="mtext-112 cl2 p-b-33">
+		<h4 class="mtext-112 cl2 p-b-9">
 			Categories
 		</h4>
 
@@ -43,4 +43,3 @@
 			</li>
 		</ul>
 	</div>
-</div>

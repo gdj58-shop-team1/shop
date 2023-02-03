@@ -35,7 +35,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />
+<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />  -->
 <!--===============================================================================================-->
 
 

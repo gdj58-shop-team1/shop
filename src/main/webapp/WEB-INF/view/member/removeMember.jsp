@@ -35,6 +35,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
+<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />  -->
+<!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>My Page</title>
@@ -52,7 +54,7 @@
 		<jsp:include page="/inc/menuForEmp.jsp"></jsp:include>	
 	</c:if>
 	
-	<br><br>
+	
 	
 	<!-- 상단배너 -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-06.jpg');" >
@@ -100,8 +102,9 @@
 			
 		
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >회원탈퇴 </h3>
+					
 					<form action="${pageContext.request.contextPath}/RemoveMember" method="post" id="removeCustomer">
 						<table class="table text-center stext-110 cl2">
 							<tr>
@@ -175,6 +178,9 @@
 			</c:if>
 		</div>
 	</div>	
+	
+		<!-- footer -->
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
 	
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script>

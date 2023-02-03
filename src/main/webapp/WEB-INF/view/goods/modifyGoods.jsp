@@ -35,7 +35,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />
+<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />  -->
 <!--===============================================================================================-->
 
 
@@ -94,173 +94,143 @@
 		</div>
 
 		
-		<div class="container"  >
-		
-			
-			
+		<div class="container"  >	
 			<div class="row">
 			
 				<!-- side menu -->
-				
-				
-				<div class="col-md-3 col-lg-3 p-b-80">
-					<div class="side-menu">
-						<div class="p-t-55">
-							<h4 class="mtext-112 cl2 p-b-9">
-								Categories
-							</h4>
-		
-							<ul>
-								<li class="bor18">									
-									<a href="${pageContext.request.contextPath}/OrderList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										주문목록
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/ReviewList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										리뷰목록
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/QuestionList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										문의사항
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/ConfirmMember" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										정보변경
-									</a>
-								</li>
-		
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/AddressList" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt">
-										배송지변경
-									</a>
-								</li>
-								
-								<li class="bor18">
-									<a href="${pageContext.request.contextPath}/RemoveMember" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="font-size:20pt"	>
-										회원탈퇴
-									</a>
-								</li>
-							</ul>
-						</div>
-						
-						
-					</div>
+				<!-- 사이드 메뉴 -->
+				<div class="col-md-3 col-lg-2 p-b-80">
+					<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
+						<jsp:include page="/inc/MyPageSideMenuForCustomer.jsp"></jsp:include>	
+					</c:if>
+					
+					<c:if test="${loginMember.level == 1 && loginMember.authCode != 3}"> <!-- 로그인(사원) -->
+						<jsp:include page="/inc/AdminSideMenuForEmp.jsp"></jsp:include>	
+					</c:if>
+					
+					<c:if test="${loginMember.level == 1 && loginMember.authCode == 3}"> <!-- 로그인(사원) -->
+						<jsp:include page="/inc/AdminSideMenuForEmp3.jsp"></jsp:include>	
+					</c:if>
+					
+					<jsp:include page="/inc/SideMenuFeaturedProducts.jsp"></jsp:include> <!-- 추천메뉴 -->
 				</div>
 				
-				<!-- class="col-lg-7 col-lg-3 m-lr-auto p-t-40" -->
+				
+
 				
 				
 				<!-- table -->
-				<div class="sec-product-detail  col-lg-8 bg0 p-t-40 p-b-60">
-				<form action="${pageContext.request.contextPath}/ModifyGoods" method="post">
-				<input type="hidden" name="goodsCode" value="${goods.goodsCode}">
-					<table class="table-shopping-cart">
-						<tr  class="table_head">
-							<th class="column-1">상품코드</th>
-							<td class="column-1">${goods.goodsCode}</td>
-						</tr>
-						
-						<tr class="table_head">
-							<th class="column-1">상품명</th>
-							<td class="column-4">
-								<div class="bor13 of-hidden pos-relative col-lg-6" >
-									<input class="stext-103 cl2 plh3 size-105 p-l-10 p-r-25 "  
-										type="text" name="goodsName" id = "goodsName" placeholder="Goods name" value="${goods.goodsName}">
-								</div>
-							</td>
-						</tr>
-						<tr class="table_head">
-							<th class="column-1">판매가격</th>
-							<td >
-								<div class="bor13 of-hidden pos-relative col-lg-6" >
-									<input class="stext-103 cl2 plh3 size-105 p-l-10 p-r-25 "
-										type="text" name="goodsPrice" id = "goodsPrice"  placeholder="Goods price"  value ="${goods.goodsPrice}">
-								</div>
-							</td>
-						</tr>
-						<tr class="table_head">
-							<th class="column-1">솔드아웃</th>
-							<td >
-								<c:if test="${goods.soldout eq 'Y'}">
-									<input  type="radio" name="soldout"  value="Y" checked="checked">판매중 
-									<input type="radio" name="soldout"  value="N">sold out
-								</c:if>
-								<c:if test="${goods.soldout eq 'N'}">
-									<input type="radio" name="soldout" value="Y">판매중
-									<input type="radio" name="soldout" value="N" checked="checked">★솔드아웃★
-								</c:if>
-							</td>
-						</tr>
-						<tr class="table_head">
-							<th class="column-1">카테고리</th>
-							<td class="column-2">
-								<select name = "goodsCategory" id = "goodsCategory">
-									<c:if test="${goods.goodsCategory eq '육류'}">
-										<option value='육류' selected="selected">육류</option>
-										<option value='육가공류'>육가공류</option>
-										<option value='과일'>과일</option>
-										<option value='기름'>기름</option>
-										<option value='건강식품'>건강식품</option>
+				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10">Update goods</h3>
+					<form action="${pageContext.request.contextPath}/ModifyGoods" method="post">
+					<input type="hidden" name="goodsCode" value="${goods.goodsCode}">
+					
+					
+						<table class="table stext-110 cl2">
+							<tr  class="table_head">
+								<th class="text-center">상품코드</th>
+								<td class="column-1">${goods.goodsCode}</td>
+							</tr>
+							
+							<tr class="table_head">
+								<th class="text-center">상품명</th>
+								<td class="text-center align-middle">
+									<div class="bor13 of-hidden pos-relative col-lg-6" >
+										<input class="stext-103 cl2 plh3 size-105 p-l-10 p-r-25 "  
+											type="text" name="goodsName" id = "goodsName" placeholder="Goods name" value="${goods.goodsName}" class="form-control">
+									</div>
+								</td>
+							</tr>
+							<tr class="table_head">
+								<th class="text-center">판매가격</th>
+								<td class="text-center align-middle" >
+									<div class="bor13 of-hidden pos-relative col-lg-6" >
+										<input class="stext-103 cl2 plh3 size-105 p-l-10 p-r-25 " 
+											type="text" name="goodsPrice" id = "goodsPrice"  placeholder="Goods price"  value ="${goods.goodsPrice}" class="form-control">
+									</div>
+								</td>
+							</tr>
+							<tr class="">
+								<th class="text-center">솔드아웃</th>
+								<td class="text-left align-middle">
+									<c:if test="${goods.soldout eq 'Y'}">
+										<input  type="radio" name="soldout"  value="Y" checked="checked">
+										<label for="soldout">판매중</label> 
+										<input type="radio" name="soldout"  value="N">
+										<label for="soldout">sold out</label> 
 									</c:if>
-									<c:if test="${goods.goodsCategory eq '육가공류'}">
-										<option value='육류' >육류</option>
-										<option value='육가공류' selected="selected">육가공류</option>
-										<option value='과일'>과일</option>
-										<option value='기름'>기름</option>
-										<option value='건강식품'>건강식품</option>
+									<c:if test="${goods.soldout eq 'N'}">
+										<input type="radio" name="soldout" value="Y">
+										<label for="soldout">판매중</label>
+										<input type="radio" name="soldout" value="N" checked="checked">
+										<label for="soldout">sold out</label>
 									</c:if>
-									<c:if test="${goods.goodsCategory eq '과일'}">
-										<option value='육류' >육류</option>
-										<option value='육가공류' >육가공류</option>
-										<option value='과일' selected="selected">과일</option>
-										<option value='기름'>기름</option>
-										<option value='건강식품'>건강식품</option>
-									</c:if>
-									<c:if test="${goods.goodsCategory eq '기름'}">
-										<option value='육류' >육류</option>
-										<option value='육가공류' >육가공류</option>
-										<option value='과일' >과일</option>
-										<option value='기름' selected="selected">기름</option>
-										<option value='건강식품'>건강식품</option>
-									</c:if>
-									<c:if test="${goods.goodsCategory eq '건강식품'}">
-										<option value='육류' >육류</option>
-										<option value='육가공류' >육가공류</option>
-										<option value='과일' >과일</option>
-										<option value='기름' >기름</option>
-										<option value='건강식품' selected="selected">건강식품</option>
-									</c:if>
-								</select>
-							</td>
-						</tr>
-						<tr class="table_head">
-							<th class="column-1">상품사진</th>
-							<td class="column-2">
-								<div  id="image_preview" >
-									<label for = "image">
-		                        	 	<img src="${pageContext.request.contextPath}/upload/${goods.fileName}" width="400" height="400">	
-			                     	</label>
-		                     	</div>
-                            </td>
-						</tr>
-						<tr class="table_head">
-							<th class="column-1">관리자</th>
-							<td class="column-2"><input type="text" name="empId" id = "empId" value="${loginMember.empId}" readonly="readonly"></td>
-						</tr>
-					</table>
-					<div class="col-sm-10 col-lg-7 col-xl-3 m-lr-auto m-b-50 p-t-27" style="float:right">
-					<button 
-						class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
-						type="submit">상품수정</button>
-					</div>
-				</form>
-				
+								</td>
+							</tr>
+							<tr class="table_head">
+								<th class="text-center">카테고리</th>
+								<td class="align-middle">
+									<select name = "goodsCategory" id = "goodsCategory" class="">
+										<c:if test="${goods.goodsCategory eq '육류'}">
+											<option value='육류' selected="selected">육류</option>
+											<option value='육가공류'>육가공류</option>
+											<option value='과일'>과일</option>
+											<option value='기름'>기름</option>
+											<option value='건강식품'>건강식품</option>
+										</c:if>
+										<c:if test="${goods.goodsCategory eq '육가공류'}">
+											<option value='육류' >육류</option>
+											<option value='육가공류' selected="selected">육가공류</option>
+											<option value='과일'>과일</option>
+											<option value='기름'>기름</option>
+											<option value='건강식품'>건강식품</option>
+										</c:if>
+										<c:if test="${goods.goodsCategory eq '과일'}">
+											<option value='육류' >육류</option>
+											<option value='육가공류' >육가공류</option>
+											<option value='과일' selected="selected">과일</option>
+											<option value='기름'>기름</option>
+											<option value='건강식품'>건강식품</option>
+										</c:if>
+										<c:if test="${goods.goodsCategory eq '기름'}">
+											<option value='육류' >육류</option>
+											<option value='육가공류' >육가공류</option>
+											<option value='과일' >과일</option>
+											<option value='기름' selected="selected">기름</option>
+											<option value='건강식품'>건강식품</option>
+										</c:if>
+										<c:if test="${goods.goodsCategory eq '건강식품'}">
+											<option value='육류' >육류</option>
+											<option value='육가공류' >육가공류</option>
+											<option value='과일' >과일</option>
+											<option value='기름' >기름</option>
+											<option value='건강식품' selected="selected">건강식품</option>
+										</c:if>
+									</select>
+								</td>
+							</tr>
+							<tr class="table_head">
+								<th class="text-center">상품사진</th>
+								<td class="">
+									<div  id="image_preview" >
+										<label for = "image">
+			                        	 	<img src="${pageContext.request.contextPath}/upload/${goods.fileName}" width="300" height="300">	
+				                     	</label>
+			                     	</div>
+	                            </td>
+							</tr>
+							<tr class="table_head">
+								<th class="text-center">관리자</th>
+								<td class="text-center align-middle"><input type="text" name="empId" id = "empId" value="${loginMember.empId}" readonly="readonly"></td>
+							</tr>
+						</table>
+						<div class="col-sm-10 col-lg-7 col-xl-3 m-lr-auto m-b-50 p-t-27" style="float:right">
+						<button 
+							class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+							type="submit">상품수정</button>
+						</div>
+					</form>
+					
 					
 				
 				 			
