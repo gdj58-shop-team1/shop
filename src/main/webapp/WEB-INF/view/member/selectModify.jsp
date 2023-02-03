@@ -37,11 +37,6 @@
 <!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-<!-- bootStrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <title>My Page</title>
 </head>
 
@@ -60,8 +55,7 @@
 	<br><br>
 	
 	<!-- 상단배너 -->
-
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-04.jpg');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-06.jpg');" >
 		<h2 class="ltext-105 cl0 txt-center">
 			<!-- text -->
 		</h2>
@@ -76,8 +70,6 @@
 				Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
-<<<<<<< HEAD
-=======
 
 			<a href="${pageContext.request.contextPath}/MyPage" class="stext-109 cl8 hov-cl1 trans-04">
 				My page
@@ -122,18 +114,18 @@
 						</table>
 					
 						
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+						<div class="flex-c-m flex-w w-full p-tb-40" >
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = "flex-c-m stext-101 cl0 size-101 bg3 bor14 hov-btn3 p-lr-15 trans-04"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
 								id =" modifyMemberBtn"
 								type= "button" >정보수정
 							</button>
 							
-						</div>
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+							<span class="flex-c-m stext-70 size-70 p-lr-15"></span><!-- 빈 공간용 -->
+						
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = "flex-c-m stext-101 cl0 size-101 bg3 bor14 hov-btn3 p-lr-15 trans-04"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
 								id =" modifyMemberPwBtn"
 								type= "button" >비밀번호수정
