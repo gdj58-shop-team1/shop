@@ -38,7 +38,66 @@
 <!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/loginCss/assets/css/tailwind.output.css" />  -->
 <!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
+		
+		// customer 유효성 검사
+		$('#customerBtn').click(function() {
+				
+			
+			// customerId 미입력시
+			if($('#customerId').val().length < 1) {
+				
+				alert('아이디를 입력해주세요');
+				
+				$('#customerId').focus();
+				
+				return false;
+			}
+			// customerPw 미입력시
+			if($('#customerPw').val().length < 1) {
+				
+				alert('비밀번호를 입력해주세요');
+				
+				$('#customerPw').focus();
+				
+				return false;
+			}
+			alert('회원탈퇴에 성공했습니다');
+			
+			
+			
+		});
+		// emp 유효성 검사
+		$('#empBtn').click(function() {
+				
+			
+			// empPw 미입력시
+			if($('#empId').val().length < 1) {
+				
+				alert('아이디를 입력해주세요');
+				
+				$('#empId').focus();
+				
+				return false;
+			}
+			// empPw 미입력시
+			if($('#empPw').val().length < 1) {
+				
+				alert('비밀번호를 입력해주세요');
+				
+				$('#empPw').focus();
+				
+				return false;
+			}
+			
+			alert('회원탈퇴에 성공했습니다');
+			
+		});
 
+	});
+
+</script>
 <title>My Page</title>
 </head>
 

@@ -36,6 +36,56 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
+		
+		// customer 유효성 검사
+		$('#modifyCustomerBtn').click(function() {
+				
+			$('#customerName').focus();
+			// customerName 미입력시
+			if($('#customerName').val().length < 1) {
+				
+				alert('변경할 이름을 입력해주세요');
+				
+				$('#customerName').focus();
+				
+				return false;
+			}
+			
+			// customerPhone 미입력시
+			if($('#customerPhone').val().length < 1) {
+				
+				alert('변경할 핸드폰 번호를 입력해주세요');
+				
+				$('#customerPhone').focus();
+				
+				return false;
+			}
+			alert('정보수정에 성공했습니다');
+	
+		
+		});
+		
+		// emp 유효성 검사
+		$('#modifyEmpBtn').click(function() {
+				
+			
+			// empName 미입력시
+			if($('#empName').val().length < 1 ) {
+				
+				alert('변경할 이름을 입력해주세요');
+				
+				$('#empName').focus();
+				
+				return false;
+			}
+			alert('정보수정에 성공했습니다');
+		});
+	
+	});
+
+</script>
 <title>My Page</title>
 </head>
 
@@ -104,19 +154,21 @@
 							<table class="table text-center stext-110 cl2">
 								<tr>
 									<th class="text-center">ID</th>
-									<td align="center">${loginMember.customerId}</td>
+									<td align="center">
+										<input type="text" id="customerId" name="customerId" value="${loginMember.customerId}" readonly="readonly">
+									</td>
 								</tr>
 								
 								<tr>
 									<th class="text-center">NAME</th>
 									<td align="center">
-										<input type="text" id="customerName" name="customerName" value="${loginMember.customerName}">
+										<input type="text" id="customerName" name="customerName" placeholder="${loginMember.customerName}">
 									</td>
 								</tr>	
 								<tr>
 									<th class="text-center">PHONE</th>
 									<td align="center">
-										<input type="text" id="customerPhone" name="customerPhone" value="${loginMember.customerPhone}">
+										<input type="text" id="customerPhone" name="customerPhone" placeholder="${loginMember.customerPhone}">
 									</td>
 								</tr>
 								
@@ -125,7 +177,7 @@
 							<button 
 								class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								
-								type="submit" id="empBtn">정보변경
+								type="submit" id="modifyCustomerBtn">정보변경
 							</button>
 							
 						</div>
@@ -142,13 +194,15 @@
 						<table class="table text-center stext-110 cl2 ">
 							<tr class="">
 								<th class="text-center">ID</th>
-								<td align="center">${loginMember.empId}</td>
+								<td align="center">
+									<input type="text" id="empId" name="empId" value="${loginMember.empId}" readonly="readonly" >
+								</td>
 							</tr>
 							
 							<tr class="">
 								<th class="text-center">NAME</th>
 								<td align="center">
-									<input type="text" id="empName" name="empName" value="${loginMember.empName}">
+									<input type="text" id="empName" name="empName" placeholder="${loginMember.empName}">
 								</td>
 							</tr>
 							<tr class="">
@@ -162,7 +216,7 @@
 							<button 
 								class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								
-								type="submit" id="empBtn">정보변경
+								type="submit" id="modifyEmpBtn">정보변경
 							</button>
 							
 						</div>
