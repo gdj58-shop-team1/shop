@@ -212,9 +212,18 @@ $(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되�
                 </svg>
                 Github
               </button>
+              
+               <p class="mt-1">
+                <a
+                  class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                  href="${pageContext.request.contextPath}/Login"
+                >
+                  Already have an customer account? Login
+                </a>
+              </p>
              
 
-              <p class="mt-4">
+              <p class="mt-1">
                 <a
                   class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                   href="${pageContext.request.contextPath}/EmpLogin"
@@ -222,6 +231,8 @@ $(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되�
                   Already have an emp account? Login
                 </a>
               </p>
+              
+              
             </div>
           </div>
         </div>

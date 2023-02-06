@@ -98,18 +98,18 @@
 			
 		
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >비밀번호를 입력해주세요</h3>
 					<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id="customerConfirmForm">
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle">${loginMember.customerId}</td>
+								<td align="center">${loginMember.customerId}</td>
 							</tr>
 							
 							<tr>
 								<th class="text-center">PW</th>
-								<td class="align-middle"><input type="password" id="customerPw" name="customerPw" placeholder="password"></td>
+								<td align="center"><input type="password" id="customerPw" name="customerPw" placeholder="password"></td>
 							</tr>	
 						</table>
 						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
@@ -127,18 +127,18 @@
 				
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 				
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >비밀번호를 입력해주세요</h3>
 					<form action="${pageContext.request.contextPath}/ConfirmMember" method="post" id = "empConfirmForm">
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
+								<td align="center"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
 							</tr>
 							
 							<tr>
 								<th class="text-center">PW</th>
-								<td class="align-middle"><input type="password" id="empPw" name="empPw" placeholder="password"></td>
+								<td align="center"><input type="password" id="empPw" name="empPw" placeholder="password"></td>
 							</tr>	
 						</table>
 						

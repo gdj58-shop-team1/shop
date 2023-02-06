@@ -98,31 +98,29 @@
 			</div>
 			
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
-					<div class=" p-t-45">
-						<span class="stext-110 cl2">
-							고객 비밀번호 변경
-						</span>
-					</div>
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10" >고객 비밀번호 수정</h3>
+					
 						<form action="${pageContext.request.contextPath}/ModifyMemberPw" method="post" id = "customerModifyPwForm">
 							<table class="table text-center stext-110 cl2">
 								<tr>
 									<th class="text-center">ID</th>
-									<td class="align-middle">${loginMember.customerId}</td>
+									<td align="center">${loginMember.customerId}</td>
 								</tr>
 								
 								<tr>
 									<th class="text-center">password</th>
-									<td class="align-middle">
+									<td align="center">
 										<input type="password" id="newCustomerPw" name="newCustomerPw" class="customerPw" placeholder ="비밀번호">
 									</td>
 								</tr>
 								<tr>
 									<th class="text-center">password 확인</th>
-									<td class="align-middle">
+									<td align="center">
 										<input type="password" id="newCustomerPw2" name="newCustomerPw2" class="customerPw" placeholder ="비밀번호">
 									</td>
-								</tr>	
+								</tr>
+									
 								<span id = "alert-success" style="display:none;"> 비밀번호가 일치합니다.</span>
 								<span id = "alert-danger" style="display:none; color:#d92742;"> 비밀번호가 일치하지않습니다.</span>
 								
@@ -134,35 +132,31 @@
 								type="submit" id="customerBtn">비밀번호 변경
 							</button>
 							
-						</div>
+							</div>
 						</form>
 				</div>
 			</c:if>
 			
 			
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-				<div class="col-md-6 col-lg-7 p-b-80 p-t-70">
-					<div class=" p-t-45">
-						<span class="stext-110 cl2">
-							사원 비밀번호 변경
-						</span>
-					</div>
+				<div class="col-md-6 col-lg-7 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10" >사원 비밀번호 수정</h3>
 					<form action="${pageContext.request.contextPath}/ModifyMemberPw" method="post" id = "empModifyPwForm">
-						<table class="table text-center stext-110 cl2 ">
+						<table class="table text-center stext-110 cl2">
 							<tr class="">
 								<th class="text-center">ID</th>
-								<td class="align-middle">${loginMember.empId}</td>
+								<td align="center">${loginMember.empId}</td>
 							</tr>
 							
 							<tr class="">
 								<th class="text-center">PASSWORD</th>
-								<td class="align-middle">
+								<td align="center">
 									<input type="password" id="newEmpPw" name="newEmpPw" class="empPw" placeholder ="비밀번호" >
 								</td>
 							</tr>
 							<tr class="">
 								<th class="text-center">PASSWORD</th>
-								<td class="align-middle">
+								<td align="center">
 									<input type="password" id="newEmpPw2" name="newEmpPw2" class="empPw" placeholder ="비밀번호 확인" >
 								</td>
 							</tr>

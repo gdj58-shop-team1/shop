@@ -94,12 +94,12 @@
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle">${loginMember.customerId}</td>
+								<td align="center">${loginMember.customerId}</td>
 							</tr>
 							
 							<tr>
 								<th class="text-center">NAME</th>
-								<td class="align-middle">${loginMember.customerName}</td>
+								<td align="center">${loginMember.customerName}</td>
 							</tr>	
 							
 						</table>
@@ -112,19 +112,19 @@
 				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >My page</h3>
 					
-						<table class="table text-center stext-110 cl2 ">
-							<tr class="table_row">
+						<table class="table text-center stext-110 cl2">
+							<tr class="">
 								<th class="text-center">ID</th>
-								<td class="align-middle">${loginMember.empId}</td>
+								<td align="center">${loginMember.empId}</td>
 							</tr>
 							
-							<tr class="table_row">
+							<tr class="">
 								<th class="text-center">NAME</th>
-								<td class="align-middle">${loginMember.empName}</td>
+								<td align="center">${loginMember.empName}</td>
 							</tr>
-							<tr class="table_row">
+							<tr class="">
 								<th class="text-center">LEVEL</th>
-								<td class="align-middle">${loginMember.authCode}</td>
+								<td align="center">${loginMember.authCode}</td>
 							</tr>
 						</table>
 				</div>
