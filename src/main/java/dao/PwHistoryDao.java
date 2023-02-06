@@ -17,7 +17,7 @@ public class PwHistoryDao {
 		
 		String sql = "SELECT customer_id, pw"
 				+ " FROM pw_history"
-				+ " WHERE customer_id = ? AND pw = ?";
+				+ " WHERE customer_id = ? AND pw = PASSWORD(?)";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
@@ -39,7 +39,7 @@ public class PwHistoryDao {
 		int row = 0;
 		
 		String sql = "INSERT INTO pw_history (customer_id, pw)"
-				+ " VALUES (?,?)";
+				+ " VALUES (?,PASSWORD(?))";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, pwHistory.getCustomerId());
@@ -56,7 +56,7 @@ public class PwHistoryDao {
 				
 		String sql = "DELETE"
 				+ " FROM pw_history"
-				+ " WHERE customer_id = ? AND pw = ?";
+				+ " WHERE customer_id = ? AND pw = PASSWORD(?)";
 		
 		System.out.println(pwHistory.getCustomerId());
 		System.out.println(pwHistory.getPw());
