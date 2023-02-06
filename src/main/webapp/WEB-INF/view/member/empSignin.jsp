@@ -102,6 +102,8 @@ $(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되�
 			alert('두 비밀번호가 일치하지 않습니다');
 			return;
 		}
+		alert('회원가입에 성공했습니다');
+		
 		
 		
 	});
