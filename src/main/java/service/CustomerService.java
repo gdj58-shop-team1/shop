@@ -229,8 +229,10 @@ public class CustomerService {
 	public int removeCustomer(Customer customer) {
 		int deleteCustomerRow = 0;
 		int insertOutidRow = 0;
+		int deletePwHistoryRow = 0;
 		
 		this.customerDao = new CustomerDao();
+		this.pwHistoryDao = new PwHistoryDao();
 		this.outidDao = new OutidDao();
 		this.dbUtil = new DBUtil();
 		
@@ -253,7 +255,33 @@ public class CustomerService {
 				throw new Exception();
 			}
 			
-			// 2) 회원탈퇴
+			// 2) pw_history 삭제
+			PwHistory pwhistory = new PwHistory();
+			pwhistory.setCustomerId(customer.getCustomerId());
+			pwhistory.setPw(customer.getCustomerPw());
+			
+			System.out.println(pwhistory.getCustomerId());
+			System.out.println(pwhistory.getPw());
+			
+			//deletePwHistoryRow = pwHistoryDao.deletePwHistory(conn, pwhistory);
+			
+			if(pwHistoryDao.deletePwHistory(conn, pwhistory) == 1) {
+				System.out.println("pw_history 데이터 삭제 성공");
+			} else {
+				System.out.println("pw_history 데이터 삭제 실패");
+				throw new Exception();
+			}
+			
+			/*
+			if(deletePwHistoryRow == 1) {
+				System.out.println("pw_history 데이터 삭제 성공");
+			} else {
+				System.out.println("pw_history 데이터 삭제 실패");
+				throw new Exception();
+			}
+			*/
+			
+			// 3) 회원탈퇴
 			deleteCustomerRow = customerDao.deleteCustomer(conn, customer);
 			
 			if(deleteCustomerRow == 1) {
