@@ -113,18 +113,18 @@
 						</table>
 					
 						
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+						<div class="col-sm-10 col-lg-8 col-xl-10 m-lr-auto m-b-50 p-t-27" >
 							<button 
-								class = "flex-c-m stext-101 cl0 size-101 bg3 bor14 hov-btn3 p-lr-15 trans-04"
+								class = "cl0 size-117 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
 								id =" modifyMemberBtn"
 								type= "button" >정보수정
 							</button>
 							
-							<span class="flex-c-m stext-70 size-70 p-lr-15"></span><!-- 빈 공간용 -->
+							
 						
 							<button 
-								class = "flex-c-m stext-101 cl0 size-101 bg3 bor14 hov-btn3 p-lr-15 trans-04"
+								class = "cl0 size-117 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
 								id =" modifyMemberPwBtn"
 								type= "button" >비밀번호수정
@@ -150,23 +150,21 @@
 							</tr>	
 						</table>
 						
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+						<div class= "col-sm-10 col-lg-8 col-xl-12 m-lr-auto m-b-50 p-t-27"  >
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class ="cl0 size-117 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
 								id =" modifyMemberBtn"
 								type= "button" >정보수정
 							</button>
-							
-						</div>
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = "cl0 size-117 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
 								id =" modifyMemberPwBtn"
 								type= "button" >비밀번호수정
 							</button>
-							
+	
 						</div>
 					
 				</div>
@@ -267,32 +265,31 @@
 			
 		
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >정보수정</h3>
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle"><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
+								<td align="middle"><input type="text" id="customerId" name="customerId" readonly="readonly" value="${loginMember.customerId}"></td>
 							</tr>
 							<tr>
 								<th class="text-center">이름</th>
-								<td class="align-middle"><input type="text" id="customerName" name="customerName" readonly="readonly" value="${loginMember.customerName}"></td>
+								<td align="middle"><input type="text" id="customerName" name="customerName" readonly="readonly" value="${loginMember.customerName}"></td>
 							</tr>	
 						</table>
 					
 						
 						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = "size-118 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
 								id =" modifyMemberBtn"
 								type= "button" >정보수정
 							</button>
 							
-						</div>
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+						
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = "cl0 size-118 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
 								id =" modifyMemberPwBtn"
 								type= "button" >비밀번호수정
@@ -305,31 +302,30 @@
 				
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 				
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >정보수정</h3>
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
+								<td align="middle"><input type="text" id="empId" name="empId" readonly="readonly" value="${loginMember.empId}"></td>
 							</tr>
 							<tr>
 								<th class="text-center">이름</th>
-								<td class="align-middle"><input type="text" id="empName" name="empName" readonly="readonly" value="${loginMember.empName}"></td>
+								<td align="middle"><input type="text" id="empName" name="empName" readonly="readonly" value="${loginMember.empName}"></td>
 							</tr>	
 						</table>
 						
 						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = ""cl0 size-117 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer""
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMember';"
 								id =" modifyMemberBtn"
 								type= "button" >정보수정
 							</button>
 							
-						</div>
-						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
+						
 							<button 
-								class = "flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								class = ""cl0 size-117 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer""
 								onclick  = " location.href ='${pageContext.request.contextPath}/ModifyMemberPw';"
 								id =" modifyMemberPwBtn"
 								type= "button" >비밀번호수정

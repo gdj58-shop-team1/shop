@@ -36,6 +36,84 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
+		
+		// customer 유효성 검사
+		$('#customerBtn').click(function() {
+				
+			
+			// customerPw 미입력시
+			if($('#newCustomerPw').val().length < 1) {
+				
+				alert('변경할 비밀번호를 입력해주세요');
+				
+				$('#newCustomerPw').focus();
+				
+				return false;
+			}
+			// customerPw2 미입력시
+			if($('#newCustomerPw2').val().length < 1) {
+				
+				alert('변경할 비밀번호를 입력해주세요');
+				
+				$('#newCustomerPw2').focus();
+				
+				return false;
+			}
+			
+			let customerPw = $('#newCustomerPw').val();
+			let customerPwCheck = $('#newCustomerPw2').val();
+			
+			if(customerPw == customerPwCheck) {
+				$('#customerModifyPwForm').submit();
+			} else {
+				alert('두 비밀번호가 일치하지 않습니다');
+				return false;
+			}
+			alert('비밀번호 수정에 성공했습니다');
+			
+			
+		});
+		// emp 유효성 검사
+		$('#empBtn').click(function() {
+				
+			
+			// empPw 미입력시
+			if($('#newEmpPw').val().length < 1) {
+				
+				alert('변경할 비밀번호를 입력해주세요');
+				
+				$('#newEmpPw').focus();
+				
+				return false;
+			}
+			// empPw2 미입력시
+			if($('#newEmpPw2').val().length < 1) {
+				
+				alert('변경할 비밀번호를 입력해주세요');
+				
+				$('#newEmpPw2').focus();
+				
+				return false;
+			}
+			
+			let empPw = $('#newEmpPw').val();
+			let empPwCheck = $('#newEmpPw2').val();
+			
+			if(empPw == empPwCheck) {
+				$('#empModifyPwForm').submit();
+			} else {
+				alert('두 비밀번호가 일치하지 않습니다');
+				return false;
+			}
+			alert('비밀번호 수정에 성공했습니다');
+			
+		});
+
+	});
+
+</script>
 <title>My Page</title>
 </head>
 
@@ -105,7 +183,9 @@
 							<table class="table text-center stext-110 cl2">
 								<tr>
 									<th class="text-center">ID</th>
-									<td align="center">${loginMember.customerId}</td>
+									<td align="center">
+										<input type="text" id=customerId name="customerId" class="customerId" value="${loginMember.customerId}">
+									</td>
 								</tr>
 								
 								<tr>
@@ -117,13 +197,10 @@
 								<tr>
 									<th class="text-center">password 확인</th>
 									<td align="center">
-										<input type="password" id="newCustomerPw2" name="newCustomerPw2" class="customerPw" placeholder ="비밀번호">
+										<input type="password" id="newCustomerPw2" name="newCustomerPw2" class="customerPw" placeholder ="비밀번호확인">
 									</td>
 								</tr>
 									
-								<span id = "alert-success" style="display:none;"> 비밀번호가 일치합니다.</span>
-								<span id = "alert-danger" style="display:none; color:#d92742;"> 비밀번호가 일치하지않습니다.</span>
-								
 							</table>
 							<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
 							<button 
@@ -145,7 +222,9 @@
 						<table class="table text-center stext-110 cl2">
 							<tr class="">
 								<th class="text-center">ID</th>
-								<td align="center">${loginMember.empId}</td>
+								<td align="center">
+									<input type="text" id=empId name="empId" class="empId" value="${loginMember.empId}">
+								</td>
 							</tr>
 							
 							<tr class="">
@@ -155,13 +234,12 @@
 								</td>
 							</tr>
 							<tr class="">
-								<th class="text-center">PASSWORD</th>
+								<th class="text-center">PASSWORD확인</th>
 								<td align="center">
 									<input type="password" id="newEmpPw2" name="newEmpPw2" class="empPw" placeholder ="비밀번호 확인" >
 								</td>
 							</tr>
-							<span id = "alert-success" style="display:none;"> 비밀번호가 일치합니다.</span>
-							<span id = "alert-danger" style="display:none; color:#d92742;"> 비밀번호가 일치하지않습니다.</span>
+							
 						</table>
 						<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 p-t-27" >
 							<button 
@@ -175,10 +253,10 @@
 				</div>
 			</c:if>	
 		</div>
-<<<<<<< HEAD
+
 	</div>	
-=======
-	</div>
+
+
 	
 	<!-- footer -->
 	<jsp:include page="/inc/footer.jsp"></jsp:include>

@@ -36,6 +36,46 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() { // 이벤트 : <body>~</body>태그가 로드되고 나면 
+		
+		// customer 유효성 검사
+		$('#customerBtn').click(function() {
+				
+			
+			// customerPw 미입력시
+			if($('#customerPw').val().length < 1 ) {
+				
+				alert('비밀번호를 입력해주세요');
+				
+				$('#customerPw').focus();
+				
+				return false;
+			}
+			
+	
+			
+		});
+	
+		// emp 유효성 검사
+		$('#empBtn').click(function() {
+				
+			
+			// empPw 미입력시
+			if($('#empPw').val().length < 1 ) {
+				
+				alert('비밀번호를 입력해주세요');
+				
+				$('#empPw').focus();
+				
+				return false;
+			}
+			
+		});
+	
+	});
+
+</script>
 
 <title>My Page</title>
 </head>
