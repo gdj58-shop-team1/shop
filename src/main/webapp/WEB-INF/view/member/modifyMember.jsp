@@ -98,24 +98,24 @@
 			
 			<!--  본문 -->
 			<c:if test="${loginMember.level == 0}"> <!-- 로그인(회원) -->
-				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
-					<h3 class="mtext-109 cl2 p-b-10">update customer member</h3>
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10" >고객 정보수정</h3>
 						<form action="${pageContext.request.contextPath}/ModifyMember" method="post" id = "customermodifyForm">
 							<table class="table text-center stext-110 cl2">
 								<tr>
 									<th class="text-center">ID</th>
-									<td class="align-middle">${loginMember.customerId}</td>
+									<td align="center">${loginMember.customerId}</td>
 								</tr>
 								
 								<tr>
 									<th class="text-center">NAME</th>
-									<td class="align-middle">
+									<td align="center">
 										<input type="text" id="customerName" name="customerName" value="${loginMember.customerName}">
 									</td>
 								</tr>	
 								<tr>
 									<th class="text-center">PHONE</th>
-									<td class="align-middle">
+									<td align="center">
 										<input type="text" id="customerPhone" name="customerPhone" value="${loginMember.customerPhone}">
 									</td>
 								</tr>
@@ -135,25 +135,25 @@
 			
 			
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
-				<div class="col-md-9 col-lg-9 p-b-80 p-t-55">
-					<h3 class="mtext-109 cl2 p-b-10">update employee member</h3>
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
+					<h3 class="mtext-109 cl2 p-b-10" >사원 정보수정</h3>
 				
 					<form action="${pageContext.request.contextPath}/ModifyMember" method="post" id = "empModifyForm">
 						<table class="table text-center stext-110 cl2 ">
 							<tr class="">
 								<th class="text-center">ID</th>
-								<td class="align-middle">${loginMember.empId}</td>
+								<td align="center">${loginMember.empId}</td>
 							</tr>
 							
 							<tr class="">
 								<th class="text-center">NAME</th>
-								<td class="align-middle">
+								<td align="center">
 									<input type="text" id="empName" name="empName" value="${loginMember.empName}">
 								</td>
 							</tr>
 							<tr class="">
 								<th class="text-center">LEVEL</th>
-								<td class="align-middle">
+								<td align="center">
 									<input type="text" id="level" name="level" readonly="readonly" value="${loginMember.authCode}">
 								</td>
 							</tr>

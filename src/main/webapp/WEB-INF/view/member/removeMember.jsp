@@ -109,21 +109,21 @@
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">NAME</th>
-								<td class="align-middle">
+								<td align="center">
 									<input type ="text" id ="customerName" name="customerName" readonly="readonly" value="${loginMember.customerName}">
 								</td>
 							</tr>
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle">
-									<input type="text" id="customerId" name="customerId">
+								<td align="center">
+									<input type="text" id="customerId" name="customerId"  placeholder="ID를 입력해주세요">
 								</td>
 							</tr>
 
 							<tr>
 								<th class="text-center">PASSWORD</th>
-								<td class="align-middle">
-									<input type="password" id="customerPw" name="customerPw" >
+								<td align="center">
+									<input type="password" id="customerPw" name="customerPw"  placeholder="PASSWORD를 입력햊쉐요">
 								</td>
 							</tr>	
 						</table>
@@ -140,27 +140,27 @@
 				
 			<c:if test="${loginMember.level == 1}"> <!-- 로그인(사원) -->
 				
-				<div class="col-md-6 col-lg-6 p-b-80 p-t-70">
+				<div class="col-md-6 col-lg-6 p-b-80 p-t-55">
 					<h3 class="mtext-109 cl2 p-b-10" >회원탈퇴 </h3>
 					<form action="${pageContext.request.contextPath}/RemoveMember" method="post" id = "removeEmp">
 						<table class="table text-center stext-110 cl2">
 							<tr>
 								<th class="text-center">NAME</th>
-								<td class="align-middle">
+								<td align="center">
 									<input type ="text" id ="empName" name="empName" readonly="readonly"  value="${loginMember.empName}">
 								</td>
 							</tr>
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="align-middle">
-									<input type="text" id="empId" name="empId" >
+								<td align="center">
+									<input type="text" id="empId" name="empId"  placeholder="ID를 입력해주세요">
 								</td>
 							</tr>
 		
 							<tr>
 								<th class="text-center">PASSWORD</th>
-								<td class="align-middle">
-									<input type="password" id="empPw" name="empPw"  >
+								<td align="center">
+									<input type="password" id="empPw" name="empPw"  placeholder="PASSWORD를 입력해주세요" >
 								</td>
 							</tr>	
 						</table>
