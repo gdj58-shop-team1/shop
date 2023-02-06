@@ -53,7 +53,7 @@ public class EmpDao {
 		
 		String sql = "UPDATE emp SET"
 				+ " emp_pw = PASSWORD(?)"
-				+ " WHERE emp_id = PASSWORD(?)";
+				+ " WHERE emp_id = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
